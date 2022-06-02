@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "EditItemPrice.h"
 #include "ConnectionData.h"
+#include <cliext/map>
 
 
 namespace FactoryData {
@@ -115,10 +116,13 @@ namespace FactoryData {
 		//user-defined 
 		DataGridView^ activeDataGrid;
 		String^ connecttionString = Connection::connectionString;
-
-
+		cliext::map<String^, double> mapRaw;//Raw Inum -->> Unit_Cost map
+		cliext::map<String^, double> mapCom;//Combination Fitem-->Unit_Cost
 		System::ComponentModel::Container ^components;
 
+
+		//user-defined functions
+		double CalcSum(String^ key);
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify

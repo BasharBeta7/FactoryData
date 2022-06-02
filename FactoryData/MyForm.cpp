@@ -1,5 +1,4 @@
 ﻿#include "MyForm.h"
-#include <cliext/map>
 
 using namespace FactoryData;
 using namespace System;
@@ -16,6 +15,35 @@ void main(array<String^>^ args)
 	Application::Run(% form);
 }
 
+double FactoryData::MyForm::CalcSum(String^ key)
+{
+	if (mapCom.count(key))
+	{
+		return mapCom[key];
+	}
+	if (mapRaw.count(key))
+	{
+		mapCom[key] = mapRaw[key];
+		return mapCom[key];
+	}
+	String^ val;
+	String^ temp;
+	double res = 0;
+	for (int i = 0; i < combinationData2->RowCount -1; i++)
+	{
+		val = combinationData2->Rows[i]->Cells[0]->Value->ToString();
+		if (val == key)
+		{
+			temp = combinationData2->Rows[i]->Cells[2]->Value->ToString();
+			if (temp == "")
+				continue;
+			res += System::Convert::ToDouble(temp) * CalcSum(combinationData2->Rows[i]->Cells[1]->Value->ToString());
+		}
+	}
+	mapCom[key] = res;
+	return res;
+}
+
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
 	
@@ -30,14 +58,28 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 	//read into dataItemsPrices
 	dbConnection->Open();
-	String^ query = "SELECT Inum, I_R_name, Unit_Cost FROM items;";
+	String^ query = "SELECT Inum, I_R_name, Unit_Cost FROM items WHERE Igroup='R';";
 	OleDbDataAdapter^ dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	DataTable^ dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	dataItemsPrices->DataSource = dt;
+	
+	
+
+	//maps every raw item to its price in double precision
+	double res = 0;
+	String^ sVal;
+
+	for (int i = 0; i < dataItemsPrices->Rows->Count-1; i++)
+	{
+		sVal = dataItemsPrices->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
+		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
+		mapRaw[dataItemsPrices->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
+	}
 
 
-	//read into combinationData
+
+	//read into combinationData -- WRONG QUERY
 	query = "SELECT Combination.FItem, (Avg(Combination.Box_Cost)) AS aBox_Cost, Sum(Combination.BIsubquan*items.Unit_Cost) AS sCost, Sum(Combination.General_Waste) AS sGeneral_Waste, Sum(Combination.Drageh_Waste) AS sDrageh_Waste, Sum(Combination.Expences) AS sExpences, sCost+sGeneral_Waste+sDrageh_Waste+aBox_Cost+sExpences AS Final_Cost FROM Combination LEFT JOIN items ON Combination.RItem=items.Inum GROUP BY Combination.FItem;";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
@@ -45,14 +87,25 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	combintaionData->DataSource = dt;
 	
 
-
+	
 	//read into combinationData2
-	query = "SELECT c.Fitem, c.Ritem, c.BIsubquan, c.Quan_M, c.Box_Weight, c.Box_Cost, c.BIsubquan*i2.Unit_Cost AS Cost, c.General_Waste, c.Drageh_Waste, c.Expences FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
+	query = "SELECT c.Fitem, c.Ritem, c.BIsubquan, c.Box_Weight, c.Box_Cost, c.BIsubquan*i2.Unit_Cost AS Cost, c.General_Waste, c.Drageh_Waste, c.Expences FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	combinationData2->DataSource = dt;
 
+
+	for (int i = 0; i < combintaionData->RowCount - 1; i++)
+	{
+		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
+	}
+
+
+	for (int i = 0; i < combinationData2->RowCount - 1; i++)
+	{
+		combinationData2->Rows[i]->Cells[3]->Value = mapCom[combinationData2->Rows[i]->Cells[0]->Value->ToString()];
+	}
 
 	//Read into itemsData
 	query = "SELECT Inum, INum_G, I_R_Name_G, I_R_Name, Iname, Igroup, Steps, Machine, Unit_Cost FROM items";

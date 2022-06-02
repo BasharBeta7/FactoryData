@@ -44,13 +44,13 @@ namespace FactoryData {
 	private: System::Windows::Forms::ToolStripMenuItem^ خروجToolStripMenuItem;
 	private: System::Windows::Forms::DataGridView^ combintaionData;
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fitem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Box_Cost;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Cost;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ General_Waste;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Drageh_Waste;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Expences;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Final_Cost;
+
+
+
+
+
+
+
 	private: System::Windows::Forms::GroupBox^ groupBox1;
 	private: System::Windows::Forms::Button^ btnEditLine;
 	private: System::Windows::Forms::ToolStripMenuItem^ أوامرToolStripMenuItem;
@@ -77,35 +77,35 @@ namespace FactoryData {
 
 
 	private: System::Windows::Forms::DataGridView^ ItemsData;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Inum;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ INum_G;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ I_R_name_G;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ I_R_name;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Iname;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Igroup;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Steps;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Machine;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Unit_Cost;
+
+
+
+
+
+
+
+
+
 	private: System::Windows::Forms::DataGridView^ dataItemsPrices;
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn7;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn10;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn15;
+
+
+
 	private: System::Windows::Forms::Button^ btnDeleteItem;
 	private: System::Windows::Forms::Button^ btnAddCombination;
 	private: System::Windows::Forms::Button^ btnEditCost;
 	private: System::Windows::Forms::Button^ btnDeleteCombination;
 	private: System::Windows::Forms::Button^ btnEditCombination;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Ritem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Blsubquan;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Quan_M;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Box_Wieght;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn3;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn4;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn5;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn6;
+
+
+
+
+
+
+
+
+
+
 
 	private:
 		/// <summary>
@@ -115,6 +115,7 @@ namespace FactoryData {
 		//user-defined 
 		DataGridView^ activeDataGrid;
 		String^ connecttionString = Connection::connectionString;
+
 
 		System::ComponentModel::Container ^components;
 
@@ -135,13 +136,6 @@ namespace FactoryData {
 			this->toolStripMenuItemItems = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItemPrices = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
-			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Box_Cost = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Cost = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->General_Waste = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Drageh_Waste = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Expences = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Final_Cost = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->btnEditCombination = (gcnew System::Windows::Forms::Button());
 			this->btnDeleteCombination = (gcnew System::Windows::Forms::Button());
@@ -151,30 +145,8 @@ namespace FactoryData {
 			this->btnAddItem = (gcnew System::Windows::Forms::Button());
 			this->btnEditLine = (gcnew System::Windows::Forms::Button());
 			this->combinationData2 = (gcnew System::Windows::Forms::DataGridView());
-			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Blsubquan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Quan_M = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Box_Wieght = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn6 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ItemsData = (gcnew System::Windows::Forms::DataGridView());
-			this->Inum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->INum_G = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->I_R_name_G = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->I_R_name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Iname = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Igroup = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Steps = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Machine = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Unit_Cost = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataItemsPrices = (gcnew System::Windows::Forms::DataGridView());
-			this->dataGridViewTextBoxColumn7 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn10 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn15 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -254,49 +226,10 @@ namespace FactoryData {
 			// combintaionData
 			// 
 			this->combintaionData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->combintaionData->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
-				this->Fitem,
-					this->Box_Cost, this->Cost, this->General_Waste, this->Drageh_Waste, this->Expences, this->Final_Cost
-			});
 			this->combintaionData->Location = System::Drawing::Point(12, 27);
 			this->combintaionData->Name = L"combintaionData";
 			this->combintaionData->Size = System::Drawing::Size(753, 386);
 			this->combintaionData->TabIndex = 2;
-			// 
-			// Fitem
-			// 
-			this->Fitem->HeaderText = L"Fitem";
-			this->Fitem->Name = L"Fitem";
-			// 
-			// Box_Cost
-			// 
-			this->Box_Cost->HeaderText = L"قيمة الصندوق";
-			this->Box_Cost->Name = L"Box_Cost";
-			// 
-			// Cost
-			// 
-			this->Cost->HeaderText = L"القيمة الإجمالية";
-			this->Cost->Name = L"Cost";
-			// 
-			// General_Waste
-			// 
-			this->General_Waste->HeaderText = L"قيمة الهدر العام";
-			this->General_Waste->Name = L"General_Waste";
-			// 
-			// Drageh_Waste
-			// 
-			this->Drageh_Waste->HeaderText = L"قيمة هدر دراجيه";
-			this->Drageh_Waste->Name = L"Drageh_Waste";
-			// 
-			// Expences
-			// 
-			this->Expences->HeaderText = L"مصاريف";
-			this->Expences->Name = L"Expences";
-			// 
-			// Final_Cost
-			// 
-			this->Final_Cost->HeaderText = L"السعر النهائي";
-			this->Final_Cost->Name = L"Final_Cost";
 			// 
 			// groupBox1
 			// 
@@ -382,132 +315,24 @@ namespace FactoryData {
 			// combinationData2
 			// 
 			this->combinationData2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->combinationData2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(10) {
-				this->dataGridViewTextBoxColumn1,
-					this->Ritem, this->Blsubquan, this->Quan_M, this->Box_Wieght, this->dataGridViewTextBoxColumn2, this->dataGridViewTextBoxColumn3,
-					this->dataGridViewTextBoxColumn4, this->dataGridViewTextBoxColumn5, this->dataGridViewTextBoxColumn6
-			});
 			this->combinationData2->Location = System::Drawing::Point(12, 28);
 			this->combinationData2->Name = L"combinationData2";
 			this->combinationData2->Size = System::Drawing::Size(753, 386);
 			this->combinationData2->TabIndex = 4;
 			this->combinationData2->Visible = false;
 			// 
-			// dataGridViewTextBoxColumn1
-			// 
-			this->dataGridViewTextBoxColumn1->HeaderText = L"Fitem";
-			this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
-			// 
-			// Ritem
-			// 
-			this->Ritem->HeaderText = L"Ritem";
-			this->Ritem->Name = L"Ritem";
-			// 
-			// Blsubquan
-			// 
-			this->Blsubquan->HeaderText = L"Blsubquan";
-			this->Blsubquan->Name = L"Blsubquan";
-			// 
-			// Quan_M
-			// 
-			this->Quan_M->HeaderText = L"Quan_M";
-			this->Quan_M->Name = L"Quan_M";
-			// 
-			// Box_Wieght
-			// 
-			this->Box_Wieght->HeaderText = L"وزن الصندوق";
-			this->Box_Wieght->Name = L"Box_Wieght";
-			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this->dataGridViewTextBoxColumn2->HeaderText = L"قيمة الصندوق";
-			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
-			// 
-			// dataGridViewTextBoxColumn3
-			// 
-			this->dataGridViewTextBoxColumn3->HeaderText = L"القيمة الإجمالية";
-			this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
-			// 
-			// dataGridViewTextBoxColumn4
-			// 
-			this->dataGridViewTextBoxColumn4->HeaderText = L"قيمة الهدر العام";
-			this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
-			// 
-			// dataGridViewTextBoxColumn5
-			// 
-			this->dataGridViewTextBoxColumn5->HeaderText = L"قيمة هدر دراجيه";
-			this->dataGridViewTextBoxColumn5->Name = L"dataGridViewTextBoxColumn5";
-			// 
-			// dataGridViewTextBoxColumn6
-			// 
-			this->dataGridViewTextBoxColumn6->HeaderText = L"مصاريف";
-			this->dataGridViewTextBoxColumn6->Name = L"dataGridViewTextBoxColumn6";
-			// 
 			// ItemsData
 			// 
 			this->ItemsData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->ItemsData->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(9) {
-				this->Inum, this->INum_G,
-					this->I_R_name_G, this->I_R_name, this->Iname, this->Igroup, this->Steps, this->Machine, this->Unit_Cost
-			});
 			this->ItemsData->Location = System::Drawing::Point(12, 28);
 			this->ItemsData->Name = L"ItemsData";
 			this->ItemsData->Size = System::Drawing::Size(753, 386);
 			this->ItemsData->TabIndex = 5;
 			this->ItemsData->Visible = false;
 			// 
-			// Inum
-			// 
-			this->Inum->HeaderText = L"Inum";
-			this->Inum->Name = L"Inum";
-			// 
-			// INum_G
-			// 
-			this->INum_G->HeaderText = L"INum_G";
-			this->INum_G->Name = L"INum_G";
-			// 
-			// I_R_name_G
-			// 
-			this->I_R_name_G->HeaderText = L"I_R_name_G";
-			this->I_R_name_G->Name = L"I_R_name_G";
-			// 
-			// I_R_name
-			// 
-			this->I_R_name->HeaderText = L"I_R_name";
-			this->I_R_name->Name = L"I_R_name";
-			// 
-			// Iname
-			// 
-			this->Iname->HeaderText = L"Iname";
-			this->Iname->Name = L"Iname";
-			// 
-			// Igroup
-			// 
-			this->Igroup->HeaderText = L"Igroup";
-			this->Igroup->Name = L"Igroup";
-			// 
-			// Steps
-			// 
-			this->Steps->HeaderText = L"Steps";
-			this->Steps->Name = L"Steps";
-			// 
-			// Machine
-			// 
-			this->Machine->HeaderText = L"Machine";
-			this->Machine->Name = L"Machine";
-			// 
-			// Unit_Cost
-			// 
-			this->Unit_Cost->HeaderText = L"Unit_Cost";
-			this->Unit_Cost->Name = L"Unit_Cost";
-			// 
 			// dataItemsPrices
 			// 
 			this->dataItemsPrices->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataItemsPrices->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->dataGridViewTextBoxColumn7,
-					this->dataGridViewTextBoxColumn10, this->dataGridViewTextBoxColumn15
-			});
 			this->dataItemsPrices->Location = System::Drawing::Point(12, 28);
 			this->dataItemsPrices->Name = L"dataItemsPrices";
 			this->dataItemsPrices->Size = System::Drawing::Size(753, 386);
@@ -515,32 +340,17 @@ namespace FactoryData {
 			this->dataItemsPrices->Visible = false;
 			this->dataItemsPrices->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataItemsPrices_CellContentClick);
 			// 
-			// dataGridViewTextBoxColumn7
-			// 
-			this->dataGridViewTextBoxColumn7->HeaderText = L"Inum";
-			this->dataGridViewTextBoxColumn7->Name = L"dataGridViewTextBoxColumn7";
-			// 
-			// dataGridViewTextBoxColumn10
-			// 
-			this->dataGridViewTextBoxColumn10->HeaderText = L"I_R_name";
-			this->dataGridViewTextBoxColumn10->Name = L"dataGridViewTextBoxColumn10";
-			// 
-			// dataGridViewTextBoxColumn15
-			// 
-			this->dataGridViewTextBoxColumn15->HeaderText = L"Unit_Cost";
-			this->dataGridViewTextBoxColumn15->Name = L"dataGridViewTextBoxColumn15";
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(900, 476);
-			this->Controls->Add(this->dataItemsPrices);
+			this->Controls->Add(this->groupBox1);
+			this->Controls->Add(this->menuStrip1);
 			this->Controls->Add(this->ItemsData);
 			this->Controls->Add(this->combinationData2);
-			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->combintaionData);
-			this->Controls->Add(this->menuStrip1);
+			this->Controls->Add(this->dataItemsPrices);
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;

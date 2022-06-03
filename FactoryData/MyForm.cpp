@@ -17,18 +17,21 @@ void main(array<String^>^ args)
 
 double FactoryData::MyForm::CalcSum(String^ key)
 {
+	double res = 0;
 	if (mapCom.count(key))
 	{
+		res = mapCom[key];
 		return mapCom[key];
 	}
 	if (mapRaw.count(key))
 	{
 		mapCom[key] = mapRaw[key];
+		res = mapCom[key];
 		return mapCom[key];
 	}
 	String^ val;
 	String^ temp;
-	double res = 0;
+	double accum = 0;
 	for (int i = 0; i < combinationData2->RowCount -1; i++)
 	{
 		val = combinationData2->Rows[i]->Cells[0]->Value->ToString();
@@ -37,11 +40,24 @@ double FactoryData::MyForm::CalcSum(String^ key)
 			temp = combinationData2->Rows[i]->Cells[2]->Value->ToString();
 			if (temp == "")
 				continue;
-			res += System::Convert::ToDouble(temp) * CalcSum(combinationData2->Rows[i]->Cells[1]->Value->ToString());
+			val = combinationData2->Rows[i]->Cells[1]->Value->ToString();
+			res += System::Convert::ToDouble(temp) * CalcSum(val);
+			accum += System::Convert::ToDouble(temp);
 		}
 	}
-	mapCom[key] = res;
-	return res;
+	if (res == 0 && accum == 0)
+	{
+		//uncomment this when you add the final pricing lists 
+		//MessageBox::Show("Product " + key + " does not exist in the pricing list!");
+	}
+	mapCom[key] = (double)res/accum;
+	return mapCom[key];
+}
+
+
+double StringToDouble(String^ s)
+{
+	return (s == "") ? 0 : System::Convert::ToDouble(s);
 }
 
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
@@ -69,14 +85,12 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	//maps every raw item to its price in double precision
 	double res = 0;
 	String^ sVal;
-
 	for (int i = 0; i < dataItemsPrices->Rows->Count-1; i++)
 	{
 		sVal = dataItemsPrices->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
 		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
 		mapRaw[dataItemsPrices->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
 	}
-
 
 
 	//read into combinationData -- WRONG QUERY
@@ -88,8 +102,8 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	
 
 	
-	//read into combinationData2
-	query = "SELECT c.Fitem, c.Ritem, c.BIsubquan, c.Box_Weight, c.Box_Cost, c.BIsubquan*i2.Unit_Cost AS Cost, c.General_Waste, c.Drageh_Waste, c.Expences FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
+	//read into combinationData2 --> contains all ingredients of all combinations
+	query = "SELECT c.Fitem, c.Ritem, c.BIsubquan, i.Inum AS Cost, i.Inum AS Total FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -104,7 +118,8 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{
-		combinationData2->Rows[i]->Cells[3]->Value = mapCom[combinationData2->Rows[i]->Cells[0]->Value->ToString()];
+		combinationData2->Rows[i]->Cells[3]->Value = mapCom[combinationData2->Rows[i]->Cells[1]->Value->ToString()];
+		combinationData2->Rows[i]->Cells[4]->Value = mapCom[combinationData2->Rows[i]->Cells[1]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells[2]->Value->ToString());
 	}
 
 	//Read into itemsData

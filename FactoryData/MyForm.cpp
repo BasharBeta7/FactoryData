@@ -183,9 +183,14 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 	String^ Cellval;//holds the value of the cell
 	String^ ColumnName;//hold the name of the column 
 	int nCells = activeDataGrid->Rows[index]->Cells->Count;
-	String^ query = "UPDATE Items AS i Combination AS c SET ";
+	String^ query;
+	if (activeDataGrid == dataItemsPrices)
+	{
+		query = "UPDATE items SET I_R_name='" + activeDataGrid->Rows[index]->Cells["I_R_name"]->Value->ToString() + "', Unit_Cost='" + activeDataGrid->Rows[index]->Cells["Unit_Cost"]->Value->ToString() + "' WHERE Inum='" + activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString() + "';";
+	}
+	
 
-	//YOU NEED TO DECIDE HOW TO ALTER RECORDS FROM QUERY TABLES ( how to get required table from filed name ?)
+	//YOU NEED TO DECIDE HOW TO ALTER RECORDS FROM QUERY TABLES ( how to get required table from file name ?)
 	for (int i = 0; i < nCells; i++)
 	{
 		Cellval = activeDataGrid->Rows[index]->Cells[i]->Value->ToString();
@@ -193,6 +198,10 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 
 	}
 	//edit database 
+	OleDbCommand^ dbCommand = gcnew OleDbCommand();
+	dbCommand->CommandText = query;
+	dbCommand->Connection = dbConnection;
+	dbCommand->ExecuteNonQuery();
 	return System::Void();
 }
 

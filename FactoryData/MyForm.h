@@ -2,6 +2,7 @@
 #include "EditItemPrice.h"
 #include "ConnectionData.h"
 #include <cliext/map>
+#include "containers.h"
 
 
 namespace FactoryData {
@@ -119,7 +120,8 @@ namespace FactoryData {
 		cliext::map<String^, double> mapRaw;//Raw Inum -->> Unit_Cost map
 		cliext::map<String^, double> mapCom;//Combination Fitem-->Unit_Cost
 		System::ComponentModel::Container ^components;
-
+		cliext::list<Combination^> combinations;
+		cliext::list<RawMaterial^> rawMaterials;
 
 		//user-defined functions
 		double CalcSum(String^ key);

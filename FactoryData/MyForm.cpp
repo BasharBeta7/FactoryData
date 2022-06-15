@@ -1,4 +1,6 @@
 ﻿#include "MyForm.h"
+#include "containers.h"
+
 
 using namespace FactoryData;
 using namespace System;
@@ -90,6 +92,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 		sVal = dataItemsPrices->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
 		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
 		mapRaw[dataItemsPrices->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
+		rawMaterials.push_back(gcnew RawMaterial(dataItemsPrices->Rows[i]->Cells["I_R_Name"]->Value->ToString(), dataItemsPrices->Rows[i]->Cells["Inum"]->Value->ToString(), res));
 	}
 
 

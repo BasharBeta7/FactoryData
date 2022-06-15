@@ -32,5 +32,8 @@
     <ClInclude Include="ConnectionData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="containers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

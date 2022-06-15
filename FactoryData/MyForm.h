@@ -125,6 +125,7 @@ namespace FactoryData {
 
 		//user-defined functions
 		double CalcSum(String^ key);
+		void UpdateCombinationData();
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify

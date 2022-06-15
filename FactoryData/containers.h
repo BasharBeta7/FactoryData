@@ -33,6 +33,15 @@ public:
 		
 	}
 
+	Combination(String^ f, String^ name, String^ mach, String^ group) :
+		fitem(f),
+		name(name),
+		machineLine(mach),
+		group(group)
+	{
+		components.clear();
+	}
+
 	void AddComponent(String^ str)
 	{
 		components.push_back(str);

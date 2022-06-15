@@ -56,11 +56,30 @@ double FactoryData::MyForm::CalcSum(String^ key)
 	return mapCom[key];
 }
 
+void FactoryData::MyForm::UpdateCombinationData()
+{
+	String^ name, ^ Fitem, ^ Machine, ^ group;
+
+	combinations.clear();
+	for (int i = 0; i < combintaionData->RowCount - 1; i++)
+	{
+
+		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
+		Fitem = combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString();
+		name = combintaionData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
+		Machine = combintaionData->Rows[i]->Cells["Machine_Line"]->Value->ToString();
+		group = combintaionData->Rows[i]->Cells["IGroup"]->Value->ToString();
+		combinations.push_back(gcnew Combination(Fitem, name, Machine, group));
+		combinations.back()->unitCost = mapCom[combinations.back()->fitem];
+	}
+}
+
 
 double StringToDouble(String^ s)
 {
 	return (s == "") ? 0 : System::Convert::ToDouble(s);
 }
+
 
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
@@ -97,7 +116,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 
 	//read into combinationData -- WRONG QUERY
-	query = "SELECT Combination.FItem, (Avg(Combination.Box_Cost)) AS aBox_Cost, Sum(Combination.BIsubquan*items.Unit_Cost) AS sCost, Sum(Combination.General_Waste) AS sGeneral_Waste, Sum(Combination.Drageh_Waste) AS sDrageh_Waste, Sum(Combination.Expences) AS sExpences, sCost+sGeneral_Waste+sDrageh_Waste+aBox_Cost+sExpences AS Final_Cost FROM Combination LEFT JOIN items ON Combination.RItem=items.Inum GROUP BY Combination.FItem;";
+	query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.Group) AS IGroup, MIN(c.Machine_Line) AS Machine_Line FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem;";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -113,11 +132,13 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	combinationData2->DataSource = dt;
 
 
-	for (int i = 0; i < combintaionData->RowCount - 1; i++)
-	{
-		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
-	}
+	//calculate the unit cost of each combination
+	UpdateCombinationData();
+	
 
+
+
+	//add all combinations to Combination
 
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{

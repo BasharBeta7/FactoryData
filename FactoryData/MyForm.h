@@ -305,6 +305,7 @@ namespace FactoryData {
 			this->btnAddItem->TabIndex = 1;
 			this->btnAddItem->Text = L"إضافة مادة";
 			this->btnAddItem->UseVisualStyleBackColor = true;
+			
 			// 
 			// btnEditLine
 			// 
@@ -413,5 +414,6 @@ private: System::Void dataItemsPrices_CellContentClick(System::Object^ sender, S
 }
 private: System::Void btnEditLine_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void btnEditCost_Click(System::Object^ sender, System::EventArgs^ e);
+
 };
 }

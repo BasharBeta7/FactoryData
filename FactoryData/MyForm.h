@@ -121,6 +121,10 @@ namespace FactoryData {
 		cliext::map<String^, double> totalCom;//total Cost for combination
 		cliext::map<String^, double> Generalwastes;//wastes for cost calculating
 		cliext::map<String^, double> DragehWastes;
+		cliext::map<String^, double> BoxCosts;
+		cliext::map<String^, double> Expences1;
+		cliext::map<String^, double> Expences2;
+
 		System::ComponentModel::Container ^components;
 
 
@@ -553,6 +557,7 @@ private: System::Void btnEditCost_Click(System::Object^ sender, System::EventArg
 
 private: System::Void btnAddItem_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	UpdateFinishedCombinations();
 }
 private: System::Void btnUpdateDB_Click(System::Object^ sender, System::EventArgs^ e) {
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);

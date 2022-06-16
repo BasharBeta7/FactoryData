@@ -5,7 +5,6 @@
 using namespace FactoryData;
 using namespace System;
 using namespace System::Windows::Forms;
-[STAThread]
 
 
 double StringToDouble(String^ s)
@@ -13,7 +12,7 @@ double StringToDouble(String^ s)
 	return (s == "") ? 0 : System::Convert::ToDouble(s);
 }
 
-
+[STAThread]
 void main(array<String^>^ args)
 {
 	Application::EnableVisualStyles();
@@ -41,13 +40,13 @@ double FactoryData::MyForm::CalcSum(String^ key)
 	double accum = 0;
 	for (int i = 0; i < combinationData2->RowCount -1; i++)
 	{
-		val = combinationData2->Rows[i]->Cells[0]->Value->ToString();
+		val = combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString();
 		if (val == key)
 		{
-			temp = combinationData2->Rows[i]->Cells[2]->Value->ToString();
+			temp = combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString();
 			if (temp == "")
 				continue;
-			val = combinationData2->Rows[i]->Cells[1]->Value->ToString();
+			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
 			res += System::Convert::ToDouble(temp) * CalcSum(val);
 			accum += System::Convert::ToDouble(temp);
 		}
@@ -78,8 +77,8 @@ void FactoryData::MyForm::UpdateCombinationData()
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{
 		combinationData2->Rows[i]->Cells["Cost"]->Value = mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()];
-		combinationData2->Rows[i]->Cells["Total"]->Value = mapCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString());
-		totalCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] += (mapCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()));
+		combinationData2->Rows[i]->Cells["Total"]->Value = mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString());
+		totalCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] += (mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()));
 	}
 
 	//update database
@@ -118,15 +117,14 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 	for (int i = 0; i < FinishedCombinations->Rows->Count - 1; i++)
 	{
 		dr = FinishedCombinations->Rows[i];
-		dr->Cells["Total"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()];
-		dr->Cells["General_Waste"]->Value = Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
-		dr->Cells["Drageh_Waste"]->Value = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
-		dr->Cells["Box_Cost"]->Value = 0;
-		dr->Cells["Expences1"]->Value =0;
-		dr->Cells["Expences2"]->Value = 0;
-		dr->Cells["Final_Price1"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + System::Convert::ToDouble(dr->Cells["Box_Cost"]->Value->ToString()) + System::Convert::ToDouble(dr->Cells["Expences1"]->Value->ToString());
-		dr->Cells["Final_Price2"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + System::Convert::ToDouble(dr->Cells["Box_Cost"]->Value->ToString()) + System::Convert::ToDouble(dr->Cells["Expences2"]->Value->ToString());
-
+		dr->Cells["Total"]->Value				= totalCom[dr->Cells["Fitem"]->Value->ToString()];
+		dr->Cells["General_Waste"]->Value		= Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
+		dr->Cells["Drageh_Waste"]->Value	    = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
+		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
+		Expences1[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences1"]->Value->ToString());
+		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
+		dr->Cells["Final_Price1"]->Value		= totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) +BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences1[(dr->Cells["Fitem"]->Value->ToString())];
+		dr->Cells["Final_Price2"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences2[(dr->Cells["Fitem"]->Value->ToString())];
 	}
 }
 
@@ -165,7 +163,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	combintaionData->DataSource = dt;
-	
+
 
 	
 	
@@ -204,7 +202,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, Fitem AS Unit_Cost, Fitem AS Total,Fitem AS General_Waste, Fitem AS Drageh_Waste,Fitem AS Box_Cost, Fitem AS Expences1,Fitem AS Expences2,Fitem AS Final_Price1, Fitem AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(Box_Cost) AS Unit_Cost,  MIN(Box_Cost) AS Total, MIN(Box_Cost)  AS General_Waste,  MIN(Box_Cost) AS Drageh_Waste, MIN(Box_Cost) AS Box_Cost,  MIN(Box_Cost) AS Expences1, MIN(Box_Cost) AS Expences2, MIN(Box_Cost) AS Final_Price1,  MIN(Box_Cost) AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);

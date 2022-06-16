@@ -8,6 +8,11 @@ using namespace System::Windows::Forms;
 [STAThread]
 
 
+double StringToDouble(String^ s)
+{
+	return (s == "") ? 0 : System::Convert::ToDouble(s);
+}
+
 
 void main(array<String^>^ args)
 {
@@ -58,28 +63,54 @@ double FactoryData::MyForm::CalcSum(String^ key)
 
 void FactoryData::MyForm::UpdateCombinationData()
 {
-	String^ name, ^ Fitem, ^ Machine, ^ group;
+	//whenever you update the prices, you need to eupdate combinations table in the database
 
-	combinations.clear();
+	//update prices
+	mapCom.clear();
 	for (int i = 0; i < combintaionData->RowCount - 1; i++)
 	{
-
 		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
-		Fitem = combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString();
-		name = combintaionData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
-		Machine = combintaionData->Rows[i]->Cells["Machine_Line"]->Value->ToString();
-		group = combintaionData->Rows[i]->Cells["IGroup"]->Value->ToString();
-		combinations.push_back(gcnew Combination(Fitem, name, Machine, group));
-		combinations.back()->unitCost = mapCom[combinations.back()->fitem];
+		combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()];
+	}
+
+	//update dataGrid of Combinations2
+
+	for (int i = 0; i < combinationData2->RowCount - 1; i++)
+	{
+		combinationData2->Rows[i]->Cells["Cost"]->Value = mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()];
+		combinationData2->Rows[i]->Cells["Total"]->Value = mapCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString());
+		totalCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] += (mapCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()));
+	}
+
+	//update database
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+	String^ query = "UPDATE combinations SET  WHERE";
+}
+
+void FactoryData::MyForm::UpdateRawDataPrices()
+{
+	double res = 0;
+	String^ sVal;
+	for (int i = 0; i < ItemsData->Rows->Count - 1; i++)
+	{
+		sVal = ItemsData->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
+		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
+		mapRaw[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
+		
 	}
 }
 
-
-double StringToDouble(String^ s)
+void FactoryData::MyForm::UpdateDataGrid()
 {
-	return (s == "") ? 0 : System::Convert::ToDouble(s);
+	
 }
 
+
+//update the dataGrid line that matches Fitem
+void FactoryData::MyForm::UpdateDataGrid(String^ Fitem)
+{
+}
 
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
@@ -91,32 +122,27 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	//load database
 	//set connection to server SQL
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
-
-
-	//read into dataItemsPrices
 	dbConnection->Open();
-	String^ query = "SELECT Inum, I_R_name, Unit_Cost FROM items WHERE Igroup='R';";
-	OleDbDataAdapter^ dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
-	DataTable^ dt = gcnew DataTable();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+
+	//Read into itemsData
+	query = "SELECT Inum, I_R_Name, Igroup, Unit_Cost FROM items";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
-	dataItemsPrices->DataSource = dt;
-	
-	
+	ItemsData->DataSource = dt;
 
 	//maps every raw item to its price in double precision
-	double res = 0;
-	String^ sVal;
-	for (int i = 0; i < dataItemsPrices->Rows->Count-1; i++)
-	{
-		sVal = dataItemsPrices->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
-		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
-		mapRaw[dataItemsPrices->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
-		rawMaterials.push_back(gcnew RawMaterial(dataItemsPrices->Rows[i]->Cells["I_R_Name"]->Value->ToString(), dataItemsPrices->Rows[i]->Cells["Inum"]->Value->ToString(), res));
-	}
+	UpdateRawDataPrices();
+
+	
+	
 
 
 	//read into combinationData -- WRONG QUERY
-	query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.Group) AS IGroup, MIN(c.Machine_Line) AS Machine_Line FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem;";
+	query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.Group) AS IGroup, MIN(c.Machine_Line) AS Machine_Line, c.Fitem AS Unit_Cost FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem;";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -124,35 +150,47 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	
 
 	
+	
 	//read into combinationData2 --> contains all ingredients of all combinations
-	query = "SELECT c.Fitem, c.Ritem, c.BIsubquan, i.Inum AS Cost, i.Inum AS Total FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
+	query = "SELECT c.Fitem AS Fitem, c.Ritem AS Ritem, c.BIsubquan AS BIsubquan, i.Inum AS Cost, i.Inum AS Total FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	combinationData2->DataSource = dt;
 
-
 	//calculate the unit cost of each combination
 	UpdateCombinationData();
 	
-
-
-
-	//add all combinations to Combination
-
-	for (int i = 0; i < combinationData2->RowCount - 1; i++)
-	{
-		combinationData2->Rows[i]->Cells[3]->Value = mapCom[combinationData2->Rows[i]->Cells[1]->Value->ToString()];
-		combinationData2->Rows[i]->Cells[4]->Value = mapCom[combinationData2->Rows[i]->Cells[1]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells[2]->Value->ToString());
-	}
-
-	//Read into itemsData
-	query = "SELECT Inum, INum_G, I_R_Name_G, I_R_Name, Iname, Igroup, Steps, Machine, Unit_Cost FROM items";
+	//read into FinishedCombinaions --> Contains finished combs from combinations
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, Fitem AS Unit_Cost, Fitem AS Total,Fitem AS General_Waste, Fitem AS Drageh_Waste,Fitem AS Box_Cost, Fitem AS Expences1,Fitem AS Expences2,Fitem AS Final_Price1, Fitem AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
-	ItemsData->DataSource = dt;
+	FinishedCombinations->DataSource = dt;
 
+
+	//add wastes from wastes table
+	query = "SELECT Machine, General_Waste, Drageh_Waste FROM Wastes;";
+	DataGridView^ temp = gcnew DataGridView();
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	temp->DataSource = dt;
+	DataRow^ dr;
+	String^ sTemp;
+	double res;
+	for (int i = 0; i < dt->Rows->Count; i++)
+	{
+		dr = dt->Rows[i];
+		
+		sTemp = dr[1]->ToString();
+		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
+		Generalwastes[dr[0]->ToString()] = res;
+		sTemp = dr[2]->ToString();
+		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
+		DragehWastes[dr[0]->ToString()] = res;
+	}
+	
 	dbConnection->Close();
 	
 
@@ -184,24 +222,33 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 	String^ ColumnName;//hold the name of the column 
 	int nCells = activeDataGrid->Rows[index]->Cells->Count;
 	String^ query;
-	if (activeDataGrid == dataItemsPrices)
+	if (activeDataGrid == ItemsData)
 	{
 		query = "UPDATE items SET I_R_name='" + activeDataGrid->Rows[index]->Cells["I_R_name"]->Value->ToString() + "', Unit_Cost='" + activeDataGrid->Rows[index]->Cells["Unit_Cost"]->Value->ToString() + "' WHERE Inum='" + activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString() + "';";
+		//update raw material unit cost
+		double res = 0;
+		String^ sVal;
+		sVal = activeDataGrid->Rows[index]->Cells["Unit_Cost"]->Value->ToString();
+		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
+		mapRaw[activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString()] = res;
+		rawMaterials.push_back(gcnew RawMaterial(activeDataGrid->Rows[index]->Cells["I_R_name"]->Value->ToString(), activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString(), res));
+		UpdateCombinationData();//update all prices
+		UpdateDataGrid();
 	}
 	
 
-	//YOU NEED TO DECIDE HOW TO ALTER RECORDS FROM QUERY TABLES ( how to get required table from file name ?)
-	for (int i = 0; i < nCells; i++)
-	{
-		Cellval = activeDataGrid->Rows[index]->Cells[i]->Value->ToString();
-		ColumnName = activeDataGrid->Columns[i]->HeaderText->ToString();
-
-	}
 	//edit database 
 	OleDbCommand^ dbCommand = gcnew OleDbCommand();
 	dbCommand->CommandText = query;
 	dbCommand->Connection = dbConnection;
-	dbCommand->ExecuteNonQuery();
+	if (dbCommand->ExecuteNonQuery() != -1)
+	{
+		MessageBox::Show("Successfully Updated");
+	}
+	else
+	{
+		MessageBox::Show("Error Occured, Couldn't update values");
+	}
 	return System::Void();
 }
 
@@ -211,4 +258,8 @@ System::Void FactoryData::MyForm::btnEditCost_Click(System::Object^ sender, Syst
 	EditItemPricesForm^ eipf = gcnew EditItemPricesForm();
 	eipf->Show();
 	return System::Void();
+}
+
+System::Void FactoryData::MyForm::btnAddItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
 }

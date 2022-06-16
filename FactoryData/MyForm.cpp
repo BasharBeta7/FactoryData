@@ -112,6 +112,24 @@ void FactoryData::MyForm::UpdateDataGrid(String^ Fitem)
 {
 }
 
+void FactoryData::MyForm::UpdateFinishedCombinations()
+{
+	DataGridViewRow^ dr;
+	for (int i = 0; i < FinishedCombinations->Rows->Count - 1; i++)
+	{
+		dr = FinishedCombinations->Rows[i];
+		dr->Cells["Total"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()];
+		dr->Cells["General_Waste"]->Value = Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
+		dr->Cells["Drageh_Waste"]->Value = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
+		dr->Cells["Box_Cost"]->Value = 0;
+		dr->Cells["Expences1"]->Value =0;
+		dr->Cells["Expences2"]->Value = 0;
+		dr->Cells["Final_Price1"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + System::Convert::ToDouble(dr->Cells["Box_Cost"]->Value->ToString()) + System::Convert::ToDouble(dr->Cells["Expences1"]->Value->ToString());
+		dr->Cells["Final_Price2"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + System::Convert::ToDouble(dr->Cells["Box_Cost"]->Value->ToString()) + System::Convert::ToDouble(dr->Cells["Expences2"]->Value->ToString());
+
+	}
+}
+
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
 	
@@ -161,13 +179,6 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	//calculate the unit cost of each combination
 	UpdateCombinationData();
 	
-	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, Fitem AS Unit_Cost, Fitem AS Total,Fitem AS General_Waste, Fitem AS Drageh_Waste,Fitem AS Box_Cost, Fitem AS Expences1,Fitem AS Expences2,Fitem AS Final_Price1, Fitem AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
-	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
-	dt = gcnew DataTable();
-	dbDataAdapter->Fill(dt);
-	FinishedCombinations->DataSource = dt;
-
 
 	//add wastes from wastes table
 	query = "SELECT Machine, General_Waste, Drageh_Waste FROM Wastes;";
@@ -190,7 +201,18 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
 		DragehWastes[dr[0]->ToString()] = res;
 	}
-	
+
+
+	//read into FinishedCombinaions --> Contains finished combs from combinations
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, Fitem AS Unit_Cost, Fitem AS Total,Fitem AS General_Waste, Fitem AS Drageh_Waste,Fitem AS Box_Cost, Fitem AS Expences1,Fitem AS Expences2,Fitem AS Final_Price1, Fitem AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	FinishedCombinations->DataSource = dt;
+
+	//update FinishedCombinations
+	UpdateFinishedCombinations();
+
 	dbConnection->Close();
 	
 

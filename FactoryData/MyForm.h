@@ -151,7 +151,7 @@ private: System::Windows::Forms::Label^ lblNewline;
 		void UpdateRawDataPrices();
 		void UpdateDataGrid();
 		void UpdateDataGrid(String^ Fitem);//update a specific index in the grid
-
+		void UpdateFinishedCombinations();
 
 
 
@@ -423,6 +423,7 @@ private: System::Windows::Forms::Label^ lblNewline;
 			this->btnOkWaste->Text = L"موافق";
 			this->btnOkWaste->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageAboveText;
 			this->btnOkWaste->UseVisualStyleBackColor = true;
+			this->btnOkWaste->Click += gcnew System::EventHandler(this, &MyForm::btnOkWaste_Click);
 			// 
 			// textBox3
 			// 
@@ -578,6 +579,10 @@ private: System::Void نسبالهدرToolStripMenuItem_Click(System::Object^ se
 	groupBox2->Show();
 	groupBox1->Hide();
 	activeDataGrid->Hide();
+
+}
+private: System::Void btnOkWaste_Click(System::Object^ sender, System::EventArgs^ e) {
+	//validate values of text boxes
 
 }
 };

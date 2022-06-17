@@ -117,25 +117,23 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 	for (int i = 0; i < FinishedCombinations->Rows->Count - 1; i++)
 	{
 		dr = FinishedCombinations->Rows[i];
+		dr->Cells["Unit_Cost"]->Value		    = mapCom[dr->Cells["Fitem"]->Value->ToString()];
 		dr->Cells["Total"]->Value				= totalCom[dr->Cells["Fitem"]->Value->ToString()];
 		dr->Cells["General_Waste"]->Value		= Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
 		dr->Cells["Drageh_Waste"]->Value	    = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
 		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
-		Expences1[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences1"]->Value->ToString());
+		dr->Cells["Expences1"]->Value = System::Convert::ToString(expences1);
 		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
-		dr->Cells["Final_Price1"]->Value		= totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) +BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences1[(dr->Cells["Fitem"]->Value->ToString())];
-		dr->Cells["Final_Price2"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences2[(dr->Cells["Fitem"]->Value->ToString())];
+		//for now we will fix expences for expences1 and make them unique for expences2
+		dr->Cells["Final_Price1"]->Value		= totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) +BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString());
+		dr->Cells["Final_Price2"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences2[(dr->Cells["Fitem"]->Value->ToString())]*StringToDouble(dr->Cells["Box_Weight"]->Value->ToString());
 	}
 }
 
-System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
+void FactoryData::MyForm::LoadDatabaseTables()
 {
-	
-
-	
-	//store a pointer to the active dataGrid
-	activeDataGrid = combintaionData;
-	//load database
+	//clear all stored vaiables
+	ResetData();
 	//set connection to server SQL
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
 	dbConnection->Open();
@@ -153,11 +151,11 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	//maps every raw item to its price in double precision
 	UpdateRawDataPrices();
 
-	
-	
 
 
-	//read into combinationData -- WRONG QUERY
+
+
+	//read into combinationData 
 	query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.Group) AS IGroup, MIN(c.Machine_Line) AS Machine_Line, c.Fitem AS Unit_Cost FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem;";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
@@ -165,8 +163,8 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	combintaionData->DataSource = dt;
 
 
-	
-	
+
+
 	//read into combinationData2 --> contains all ingredients of all combinations
 	query = "SELECT c.Fitem AS Fitem, c.Ritem AS Ritem, c.BIsubquan AS BIsubquan, i.Inum AS Cost, i.Inum AS Total FROM((Combination AS c LEFT JOIN items AS i ON c.Fitem=i.Inum) LEFT JOIN items AS i2 ON c.Ritem=i2.Inum);";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
@@ -176,7 +174,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 
 	//calculate the unit cost of each combination
 	UpdateCombinationData();
-	
+
 
 	//add wastes from wastes table
 	query = "SELECT Machine, General_Waste, Drageh_Waste FROM Wastes;";
@@ -191,7 +189,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	for (int i = 0; i < dt->Rows->Count; i++)
 	{
 		dr = dt->Rows[i];
-		
+
 		sTemp = dr[1]->ToString();
 		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
 		Generalwastes[dr[0]->ToString()] = res;
@@ -199,10 +197,17 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
 		DragehWastes[dr[0]->ToString()] = res;
 	}
-
+	//read expences from expences table 
+	query = "SELECT Expences1 AS Expences1, Expences2 AS Expences2 FROM Expences;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	dr = dt->Rows[0];
+	expences1 = StringToDouble(dr["Expences1"]->ToString());
+	expences2 = StringToDouble(dr["Expences2"]->ToString());
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(Box_Cost) AS Unit_Cost,  MIN(Box_Cost) AS Total, MIN(Box_Cost)  AS General_Waste,  MIN(Box_Cost) AS Drageh_Waste, MIN(Box_Cost) AS Box_Cost,  MIN(Box_Cost) AS Expences1, MIN(Box_Cost) AS Expences2, MIN(Box_Cost) AS Final_Price1,  MIN(Box_Cost) AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2, MIN(General_Waste) AS Final_Price1,  MIN(General_Waste) AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -211,7 +216,30 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 	//update FinishedCombinations
 	UpdateFinishedCombinations();
 
+	
+	
+
 	dbConnection->Close();
+}
+
+void FactoryData::MyForm::ResetData()
+{
+	mapRaw.clear();
+	mapCom.clear();
+	totalCom.clear();
+
+}
+
+System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
+{
+	
+
+	
+	//store a pointer to the active dataGrid
+	activeDataGrid = combintaionData;
+	//load database
+	LoadDatabaseTables();
+	
 	
 
 	//Activate combinationDataItem
@@ -269,14 +297,18 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 	{
 		MessageBox::Show("Error Occured, Couldn't update values");
 	}
+	dbConnection->Close();
 	return System::Void();
 }
 
 System::Void FactoryData::MyForm::btnEditCost_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	//open Form
-	EditItemPricesForm^ eipf = gcnew EditItemPricesForm();
-	eipf->Show();
+	textBox4->Text = "";
+	textBox5->Text = "";
+	groupBox3->Show();
+	groupBox2->Hide();
+	groupBox1->Hide();
+	activeDataGrid->Hide();
 	return System::Void();
 }
 

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "EditItemPrice.h"
+
 #include "ConnectionData.h"
 #include <cliext/map>
 #include "containers.h"
@@ -115,6 +115,7 @@ namespace FactoryData {
 		
 		//user-defined 
 		DataGridView^ activeDataGrid;
+		GroupBox^ activeGroupBox;
 		String^ connecttionString = Connection::connectionString;
 		cliext::map<String^, double> mapRaw;//Raw Inum -->> Unit_Cost map
 		cliext::map<String^, double> mapCom;//Combination Fitem-->Unit_Cost
@@ -124,7 +125,7 @@ namespace FactoryData {
 		cliext::map<String^, double> BoxCosts;
 		cliext::map<String^, double> Expences1;
 		cliext::map<String^, double> Expences2;
-
+		double expences1, expences2;
 		System::ComponentModel::Container ^components;
 
 
@@ -144,6 +145,13 @@ private: System::Windows::Forms::TextBox^ textBox2;
 private: System::Windows::Forms::Label^ lblAerobar;
 private: System::Windows::Forms::TextBox^ textBox1;
 private: System::Windows::Forms::Label^ lblNewline;
+private: System::Windows::Forms::Button^ btnCancel;
+private: System::Windows::Forms::GroupBox^ groupBox3;
+private: System::Windows::Forms::Button^ btnOK;
+private: System::Windows::Forms::Label^ label2;
+private: System::Windows::Forms::TextBox^ textBox4;
+private: System::Windows::Forms::TextBox^ textBox5;
+private: System::Windows::Forms::Label^ label3;
 
 
 
@@ -156,8 +164,8 @@ private: System::Windows::Forms::Label^ lblNewline;
 		void UpdateDataGrid();
 		void UpdateDataGrid(String^ Fitem);//update a specific index in the grid
 		void UpdateFinishedCombinations();
-
-
+		void LoadDatabaseTables();
+		void ResetData();
 
 
 #pragma region Windows Form Designer generated code
@@ -197,6 +205,13 @@ private: System::Windows::Forms::Label^ lblNewline;
 			this->lblAerobar = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->lblNewline = (gcnew System::Windows::Forms::Label());
+			this->btnCancel = (gcnew System::Windows::Forms::Button());
+			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
+			this->btnOK = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -204,6 +219,7 @@ private: System::Windows::Forms::Label^ lblNewline;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ItemsData))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FinishedCombinations))->BeginInit();
 			this->groupBox2->SuspendLayout();
+			this->groupBox3->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -214,7 +230,7 @@ private: System::Windows::Forms::Label^ lblNewline;
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(900, 24);
+			this->menuStrip1->Size = System::Drawing::Size(909, 24);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -483,11 +499,89 @@ private: System::Windows::Forms::Label^ lblNewline;
 			this->lblNewline->TabIndex = 0;
 			this->lblNewline->Text = L"newline";
 			// 
+			// btnCancel
+			// 
+			this->btnCancel->Location = System::Drawing::Point(119, 110);
+			this->btnCancel->Name = L"btnCancel";
+			this->btnCancel->Size = System::Drawing::Size(108, 43);
+			this->btnCancel->TabIndex = 10;
+			this->btnCancel->Text = L"إلغاء";
+			this->btnCancel->UseVisualStyleBackColor = true;
+			this->btnCancel->Click += gcnew System::EventHandler(this, &MyForm::btnCancel_Click);
+			// 
+			// groupBox3
+			// 
+			this->groupBox3->Controls->Add(this->btnCancel);
+			this->groupBox3->Controls->Add(this->btnOK);
+			this->groupBox3->Controls->Add(this->label2);
+			this->groupBox3->Controls->Add(this->textBox4);
+			this->groupBox3->Controls->Add(this->textBox5);
+			this->groupBox3->Controls->Add(this->label3);
+			this->groupBox3->Location = System::Drawing::Point(254, 32);
+			this->groupBox3->Name = L"groupBox3";
+			this->groupBox3->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->groupBox3->Size = System::Drawing::Size(233, 169);
+			this->groupBox3->TabIndex = 9;
+			this->groupBox3->TabStop = false;
+			this->groupBox3->Text = L"تعديل سعر مادة أولية";
+			this->groupBox3->Visible = false;
+			this->groupBox3->Enter += gcnew System::EventHandler(this, &MyForm::groupBox3_Enter);
+			// 
+			// btnOK
+			// 
+			this->btnOK->Location = System::Drawing::Point(5, 110);
+			this->btnOK->Name = L"btnOK";
+			this->btnOK->Size = System::Drawing::Size(108, 43);
+			this->btnOK->TabIndex = 8;
+			this->btnOK->Text = L"موافق";
+			this->btnOK->UseVisualStyleBackColor = true;
+			this->btnOK->Click += gcnew System::EventHandler(this, &MyForm::btnOK_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->Location = System::Drawing::Point(11, 67);
+			this->label2->Name = L"label2";
+			this->label2->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label2->Size = System::Drawing::Size(69, 24);
+			this->label2->TabIndex = 4;
+			this->label2->Text = L"price :";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Location = System::Drawing::Point(91, 21);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(100, 20);
+			this->textBox4->TabIndex = 3;
+			// 
+			// textBox5
+			// 
+			this->textBox5->Location = System::Drawing::Point(91, 72);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(100, 20);
+			this->textBox5->TabIndex = 0;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(11, 16);
+			this->label3->Name = L"label3";
+			this->label3->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label3->Size = System::Drawing::Size(74, 24);
+			this->label3->TabIndex = 2;
+			this->label3->Text = L"Inum : ";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(900, 476);
+			this->ClientSize = System::Drawing::Size(909, 476);
+			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->FinishedCombinations);
 			this->Controls->Add(this->groupBox1);
@@ -509,6 +603,8 @@ private: System::Windows::Forms::Label^ lblNewline;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FinishedCombinations))->EndInit();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
+			this->groupBox3->ResumeLayout(false);
+			this->groupBox3->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -517,31 +613,34 @@ private: System::Windows::Forms::Label^ lblNewline;
 
 private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e);
 private: System::Void toolStripMenuItemCombination2_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (activeDataGrid == combinationData2)
-		return;
+	
 	activeDataGrid->Hide();
 	activeDataGrid = combinationData2;
 	activeDataGrid->Show();
+	
+	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
 	Text = toolStripMenuItemCombination2->Text;
 }
 private: System::Void toomStripMenuItemCombination_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (activeDataGrid == combintaionData)
-		return;
+
 	activeDataGrid->Hide();
 	activeDataGrid = combintaionData;
 	activeDataGrid->Show();
+
+	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
 	Text = toomStripMenuItemCombination->Text;
 }
 private: System::Void toolStripMenuItemItems_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (activeDataGrid == ItemsData)
-		return;
+	
 	activeDataGrid->Hide();
 	activeDataGrid = ItemsData;
 	activeDataGrid->Show();
+
+	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
 	Text = toolStripMenuItemItems->Text;
@@ -557,23 +656,18 @@ private: System::Void btnEditCost_Click(System::Object^ sender, System::EventArg
 
 private: System::Void btnAddItem_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	UpdateFinishedCombinations();
+	LoadDatabaseTables();
 }
 private: System::Void btnUpdateDB_Click(System::Object^ sender, System::EventArgs^ e) {
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
-	dbConnection->Open();
-	OleDbCommand^ dbCommand;
-	String^ query = "";
-	//update items table
-
-	//update combinations table
+	UpdateFinishedCombinations();
 }
 private: System::Void قائمةالخلطاتالجاهزةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (activeDataGrid ==FinishedCombinations)
-		return;
+
 	activeDataGrid->Hide();
 	activeDataGrid = FinishedCombinations;
 	activeDataGrid->Show();
+
+	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
 	Text = قائمةالخلطاتالجاهزةToolStripMenuItem->Text;
@@ -583,12 +677,70 @@ private: System::Void groupBox2_Enter(System::Object^ sender, System::EventArgs^
 private: System::Void نسبالهدرToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	groupBox2->Show();
 	groupBox1->Hide();
+	groupBox3->Hide();
 	activeDataGrid->Hide();
 
 }
 private: System::Void btnOkWaste_Click(System::Object^ sender, System::EventArgs^ e) {
 	//validate values of text boxes
 
+}
+private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	//check validity of Inum and price
+	//Inum must exist in cmapRaw
+	if (!mapRaw.count(textBox4->Text))
+	{
+		MessageBox::Show("Invalid Inum");
+		return;
+	}
+
+
+	//prive must be double value
+	double price;
+	try
+	{
+		 price = System::Convert::ToDouble(textBox5->Text);
+	}
+	catch (FormatException^)
+	{
+		MessageBox::Show("Product price is not a valid price", "Product price error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		return ;
+	}
+	
+	//send a query to database
+
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+
+	 String^ query = "UPDATE items SET  Unit_Cost=" + price + " WHERE Inum='" + textBox4->Text + "';";
+		//update raw material unit cost
+
+	OleDbCommand^ dbCommand = gcnew OleDbCommand();
+	dbCommand->CommandText = query;
+	dbCommand->Connection = dbConnection;
+	if (dbCommand->ExecuteNonQuery() != -1)
+	{
+		MessageBox::Show("Successfully Updated");
+		LoadDatabaseTables();
+	}
+	else
+	{
+		MessageBox::Show("Error Occured, Couldn't update values");
+	}
+	dbConnection->Close();
+	return System::Void();
+	//update all related values (combination prices)
+}
+private: System::Void groupBox3_Enter(System::Object^ sender, System::EventArgs^ e) {
+	textBox4->Text = "";
+	textBox5->Text = "";
+}
+private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
+	groupBox2->Hide();
+	groupBox1->Show();
+	groupBox3->Hide();
+	activeDataGrid->Show();
 }
 };
 }

@@ -1,5 +1,5 @@
 ﻿#include "MyForm.h"
-#include "containers.h"
+
 
 
 using namespace FactoryData;
@@ -24,12 +24,12 @@ void main(array<String^>^ args)
 double FactoryData::MyForm::CalcSum(String^ key)
 {
 	double res = 0;
-	if (mapCom.count(key))
+	if (mapCom->count(key))
 	{
 		res = mapCom[key];
 		return mapCom[key];
 	}
-	if (mapRaw.count(key))
+	if (mapRaw->count(key))
 	{
 		mapCom[key] = mapRaw[key];
 		res = mapCom[key];
@@ -65,7 +65,7 @@ void FactoryData::MyForm::UpdateCombinationData()
 	//whenever you update the prices, you need to eupdate combinations table in the database
 
 	//update prices
-	mapCom.clear();
+	mapCom->clear();
 	for (int i = 0; i < combintaionData->RowCount - 1; i++)
 	{
 		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
@@ -231,9 +231,9 @@ void FactoryData::MyForm::LoadDatabaseTables()
 
 void FactoryData::MyForm::ResetData()
 {
-	mapRaw.clear();
-	mapCom.clear();
-	totalCom.clear();
+	mapRaw->clear();
+	mapCom->clear();
+	totalCom->clear();
 
 }
 
@@ -286,7 +286,6 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		sVal = activeDataGrid->Rows[index]->Cells["Unit_Cost"]->Value->ToString();
 		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
 		mapRaw[activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString()] = res;
-		rawMaterials.push_back(gcnew RawMaterial(activeDataGrid->Rows[index]->Cells["I_R_name"]->Value->ToString(), activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString(), res));
 		UpdateCombinationData();//update all prices
 		UpdateDataGrid();
 	}

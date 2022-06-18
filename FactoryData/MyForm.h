@@ -42,7 +42,7 @@ namespace FactoryData {
 		}
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	protected:
-	private: System::Windows::Forms::ToolStripMenuItem^ ملفToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^ خروجToolStripMenuItem;
 	private: System::Windows::Forms::DataGridView^ combintaionData;
 
@@ -55,7 +55,7 @@ namespace FactoryData {
 
 	private: System::Windows::Forms::GroupBox^ groupBox1;
 	private: System::Windows::Forms::Button^ btnEditLine;
-	private: System::Windows::Forms::ToolStripMenuItem^ أوامرToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^ ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ toolStripMenuItemCombination2;
 	private: System::Windows::Forms::ToolStripMenuItem^ toomStripMenuItemCombination;
@@ -117,14 +117,14 @@ namespace FactoryData {
 		DataGridView^ activeDataGrid;
 		GroupBox^ activeGroupBox;
 		String^ connecttionString = Connection::connectionString;
-		cliext::map<String^, double> mapRaw;//Raw Inum -->> Unit_Cost map
-		cliext::map<String^, double> mapCom;//Combination Fitem-->Unit_Cost
-		cliext::map<String^, double> totalCom;//total Cost for combination
-		cliext::map<String^, double> Generalwastes;//wastes for cost calculating
-		cliext::map<String^, double> DragehWastes;
-		cliext::map<String^, double> BoxCosts;
-		cliext::map<String^, double> Expences1;
-		cliext::map<String^, double> Expences2;
+		cliext::map<String^, double> ^mapRaw = gcnew cliext::map<String^,double>;//Raw Inum -->> Unit_Cost map
+		cliext::map<String^, double> ^mapCom = gcnew cliext::map<String^, double>;//Combination Fitem-->Unit_Cost
+		cliext::map<String^, double>^ totalCom = gcnew cliext::map<String^, double>;//total Cost for combination
+		cliext::map<String^, double>^ Generalwastes = gcnew cliext::map<String^, double>;//wastes for cost calculating
+		cliext::map<String^, double>^ DragehWastes = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ BoxCosts = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ Expences1 = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
 		double expences1, expences2;
 		System::ComponentModel::Container ^components;
 
@@ -184,7 +184,6 @@ private: System::Windows::Forms::Button^ button3;
 
 
 
-	   cliext::list<RawMaterial^> rawMaterials;
 
 		//user-defined functions
 		double CalcSum(String^ key);
@@ -205,8 +204,6 @@ private: System::Windows::Forms::Button^ button3;
 		void InitializeComponent(void)
 		{
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
-			this->ملفToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->أوامرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItemCombination2 = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -275,9 +272,9 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
-				this->ملفToolStripMenuItem,
-					this->أوامرToolStripMenuItem, this->خروجToolStripMenuItem, this->ToolStripMenuItem
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->ToolStripMenuItem,
+					this->خروجToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -285,23 +282,12 @@ private: System::Windows::Forms::Button^ button3;
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
-			// ملفToolStripMenuItem
-			// 
-			this->ملفToolStripMenuItem->Name = L"ملفToolStripMenuItem";
-			this->ملفToolStripMenuItem->Size = System::Drawing::Size(42, 20);
-			this->ملفToolStripMenuItem->Text = L"ملف";
-			// 
-			// أوامرToolStripMenuItem
-			// 
-			this->أوامرToolStripMenuItem->Name = L"أوامرToolStripMenuItem";
-			this->أوامرToolStripMenuItem->Size = System::Drawing::Size(43, 20);
-			this->أوامرToolStripMenuItem->Text = L"أوامر";
-			// 
 			// خروجToolStripMenuItem
 			// 
 			this->خروجToolStripMenuItem->Name = L"خروجToolStripMenuItem";
 			this->خروجToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->خروجToolStripMenuItem->Text = L"خروج";
+			this->خروجToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::خروجToolStripMenuItem_Click);
 			// 
 			// ToolStripMenuItem
 			// 
@@ -843,7 +829,9 @@ private: System::Windows::Forms::Button^ button3;
 			this->Controls->Add(this->ItemsData);
 			this->Controls->Add(this->combinationData2);
 			this->Controls->Add(this->combintaionData);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->MainMenuStrip = this->menuStrip1;
+			this->MaximizeBox = false;
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"قائمة الخلطات";
@@ -956,7 +944,8 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 
 	//check validity of Inum and price
 	//Inum must exist in cmapRaw
-	if (!mapRaw.count(textBox4->Text))
+
+	if (!mapRaw->count(textBox4->Text))
 	{
 		MessageBox::Show("Invalid Inum");
 		return;
@@ -1014,13 +1003,13 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 
 	//Add a combination 
 	//check valid input 
-	if (mapCom.count(textBox6->Text))
+	if (mapCom->count(textBox6->Text))
 	{
 		MessageBox::Show("A combination with the same Fitem already exists!");
 		return;
 	}
 
-	if (mapCom.count(textBox7->Text))
+	if (mapCom->count(textBox7->Text))
 	{
 		MessageBox::Show("A combination with the same I_R_Name already exists!");
 		return;
@@ -1043,7 +1032,7 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 	for (int i = 0; i < dgvAddCombination->RowCount - 1; i++)
 	{
 		dr = dgvAddCombination->Rows[i];
-		if (!mapCom.count(dr->Cells["Ritem"]->Value->ToString()))
+		if (!mapCom->count(dr->Cells["Ritem"]->Value->ToString()))
 		{
 			MessageBox::Show("Some items in Ritem don't exist!");
 			dbConnection->Close();
@@ -1187,7 +1176,7 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	//Add a combination 
 	//check valid input 
-	if (mapRaw.count(textBox10->Text))
+	if (mapRaw->count(textBox10->Text))
 	{
 		MessageBox::Show("An Item with the same Inum already exists!");
 		return;
@@ -1290,6 +1279,9 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 	{
 		MessageBox::Show("No Record To Export !!!", "Info");
 	}
+}
+private: System::Void خروجToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	Close();
 }
 };
 }

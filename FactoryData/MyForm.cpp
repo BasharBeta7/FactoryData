@@ -284,6 +284,12 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		UpdateDataGrid();
 	}
 
+	if (activeDataGrid == combinationData2)
+	{
+		query = "UPDATE Combination SET BIsubquan=" + activeDataGrid->Rows[index]->Cells["BIsubquan"]->Value->ToString() + " WHERE Ritem='" + activeDataGrid->Rows[index]->Cells["Ritem"]->Value->ToString() + "' AND Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "';";
+		//update raw material unit cost
+	}
+
 
 	
 
@@ -301,6 +307,7 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		MessageBox::Show("Error Occured, Couldn't update values");
 	}
 	dbConnection->Close();
+	LoadDatabaseTables();
 	return System::Void();
 }
 
@@ -317,4 +324,11 @@ System::Void FactoryData::MyForm::btnEditCost_Click(System::Object^ sender, Syst
 
 System::Void FactoryData::MyForm::btnAddItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	groupBox2->Hide();
+	groupBox1->Hide();
+	groupBox3->Hide();
+	groupBox4->Show();
+	gbAddCombination->Hide();
+	activeDataGrid->Hide();
+	dgvAddCombination->Show();
 }

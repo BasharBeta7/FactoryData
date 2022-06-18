@@ -204,13 +204,13 @@ private: System::Windows::Forms::Button^ button3;
 		void InitializeComponent(void)
 		{
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
-			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItemCombination2 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toomStripMenuItemCombination = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItemItems = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->قائمةالخلطاتالجاهزةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->نسبالهدرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->btnUpdateDB = (gcnew System::Windows::Forms::Button());
@@ -282,13 +282,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
-			// خروجToolStripMenuItem
-			// 
-			this->خروجToolStripMenuItem->Name = L"خروجToolStripMenuItem";
-			this->خروجToolStripMenuItem->Size = System::Drawing::Size(44, 20);
-			this->خروجToolStripMenuItem->Text = L"خروج";
-			this->خروجToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::خروجToolStripMenuItem_Click);
-			// 
 			// ToolStripMenuItem
 			// 
 			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
@@ -333,6 +326,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->نسبالهدرToolStripMenuItem->Size = System::Drawing::Size(195, 22);
 			this->نسبالهدرToolStripMenuItem->Text = L"نسب الهدر";
 			this->نسبالهدرToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::نسبالهدرToolStripMenuItem_Click);
+			// 
+			// خروجToolStripMenuItem
+			// 
+			this->خروجToolStripMenuItem->Name = L"خروجToolStripMenuItem";
+			this->خروجToolStripMenuItem->Size = System::Drawing::Size(44, 20);
+			this->خروجToolStripMenuItem->Text = L"خروج";
+			this->خروجToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::خروجToolStripMenuItem_Click);
 			// 
 			// combintaionData
 			// 
@@ -835,6 +835,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"قائمة الخلطات";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
@@ -1282,6 +1283,13 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 }
 private: System::Void خروجToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	Close();
+}
+private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	const String^ message = "Are you sure that you would like to cancel the installer?";
+	const String^ caption = "Cancel Installer";
+	auto result = MessageBox::Show("Are you sure you want to exit?", "message", MessageBoxButtons::YesNo);
+
+	e->Cancel = (result == Windows::Forms::DialogResult::No);
 }
 };
 }

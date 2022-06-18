@@ -152,6 +152,22 @@ private: System::Windows::Forms::Label^ label2;
 private: System::Windows::Forms::TextBox^ textBox4;
 private: System::Windows::Forms::TextBox^ textBox5;
 private: System::Windows::Forms::Label^ label3;
+private: System::Windows::Forms::GroupBox^ gbAddCombination;
+private: System::Windows::Forms::DataGridView^ dgvAddCombination;
+private: System::Windows::Forms::Label^ lblMachineLine;
+private: System::Windows::Forms::TextBox^ textBox9;
+private: System::Windows::Forms::Label^ lblIGroup;
+private: System::Windows::Forms::TextBox^ textBox8;
+private: System::Windows::Forms::Button^ btnCancelCombinationAdd;
+private: System::Windows::Forms::Button^ btnAdd;
+private: System::Windows::Forms::Label^ lblI_R_Name;
+private: System::Windows::Forms::TextBox^ textBox6;
+private: System::Windows::Forms::TextBox^ textBox7;
+private: System::Windows::Forms::Label^ lblFitem;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Ritem;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ RIsubquan;
+
+
 
 
 
@@ -212,6 +228,20 @@ private: System::Windows::Forms::Label^ label3;
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->gbAddCombination = (gcnew System::Windows::Forms::GroupBox());
+			this->dgvAddCombination = (gcnew System::Windows::Forms::DataGridView());
+			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->RIsubquan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->lblMachineLine = (gcnew System::Windows::Forms::Label());
+			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
+			this->lblIGroup = (gcnew System::Windows::Forms::Label());
+			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
+			this->btnCancelCombinationAdd = (gcnew System::Windows::Forms::Button());
+			this->btnAdd = (gcnew System::Windows::Forms::Button());
+			this->lblI_R_Name = (gcnew System::Windows::Forms::Label());
+			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -220,6 +250,8 @@ private: System::Windows::Forms::Label^ label3;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FinishedCombinations))->BeginInit();
 			this->groupBox2->SuspendLayout();
 			this->groupBox3->SuspendLayout();
+			this->gbAddCombination->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -359,19 +391,21 @@ private: System::Windows::Forms::Label^ label3;
 			this->btnAddCombination->TabIndex = 3;
 			this->btnAddCombination->Text = L"إضافة خلطة";
 			this->btnAddCombination->UseVisualStyleBackColor = true;
+			this->btnAddCombination->Click += gcnew System::EventHandler(this, &MyForm::btnAddCombination_Click);
 			// 
 			// btnDeleteItem
 			// 
-			this->btnDeleteItem->Location = System::Drawing::Point(15, 130);
+			this->btnDeleteItem->Location = System::Drawing::Point(15, 81);
 			this->btnDeleteItem->Name = L"btnDeleteItem";
 			this->btnDeleteItem->Size = System::Drawing::Size(108, 43);
 			this->btnDeleteItem->TabIndex = 2;
-			this->btnDeleteItem->Text = L"حذف مادة";
+			this->btnDeleteItem->Text = L"حذف سطر";
 			this->btnDeleteItem->UseVisualStyleBackColor = true;
+			this->btnDeleteItem->Click += gcnew System::EventHandler(this, &MyForm::btnDeleteItem_Click);
 			// 
 			// btnAddItem
 			// 
-			this->btnAddItem->Location = System::Drawing::Point(15, 81);
+			this->btnAddItem->Location = System::Drawing::Point(15, 130);
 			this->btnAddItem->Name = L"btnAddItem";
 			this->btnAddItem->Size = System::Drawing::Size(108, 43);
 			this->btnAddItem->TabIndex = 1;
@@ -576,11 +610,155 @@ private: System::Windows::Forms::Label^ label3;
 			this->label3->TabIndex = 2;
 			this->label3->Text = L"Inum : ";
 			// 
+			// gbAddCombination
+			// 
+			this->gbAddCombination->Controls->Add(this->dgvAddCombination);
+			this->gbAddCombination->Controls->Add(this->lblMachineLine);
+			this->gbAddCombination->Controls->Add(this->textBox9);
+			this->gbAddCombination->Controls->Add(this->lblIGroup);
+			this->gbAddCombination->Controls->Add(this->textBox8);
+			this->gbAddCombination->Controls->Add(this->btnCancelCombinationAdd);
+			this->gbAddCombination->Controls->Add(this->btnAdd);
+			this->gbAddCombination->Controls->Add(this->lblI_R_Name);
+			this->gbAddCombination->Controls->Add(this->textBox6);
+			this->gbAddCombination->Controls->Add(this->textBox7);
+			this->gbAddCombination->Controls->Add(this->lblFitem);
+			this->gbAddCombination->Location = System::Drawing::Point(12, 27);
+			this->gbAddCombination->Name = L"gbAddCombination";
+			this->gbAddCombination->Size = System::Drawing::Size(510, 263);
+			this->gbAddCombination->TabIndex = 7;
+			this->gbAddCombination->TabStop = false;
+			this->gbAddCombination->Text = L"إضافة خلطة";
+			this->gbAddCombination->Visible = false;
+			// 
+			// dgvAddCombination
+			// 
+			this->dgvAddCombination->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgvAddCombination->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->Ritem,
+					this->RIsubquan
+			});
+			this->dgvAddCombination->Location = System::Drawing::Point(257, 24);
+			this->dgvAddCombination->Name = L"dgvAddCombination";
+			this->dgvAddCombination->Size = System::Drawing::Size(244, 184);
+			this->dgvAddCombination->TabIndex = 21;
+			this->dgvAddCombination->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dgvAddCombination_CellContentClick);
+			// 
+			// Ritem
+			// 
+			this->Ritem->HeaderText = L"Ritem";
+			this->Ritem->Name = L"Ritem";
+			// 
+			// RIsubquan
+			// 
+			this->RIsubquan->HeaderText = L"BIsubquan";
+			this->RIsubquan->Name = L"RIsubquan";
+			// 
+			// lblMachineLine
+			// 
+			this->lblMachineLine->AutoSize = true;
+			this->lblMachineLine->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblMachineLine->Location = System::Drawing::Point(13, 174);
+			this->lblMachineLine->Name = L"lblMachineLine";
+			this->lblMachineLine->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblMachineLine->Size = System::Drawing::Size(111, 18);
+			this->lblMachineLine->TabIndex = 20;
+			this->lblMachineLine->Text = L"Machine_Line";
+			this->lblMachineLine->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox9
+			// 
+			this->textBox9->Location = System::Drawing::Point(136, 174);
+			this->textBox9->Name = L"textBox9";
+			this->textBox9->Size = System::Drawing::Size(100, 20);
+			this->textBox9->TabIndex = 19;
+			// 
+			// lblIGroup
+			// 
+			this->lblIGroup->AutoSize = true;
+			this->lblIGroup->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblIGroup->Location = System::Drawing::Point(13, 126);
+			this->lblIGroup->Name = L"lblIGroup";
+			this->lblIGroup->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblIGroup->Size = System::Drawing::Size(59, 18);
+			this->lblIGroup->TabIndex = 18;
+			this->lblIGroup->Text = L"IGroup";
+			this->lblIGroup->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox8
+			// 
+			this->textBox8->Location = System::Drawing::Point(136, 127);
+			this->textBox8->Name = L"textBox8";
+			this->textBox8->Size = System::Drawing::Size(100, 20);
+			this->textBox8->TabIndex = 17;
+			// 
+			// btnCancelCombinationAdd
+			// 
+			this->btnCancelCombinationAdd->Location = System::Drawing::Point(272, 214);
+			this->btnCancelCombinationAdd->Name = L"btnCancelCombinationAdd";
+			this->btnCancelCombinationAdd->Size = System::Drawing::Size(108, 43);
+			this->btnCancelCombinationAdd->TabIndex = 16;
+			this->btnCancelCombinationAdd->Text = L"إلغاء";
+			this->btnCancelCombinationAdd->UseVisualStyleBackColor = true;
+			this->btnCancelCombinationAdd->Click += gcnew System::EventHandler(this, &MyForm::btnCancelCombinationAdd_Click);
+			// 
+			// btnAdd
+			// 
+			this->btnAdd->Location = System::Drawing::Point(386, 214);
+			this->btnAdd->Name = L"btnAdd";
+			this->btnAdd->Size = System::Drawing::Size(108, 43);
+			this->btnAdd->TabIndex = 15;
+			this->btnAdd->Text = L"إضافة";
+			this->btnAdd->UseVisualStyleBackColor = true;
+			this->btnAdd->Click += gcnew System::EventHandler(this, &MyForm::btnAdd_Click);
+			// 
+			// lblI_R_Name
+			// 
+			this->lblI_R_Name->AutoSize = true;
+			this->lblI_R_Name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblI_R_Name->Location = System::Drawing::Point(13, 76);
+			this->lblI_R_Name->Name = L"lblI_R_Name";
+			this->lblI_R_Name->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblI_R_Name->Size = System::Drawing::Size(86, 18);
+			this->lblI_R_Name->TabIndex = 14;
+			this->lblI_R_Name->Text = L"I_R_Name";
+			this->lblI_R_Name->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox6
+			// 
+			this->textBox6->Location = System::Drawing::Point(136, 30);
+			this->textBox6->Name = L"textBox6";
+			this->textBox6->Size = System::Drawing::Size(100, 20);
+			this->textBox6->TabIndex = 13;
+			// 
+			// textBox7
+			// 
+			this->textBox7->Location = System::Drawing::Point(136, 77);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(100, 20);
+			this->textBox7->TabIndex = 11;
+			// 
+			// lblFitem
+			// 
+			this->lblFitem->AutoSize = true;
+			this->lblFitem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblFitem->Location = System::Drawing::Point(13, 28);
+			this->lblFitem->Name = L"lblFitem";
+			this->lblFitem->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblFitem->Size = System::Drawing::Size(50, 18);
+			this->lblFitem->TabIndex = 12;
+			this->lblFitem->Text = L"Fitem";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 476);
+			this->Controls->Add(this->gbAddCombination);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->FinishedCombinations);
@@ -605,6 +783,9 @@ private: System::Windows::Forms::Label^ label3;
 			this->groupBox2->PerformLayout();
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
+			this->gbAddCombination->ResumeLayout(false);
+			this->gbAddCombination->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -618,6 +799,7 @@ private: System::Void toolStripMenuItemCombination2_Click(System::Object^ sender
 	activeDataGrid = combinationData2;
 	activeDataGrid->Show();
 	
+	gbAddCombination->Hide();
 	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
@@ -629,6 +811,7 @@ private: System::Void toomStripMenuItemCombination_Click(System::Object^ sender,
 	activeDataGrid = combintaionData;
 	activeDataGrid->Show();
 
+	gbAddCombination->Hide();
 	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
@@ -640,6 +823,7 @@ private: System::Void toolStripMenuItemItems_Click(System::Object^ sender, Syste
 	activeDataGrid = ItemsData;
 	activeDataGrid->Show();
 
+	gbAddCombination->Hide();
 	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
@@ -667,6 +851,7 @@ private: System::Void قائمةالخلطاتالجاهزةToolStripMenuItem_Cl
 	activeDataGrid = FinishedCombinations;
 	activeDataGrid->Show();
 
+	gbAddCombination->Hide();
 	groupBox3->Hide();
 	groupBox2->Hide();
 	groupBox1->Show();
@@ -678,6 +863,7 @@ private: System::Void نسبالهدرToolStripMenuItem_Click(System::Object^ se
 	groupBox2->Show();
 	groupBox1->Hide();
 	groupBox3->Hide();
+	gbAddCombination->Hide();
 	activeDataGrid->Hide();
 
 }
@@ -741,6 +927,171 @@ private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^
 	groupBox1->Show();
 	groupBox3->Hide();
 	activeDataGrid->Show();
+}
+private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	//Add a combination 
+	//check valid input 
+	if (mapCom.count(textBox6->Text))
+	{
+		MessageBox::Show("A combination with the same Fitem already exists!");
+		return;
+	}
+
+	if (mapCom.count(textBox7->Text))
+	{
+		MessageBox::Show("A combination with the same I_R_Name already exists!");
+		return;
+	}
+	DataGridViewRow^ dr;
+	double quan;
+	if (dgvAddCombination->RowCount == 1)
+	{
+		MessageBox::Show("Please add items in the table");
+		return;
+	}
+
+	//open connection
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbCommand^ dbCommand = gcnew OleDbCommand;
+	dbCommand->Connection = dbConnection;
+
+	for (int i = 0; i < dgvAddCombination->RowCount - 1; i++)
+	{
+		dr = dgvAddCombination->Rows[i];
+		if (!mapCom.count(dr->Cells["Ritem"]->Value->ToString()))
+		{
+			MessageBox::Show("Some items in Ritem don't exist!");
+			dbConnection->Close();
+			return;
+		}
+		try
+		{
+			quan = System::Convert::ToDouble(dr->Cells[1]->Value->ToString());
+		}
+		catch (FormatException^)
+		{
+			MessageBox::Show("some values of BIsubquan are not correct numbers!");
+			dbConnection->Close();
+			return;
+		}
+	}
+
+	for (int i = 0; i < dgvAddCombination->RowCount - 1; i++)
+	{
+		dr = dgvAddCombination->Rows[i];
+		
+		try
+		{
+			quan = System::Convert::ToDouble(dr->Cells[1]->Value->ToString());
+		}
+		catch (FormatException^)
+		{
+			MessageBox::Show("some values of BIsubquan are not correct numbers!");
+			dbConnection->Close();
+			return;
+		}
+		//add line to database 
+		query = "INSERT INTO Combination (Fitem, I_R_Name, Ritem, BIsubquan, IGroup, Machine_Line) VALUES ('" + textBox6->Text + "', '" + textBox7->Text + "', '" + dr->Cells["Ritem"]->Value->ToString() + "', " + quan + ", '" + textBox8->Text + "', '" + textBox9->Text + "');";
+		dbCommand->CommandText = query;
+		dbCommand->ExecuteNonQuery();
+		
+	}
+
+	//refresh to display the new combination
+	dbConnection->Close();
+	LoadDatabaseTables();
+	
+	MessageBox::Show("Successfully Added");
+	return;
+}
+private: System::Void dgvAddCombination_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
+private: System::Void btnAddCombination_Click(System::Object^ sender, System::EventArgs^ e) {
+	groupBox2->Hide();
+	groupBox1->Hide();
+	groupBox3->Hide();
+	gbAddCombination->Show();
+	activeDataGrid->Hide();
+	dgvAddCombination->Show();
+}
+private: System::Void btnCancelCombinationAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+	groupBox2->Hide();
+	groupBox1->Show();
+	groupBox3->Hide();
+	gbAddCombination->Hide();
+	activeDataGrid->Show();
+}
+private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	//open connection
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+
+	//check if all line is selected 
+	if (activeDataGrid->SelectedRows->Count != 1)
+	{
+		MessageBox::Show("please select a row from the table to delete!");
+		return;
+	}
+	//check for blank fields
+	
+	int index = activeDataGrid->SelectedRows[0]->Index;
+	String^ Cellval;//holds the value of the cell
+	String^ ColumnName;//hold the name of the column 
+	int nCells = activeDataGrid->Rows[index]->Cells->Count;
+	String^ query;
+	if (activeDataGrid == ItemsData)
+	{
+		auto res = MessageBox::Show("Are you sure you want to delete the item : " + activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString(), "Message", MessageBoxButtons::YesNo);
+		if (res == Windows::Forms::DialogResult::No)
+		{
+			return;
+		}
+		query = "DELETE FROM items WHERE Inum='" + activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString() + "';";
+		//update raw material unit cost
+		
+	}
+	if (activeDataGrid == combintaionData)
+	{
+		auto res = MessageBox::Show("Are you sure you want to delete the combination Fitem : " + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString(), "Message", MessageBoxButtons::YesNo);
+		if (res == Windows::Forms::DialogResult::No)
+		{
+			return;
+		}
+		query = "DELETE FROM Combination WHERE Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "';";
+	}
+
+	if (activeDataGrid == combinationData2)
+	{
+		auto res = MessageBox::Show("Are you sure you want to delete the component Ritem : " + activeDataGrid->Rows[index]->Cells["Ritem"]->Value->ToString()+" from combination Fitem: " + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString(), "Message", MessageBoxButtons::YesNo);
+		if (res == Windows::Forms::DialogResult::No)
+		{
+			return;
+		}
+		query = "DELETE FROM Combination WHERE Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "' AND Ritem='" + activeDataGrid->Rows[index]->Cells["Ritem"]->Value->ToString()+ "';";
+	}
+
+
+
+
+	//edit database 
+	OleDbCommand^ dbCommand = gcnew OleDbCommand();
+	dbCommand->CommandText = query;
+	dbCommand->Connection = dbConnection;
+	try
+	{
+		dbCommand->ExecuteNonQuery();
+		MessageBox::Show("Successfully Deleted");
+	}
+	catch (FormatException^)
+	{
+		MessageBox::Show("Error Occured, Couldn't update values");
+	}
+	dbConnection->Close();
+	LoadDatabaseTables();
+	return System::Void();
 }
 };
 }

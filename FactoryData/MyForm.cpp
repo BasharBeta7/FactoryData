@@ -156,7 +156,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 
 
 	//read into combinationData 
-	query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.Group) AS IGroup, MIN(c.Machine_Line) AS Machine_Line, c.Fitem AS Unit_Cost FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem;";
+	query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.IGroup) AS IGroup, MIN(c.Machine_Line) AS Machine_Line, c.Fitem AS Unit_Cost FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem;";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -207,7 +207,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	expences2 = StringToDouble(dr["Expences2"]->ToString());
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2, MIN(General_Waste) AS Final_Price1,  MIN(General_Waste) AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(Group)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2, MIN(General_Waste) AS Final_Price1,  MIN(General_Waste) AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -283,17 +283,20 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		UpdateCombinationData();//update all prices
 		UpdateDataGrid();
 	}
+
+
 	
 
 	//edit database 
 	OleDbCommand^ dbCommand = gcnew OleDbCommand();
 	dbCommand->CommandText = query;
 	dbCommand->Connection = dbConnection;
-	if (dbCommand->ExecuteNonQuery() != -1)
+	try
 	{
+		dbCommand->ExecuteNonQuery();
 		MessageBox::Show("Successfully Updated");
 	}
-	else
+	catch(FormatException^)
 	{
 		MessageBox::Show("Error Occured, Couldn't update values");
 	}

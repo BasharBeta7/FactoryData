@@ -216,6 +216,13 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	//update FinishedCombinations
 	UpdateFinishedCombinations();
 
+
+	//load wastes
+	query = "SELECT * FROM Wastes;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	WasteData->DataSource = dt;
 	
 	
 
@@ -290,7 +297,11 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		//update raw material unit cost
 	}
 
+	if (activeDataGrid == WasteData)
+	{
+		query = "UPDATE Wastes SET General_Waste=" + activeDataGrid->Rows[index]->Cells["General_Waste"]->Value->ToString() + ", Drageh_Waste=" + activeDataGrid->Rows[index]->Cells["Drageh_Waste"]->Value->ToString() +" WHERE Machine = '" + activeDataGrid->Rows[index]->Cells["Machine"]->Value->ToString() + "'; ";
 
+	}
 	
 
 	//edit database 
@@ -313,10 +324,11 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 
 System::Void FactoryData::MyForm::btnEditCost_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	menuStrip1->Hide();
 	textBox4->Text = "";
 	textBox5->Text = "";
 	groupBox3->Show();
-	groupBox2->Hide();
+	
 	groupBox1->Hide();
 	activeDataGrid->Hide();
 	return System::Void();
@@ -324,7 +336,7 @@ System::Void FactoryData::MyForm::btnEditCost_Click(System::Object^ sender, Syst
 
 System::Void FactoryData::MyForm::btnAddItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	groupBox2->Hide();
+	menuStrip1->Hide();
 	groupBox1->Hide();
 	groupBox3->Hide();
 	groupBox4->Show();

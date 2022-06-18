@@ -137,14 +137,14 @@ private: System::Windows::Forms::Button^ btnUpdateDB;
 private: System::Windows::Forms::ToolStripMenuItem^ قائمةالخلطاتالجاهزةToolStripMenuItem;
 private: System::Windows::Forms::DataGridView^ FinishedCombinations;
 private: System::Windows::Forms::ToolStripMenuItem^ نسبالهدرToolStripMenuItem;
-private: System::Windows::Forms::GroupBox^ groupBox2;
-private: System::Windows::Forms::Button^ btnOkWaste;
-private: System::Windows::Forms::TextBox^ textBox3;
-private: System::Windows::Forms::Label^ label1;
-private: System::Windows::Forms::TextBox^ textBox2;
-private: System::Windows::Forms::Label^ lblAerobar;
-private: System::Windows::Forms::TextBox^ textBox1;
-private: System::Windows::Forms::Label^ lblNewline;
+
+
+
+
+
+
+
+
 private: System::Windows::Forms::Button^ btnCancel;
 private: System::Windows::Forms::GroupBox^ groupBox3;
 private: System::Windows::Forms::Button^ btnOK;
@@ -177,6 +177,7 @@ private: System::Windows::Forms::Label^ label6;
 private: System::Windows::Forms::TextBox^ textBox12;
 private: System::Windows::Forms::TextBox^ textBox13;
 private: System::Windows::Forms::Label^ label7;
+private: System::Windows::Forms::DataGridView^ WasteData;
 
 
 
@@ -224,22 +225,20 @@ private: System::Windows::Forms::Label^ label7;
 			this->combinationData2 = (gcnew System::Windows::Forms::DataGridView());
 			this->ItemsData = (gcnew System::Windows::Forms::DataGridView());
 			this->FinishedCombinations = (gcnew System::Windows::Forms::DataGridView());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->btnOkWaste = (gcnew System::Windows::Forms::Button());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->lblAerobar = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->lblNewline = (gcnew System::Windows::Forms::Label());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
-			this->btnOK = (gcnew System::Windows::Forms::Button());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->gbAddCombination = (gcnew System::Windows::Forms::GroupBox());
+			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->dgvAddCombination = (gcnew System::Windows::Forms::DataGridView());
 			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->RIsubquan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -253,28 +252,23 @@ private: System::Windows::Forms::Label^ label7;
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
-			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
-			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->btnOK = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combinationData2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ItemsData))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FinishedCombinations))->BeginInit();
-			this->groupBox2->SuspendLayout();
 			this->groupBox3->SuspendLayout();
 			this->gbAddCombination->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->BeginInit();
 			this->groupBox4->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -473,89 +467,6 @@ private: System::Windows::Forms::Label^ label7;
 			this->FinishedCombinations->TabIndex = 6;
 			this->FinishedCombinations->Visible = false;
 			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->btnOkWaste);
-			this->groupBox2->Controls->Add(this->textBox3);
-			this->groupBox2->Controls->Add(this->label1);
-			this->groupBox2->Controls->Add(this->textBox2);
-			this->groupBox2->Controls->Add(this->lblAerobar);
-			this->groupBox2->Controls->Add(this->textBox1);
-			this->groupBox2->Controls->Add(this->lblNewline);
-			this->groupBox2->Location = System::Drawing::Point(12, 28);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(236, 222);
-			this->groupBox2->TabIndex = 7;
-			this->groupBox2->TabStop = false;
-			this->groupBox2->Text = L"نسب الهدر";
-			this->groupBox2->Visible = false;
-			this->groupBox2->Enter += gcnew System::EventHandler(this, &MyForm::groupBox2_Enter);
-			// 
-			// btnOkWaste
-			// 
-			this->btnOkWaste->Location = System::Drawing::Point(55, 158);
-			this->btnOkWaste->Name = L"btnOkWaste";
-			this->btnOkWaste->Size = System::Drawing::Size(108, 43);
-			this->btnOkWaste->TabIndex = 7;
-			this->btnOkWaste->Text = L"موافق";
-			this->btnOkWaste->TextImageRelation = System::Windows::Forms::TextImageRelation::ImageAboveText;
-			this->btnOkWaste->UseVisualStyleBackColor = true;
-			this->btnOkWaste->Click += gcnew System::EventHandler(this, &MyForm::btnOkWaste_Click);
-			// 
-			// textBox3
-			// 
-			this->textBox3->Location = System::Drawing::Point(112, 106);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(93, 20);
-			this->textBox3->TabIndex = 6;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(28, 106);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(60, 18);
-			this->label1->TabIndex = 5;
-			this->label1->Text = L"Драже";
-			// 
-			// textBox2
-			// 
-			this->textBox2->Location = System::Drawing::Point(112, 67);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(93, 20);
-			this->textBox2->TabIndex = 4;
-			// 
-			// lblAerobar
-			// 
-			this->lblAerobar->AutoSize = true;
-			this->lblAerobar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lblAerobar->Location = System::Drawing::Point(28, 66);
-			this->lblAerobar->Name = L"lblAerobar";
-			this->lblAerobar->Size = System::Drawing::Size(74, 18);
-			this->lblAerobar->TabIndex = 3;
-			this->lblAerobar->Text = L"Аэробар";
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(112, 32);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(93, 20);
-			this->textBox1->TabIndex = 2;
-			// 
-			// lblNewline
-			// 
-			this->lblNewline->AutoSize = true;
-			this->lblNewline->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lblNewline->Location = System::Drawing::Point(28, 31);
-			this->lblNewline->Name = L"lblNewline";
-			this->lblNewline->Size = System::Drawing::Size(64, 18);
-			this->lblNewline->TabIndex = 0;
-			this->lblNewline->Text = L"newline";
-			// 
 			// btnCancel
 			// 
 			this->btnCancel->Location = System::Drawing::Point(119, 110);
@@ -574,7 +485,7 @@ private: System::Windows::Forms::Label^ label7;
 			this->groupBox3->Controls->Add(this->textBox4);
 			this->groupBox3->Controls->Add(this->textBox5);
 			this->groupBox3->Controls->Add(this->label3);
-			this->groupBox3->Location = System::Drawing::Point(254, 32);
+			this->groupBox3->Location = System::Drawing::Point(12, 27);
 			this->groupBox3->Name = L"groupBox3";
 			this->groupBox3->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
 			this->groupBox3->Size = System::Drawing::Size(233, 169);
@@ -583,55 +494,6 @@ private: System::Windows::Forms::Label^ label7;
 			this->groupBox3->Text = L"تعديل سعر مادة أولية";
 			this->groupBox3->Visible = false;
 			this->groupBox3->Enter += gcnew System::EventHandler(this, &MyForm::groupBox3_Enter);
-			// 
-			// btnOK
-			// 
-			this->btnOK->Location = System::Drawing::Point(5, 110);
-			this->btnOK->Name = L"btnOK";
-			this->btnOK->Size = System::Drawing::Size(108, 43);
-			this->btnOK->TabIndex = 8;
-			this->btnOK->Text = L"موافق";
-			this->btnOK->UseVisualStyleBackColor = true;
-			this->btnOK->Click += gcnew System::EventHandler(this, &MyForm::btnOK_Click);
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(11, 67);
-			this->label2->Name = L"label2";
-			this->label2->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label2->Size = System::Drawing::Size(69, 24);
-			this->label2->TabIndex = 4;
-			this->label2->Text = L"price :";
-			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox4
-			// 
-			this->textBox4->Location = System::Drawing::Point(91, 21);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(100, 20);
-			this->textBox4->TabIndex = 3;
-			// 
-			// textBox5
-			// 
-			this->textBox5->Location = System::Drawing::Point(91, 72);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(100, 20);
-			this->textBox5->TabIndex = 0;
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(11, 16);
-			this->label3->Name = L"label3";
-			this->label3->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label3->Size = System::Drawing::Size(74, 24);
-			this->label3->TabIndex = 2;
-			this->label3->Text = L"Inum : ";
 			// 
 			// gbAddCombination
 			// 
@@ -646,13 +508,132 @@ private: System::Windows::Forms::Label^ label7;
 			this->gbAddCombination->Controls->Add(this->textBox6);
 			this->gbAddCombination->Controls->Add(this->textBox7);
 			this->gbAddCombination->Controls->Add(this->lblFitem);
-			this->gbAddCombination->Location = System::Drawing::Point(12, 27);
+			this->gbAddCombination->Location = System::Drawing::Point(270, 27);
 			this->gbAddCombination->Name = L"gbAddCombination";
 			this->gbAddCombination->Size = System::Drawing::Size(510, 263);
 			this->gbAddCombination->TabIndex = 7;
 			this->gbAddCombination->TabStop = false;
 			this->gbAddCombination->Text = L"إضافة خلطة";
 			this->gbAddCombination->Visible = false;
+			// 
+			// groupBox4
+			// 
+			this->groupBox4->Controls->Add(this->label4);
+			this->groupBox4->Controls->Add(this->textBox10);
+			this->groupBox4->Controls->Add(this->label5);
+			this->groupBox4->Controls->Add(this->textBox11);
+			this->groupBox4->Controls->Add(this->button1);
+			this->groupBox4->Controls->Add(this->button2);
+			this->groupBox4->Controls->Add(this->label6);
+			this->groupBox4->Controls->Add(this->textBox12);
+			this->groupBox4->Controls->Add(this->textBox13);
+			this->groupBox4->Controls->Add(this->label7);
+			this->groupBox4->Location = System::Drawing::Point(12, 27);
+			this->groupBox4->Name = L"groupBox4";
+			this->groupBox4->Size = System::Drawing::Size(258, 263);
+			this->groupBox4->TabIndex = 22;
+			this->groupBox4->TabStop = false;
+			this->groupBox4->Text = L"إضافة مادة";
+			this->groupBox4->Visible = false;
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->Location = System::Drawing::Point(13, 174);
+			this->label4->Name = L"label4";
+			this->label4->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label4->Size = System::Drawing::Size(83, 18);
+			this->label4->TabIndex = 20;
+			this->label4->Text = L"Unit_Cost";
+			this->label4->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox10
+			// 
+			this->textBox10->Location = System::Drawing::Point(136, 30);
+			this->textBox10->Name = L"textBox10";
+			this->textBox10->Size = System::Drawing::Size(100, 20);
+			this->textBox10->TabIndex = 19;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label5->Location = System::Drawing::Point(13, 126);
+			this->label5->Name = L"label5";
+			this->label5->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label5->Size = System::Drawing::Size(59, 18);
+			this->label5->TabIndex = 18;
+			this->label5->Text = L"IGroup";
+			this->label5->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox11
+			// 
+			this->textBox11->Location = System::Drawing::Point(136, 82);
+			this->textBox11->Name = L"textBox11";
+			this->textBox11->Size = System::Drawing::Size(100, 20);
+			this->textBox11->TabIndex = 17;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(8, 206);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(108, 43);
+			this->button1->TabIndex = 16;
+			this->button1->Text = L"إلغاء";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click_1);
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(128, 206);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(108, 43);
+			this->button2->TabIndex = 15;
+			this->button2->Text = L"إضافة";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(13, 76);
+			this->label6->Name = L"label6";
+			this->label6->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label6->Size = System::Drawing::Size(86, 18);
+			this->label6->TabIndex = 14;
+			this->label6->Text = L"I_R_Name";
+			this->label6->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox12
+			// 
+			this->textBox12->Location = System::Drawing::Point(136, 127);
+			this->textBox12->Name = L"textBox12";
+			this->textBox12->Size = System::Drawing::Size(100, 20);
+			this->textBox12->TabIndex = 13;
+			// 
+			// textBox13
+			// 
+			this->textBox13->Location = System::Drawing::Point(136, 175);
+			this->textBox13->Name = L"textBox13";
+			this->textBox13->Size = System::Drawing::Size(100, 20);
+			this->textBox13->TabIndex = 11;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(13, 28);
+			this->label7->Name = L"label7";
+			this->label7->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label7->Size = System::Drawing::Size(44, 18);
+			this->label7->TabIndex = 12;
+			this->label7->Text = L"Inum";
 			// 
 			// dgvAddCombination
 			// 
@@ -776,124 +757,63 @@ private: System::Windows::Forms::Label^ label7;
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"Fitem";
 			// 
-			// groupBox4
+			// btnOK
 			// 
-			this->groupBox4->Controls->Add(this->label4);
-			this->groupBox4->Controls->Add(this->textBox10);
-			this->groupBox4->Controls->Add(this->label5);
-			this->groupBox4->Controls->Add(this->textBox11);
-			this->groupBox4->Controls->Add(this->button1);
-			this->groupBox4->Controls->Add(this->button2);
-			this->groupBox4->Controls->Add(this->label6);
-			this->groupBox4->Controls->Add(this->textBox12);
-			this->groupBox4->Controls->Add(this->textBox13);
-			this->groupBox4->Controls->Add(this->label7);
-			this->groupBox4->Location = System::Drawing::Point(12, 27);
-			this->groupBox4->Name = L"groupBox4";
-			this->groupBox4->Size = System::Drawing::Size(258, 263);
-			this->groupBox4->TabIndex = 22;
-			this->groupBox4->TabStop = false;
-			this->groupBox4->Text = L"إضافة مادة";
-			this->groupBox4->Visible = false;
+			this->btnOK->Location = System::Drawing::Point(5, 110);
+			this->btnOK->Name = L"btnOK";
+			this->btnOK->Size = System::Drawing::Size(108, 43);
+			this->btnOK->TabIndex = 8;
+			this->btnOK->Text = L"موافق";
+			this->btnOK->UseVisualStyleBackColor = true;
+			this->btnOK->Click += gcnew System::EventHandler(this, &MyForm::btnOK_Click);
 			// 
-			// label4
+			// label2
 			// 
-			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(13, 174);
-			this->label4->Name = L"label4";
-			this->label4->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label4->Size = System::Drawing::Size(83, 18);
-			this->label4->TabIndex = 20;
-			this->label4->Text = L"Unit_Cost";
-			this->label4->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->label2->Location = System::Drawing::Point(11, 67);
+			this->label2->Name = L"label2";
+			this->label2->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label2->Size = System::Drawing::Size(69, 24);
+			this->label2->TabIndex = 4;
+			this->label2->Text = L"price :";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
-			// textBox10
+			// textBox4
 			// 
-			this->textBox10->Location = System::Drawing::Point(136, 30);
-			this->textBox10->Name = L"textBox10";
-			this->textBox10->Size = System::Drawing::Size(100, 20);
-			this->textBox10->TabIndex = 19;
+			this->textBox4->Location = System::Drawing::Point(91, 21);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(100, 20);
+			this->textBox4->TabIndex = 3;
 			// 
-			// label5
+			// textBox5
 			// 
-			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->textBox5->Location = System::Drawing::Point(91, 72);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(100, 20);
+			this->textBox5->TabIndex = 0;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(13, 126);
-			this->label5->Name = L"label5";
-			this->label5->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label5->Size = System::Drawing::Size(59, 18);
-			this->label5->TabIndex = 18;
-			this->label5->Text = L"IGroup";
-			this->label5->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->label3->Location = System::Drawing::Point(11, 16);
+			this->label3->Name = L"label3";
+			this->label3->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label3->Size = System::Drawing::Size(74, 24);
+			this->label3->TabIndex = 2;
+			this->label3->Text = L"Inum : ";
 			// 
-			// textBox11
+			// WasteData
 			// 
-			this->textBox11->Location = System::Drawing::Point(136, 82);
-			this->textBox11->Name = L"textBox11";
-			this->textBox11->Size = System::Drawing::Size(100, 20);
-			this->textBox11->TabIndex = 17;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(8, 206);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(108, 43);
-			this->button1->TabIndex = 16;
-			this->button1->Text = L"إلغاء";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click_1);
-			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(128, 206);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(108, 43);
-			this->button2->TabIndex = 15;
-			this->button2->Text = L"إضافة";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(13, 76);
-			this->label6->Name = L"label6";
-			this->label6->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label6->Size = System::Drawing::Size(86, 18);
-			this->label6->TabIndex = 14;
-			this->label6->Text = L"I_R_Name";
-			this->label6->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox12
-			// 
-			this->textBox12->Location = System::Drawing::Point(136, 127);
-			this->textBox12->Name = L"textBox12";
-			this->textBox12->Size = System::Drawing::Size(100, 20);
-			this->textBox12->TabIndex = 13;
-			// 
-			// textBox13
-			// 
-			this->textBox13->Location = System::Drawing::Point(136, 175);
-			this->textBox13->Name = L"textBox13";
-			this->textBox13->Size = System::Drawing::Size(100, 20);
-			this->textBox13->TabIndex = 11;
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(13, 28);
-			this->label7->Name = L"label7";
-			this->label7->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label7->Size = System::Drawing::Size(44, 18);
-			this->label7->TabIndex = 12;
-			this->label7->Text = L"Inum";
+			this->WasteData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->WasteData->Location = System::Drawing::Point(12, 27);
+			this->WasteData->Name = L"WasteData";
+			this->WasteData->Size = System::Drawing::Size(753, 386);
+			this->WasteData->TabIndex = 11;
+			this->WasteData->Visible = false;
 			// 
 			// MyForm
 			// 
@@ -902,8 +822,8 @@ private: System::Windows::Forms::Label^ label7;
 			this->ClientSize = System::Drawing::Size(909, 476);
 			this->Controls->Add(this->groupBox4);
 			this->Controls->Add(this->gbAddCombination);
+			this->Controls->Add(this->WasteData);
 			this->Controls->Add(this->groupBox3);
-			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->FinishedCombinations);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->menuStrip1);
@@ -922,15 +842,14 @@ private: System::Windows::Forms::Label^ label7;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combinationData2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ItemsData))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FinishedCombinations))->EndInit();
-			this->groupBox2->ResumeLayout(false);
-			this->groupBox2->PerformLayout();
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
 			this->gbAddCombination->ResumeLayout(false);
 			this->gbAddCombination->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->EndInit();
 			this->groupBox4->ResumeLayout(false);
 			this->groupBox4->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -946,7 +865,6 @@ private: System::Void toolStripMenuItemCombination2_Click(System::Object^ sender
 	
 	gbAddCombination->Hide();
 	groupBox3->Hide();
-	groupBox2->Hide();
 	groupBox4->Hide();
 	groupBox1->Show();
 	Text = toolStripMenuItemCombination2->Text;
@@ -959,7 +877,6 @@ private: System::Void toomStripMenuItemCombination_Click(System::Object^ sender,
 
 	gbAddCombination->Hide();
 	groupBox3->Hide();
-	groupBox2->Hide();
 	groupBox4->Hide();
 	groupBox1->Show();
 	Text = toomStripMenuItemCombination->Text;
@@ -972,7 +889,6 @@ private: System::Void toolStripMenuItemItems_Click(System::Object^ sender, Syste
 
 	gbAddCombination->Hide();
 	groupBox3->Hide();
-	groupBox2->Hide();
 	groupBox4->Hide();
 	groupBox1->Show();
 	Text = toolStripMenuItemItems->Text;
@@ -1001,7 +917,6 @@ private: System::Void قائمةالخلطاتالجاهزةToolStripMenuItem_Cl
 
 	gbAddCombination->Hide();
 	groupBox3->Hide();
-	groupBox2->Hide();
 	groupBox1->Show();
 	groupBox4->Hide();
 	Text = قائمةالخلطاتالجاهزةToolStripMenuItem->Text;
@@ -1009,12 +924,15 @@ private: System::Void قائمةالخلطاتالجاهزةToolStripMenuItem_Cl
 private: System::Void groupBox2_Enter(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void نسبالهدرToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	groupBox2->Show();
-	groupBox1->Hide();
-	groupBox3->Hide();
-	groupBox4->Hide();
-	gbAddCombination->Hide();
 	activeDataGrid->Hide();
+	activeDataGrid = WasteData;
+	activeDataGrid->Show();
+
+	gbAddCombination->Hide();
+	groupBox3->Hide();
+	groupBox1->Show();
+	groupBox4->Hide();
+	Text = نسبالهدرToolStripMenuItem->Text;
 
 }
 private: System::Void btnOkWaste_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1073,7 +991,7 @@ private: System::Void groupBox3_Enter(System::Object^ sender, System::EventArgs^
 	textBox5->Text = "";
 }
 private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
-	groupBox2->Hide();
+	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox3->Hide();
 	groupBox4->Hide();
@@ -1161,7 +1079,8 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 private: System::Void dgvAddCombination_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 }
 private: System::Void btnAddCombination_Click(System::Object^ sender, System::EventArgs^ e) {
-	groupBox2->Hide();
+
+	menuStrip1->Hide();
 	groupBox1->Hide();
 	groupBox3->Hide();
 	groupBox4->Hide();
@@ -1173,7 +1092,7 @@ private: System::Void btnAddCombination_Click(System::Object^ sender, System::Ev
 
 
 private: System::Void btnCancelCombinationAdd_Click(System::Object^ sender, System::EventArgs^ e) {
-	groupBox2->Hide();
+	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox3->Hide();
 	groupBox4->Hide();
@@ -1292,7 +1211,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	return;
 }
 private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
-	groupBox2->Hide();
+	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox3->Hide();
 	groupBox4->Hide();

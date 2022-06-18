@@ -178,6 +178,7 @@ private: System::Windows::Forms::TextBox^ textBox12;
 private: System::Windows::Forms::TextBox^ textBox13;
 private: System::Windows::Forms::Label^ label7;
 private: System::Windows::Forms::DataGridView^ WasteData;
+private: System::Windows::Forms::Button^ button3;
 
 
 
@@ -227,18 +228,12 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->FinishedCombinations = (gcnew System::Windows::Forms::DataGridView());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
+			this->btnOK = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->gbAddCombination = (gcnew System::Windows::Forms::GroupBox());
-			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
-			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->dgvAddCombination = (gcnew System::Windows::Forms::DataGridView());
 			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->RIsubquan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -252,12 +247,19 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
-			this->btnOK = (gcnew System::Windows::Forms::Button());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -266,8 +268,8 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FinishedCombinations))->BeginInit();
 			this->groupBox3->SuspendLayout();
 			this->gbAddCombination->SuspendLayout();
-			this->groupBox4->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->BeginInit();
+			this->groupBox4->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -376,7 +378,7 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->btnUpdateDB->Name = L"btnUpdateDB";
 			this->btnUpdateDB->Size = System::Drawing::Size(108, 43);
 			this->btnUpdateDB->TabIndex = 6;
-			this->btnUpdateDB->Text = L"تحديث قاعدة البيانات";
+			this->btnUpdateDB->Text = L"تحديث اسعار الخلطات الجاهزة";
 			this->btnUpdateDB->UseVisualStyleBackColor = true;
 			this->btnUpdateDB->Click += gcnew System::EventHandler(this, &MyForm::btnUpdateDB_Click);
 			// 
@@ -495,6 +497,55 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->groupBox3->Visible = false;
 			this->groupBox3->Enter += gcnew System::EventHandler(this, &MyForm::groupBox3_Enter);
 			// 
+			// btnOK
+			// 
+			this->btnOK->Location = System::Drawing::Point(5, 110);
+			this->btnOK->Name = L"btnOK";
+			this->btnOK->Size = System::Drawing::Size(108, 43);
+			this->btnOK->TabIndex = 8;
+			this->btnOK->Text = L"موافق";
+			this->btnOK->UseVisualStyleBackColor = true;
+			this->btnOK->Click += gcnew System::EventHandler(this, &MyForm::btnOK_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->Location = System::Drawing::Point(11, 67);
+			this->label2->Name = L"label2";
+			this->label2->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label2->Size = System::Drawing::Size(69, 24);
+			this->label2->TabIndex = 4;
+			this->label2->Text = L"price :";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Location = System::Drawing::Point(91, 21);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(100, 20);
+			this->textBox4->TabIndex = 3;
+			// 
+			// textBox5
+			// 
+			this->textBox5->Location = System::Drawing::Point(91, 72);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(100, 20);
+			this->textBox5->TabIndex = 0;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(11, 16);
+			this->label3->Name = L"label3";
+			this->label3->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label3->Size = System::Drawing::Size(74, 24);
+			this->label3->TabIndex = 2;
+			this->label3->Text = L"Inum : ";
+			// 
 			// gbAddCombination
 			// 
 			this->gbAddCombination->Controls->Add(this->dgvAddCombination);
@@ -515,125 +566,6 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->gbAddCombination->TabStop = false;
 			this->gbAddCombination->Text = L"إضافة خلطة";
 			this->gbAddCombination->Visible = false;
-			// 
-			// groupBox4
-			// 
-			this->groupBox4->Controls->Add(this->label4);
-			this->groupBox4->Controls->Add(this->textBox10);
-			this->groupBox4->Controls->Add(this->label5);
-			this->groupBox4->Controls->Add(this->textBox11);
-			this->groupBox4->Controls->Add(this->button1);
-			this->groupBox4->Controls->Add(this->button2);
-			this->groupBox4->Controls->Add(this->label6);
-			this->groupBox4->Controls->Add(this->textBox12);
-			this->groupBox4->Controls->Add(this->textBox13);
-			this->groupBox4->Controls->Add(this->label7);
-			this->groupBox4->Location = System::Drawing::Point(12, 27);
-			this->groupBox4->Name = L"groupBox4";
-			this->groupBox4->Size = System::Drawing::Size(258, 263);
-			this->groupBox4->TabIndex = 22;
-			this->groupBox4->TabStop = false;
-			this->groupBox4->Text = L"إضافة مادة";
-			this->groupBox4->Visible = false;
-			// 
-			// label4
-			// 
-			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(13, 174);
-			this->label4->Name = L"label4";
-			this->label4->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label4->Size = System::Drawing::Size(83, 18);
-			this->label4->TabIndex = 20;
-			this->label4->Text = L"Unit_Cost";
-			this->label4->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox10
-			// 
-			this->textBox10->Location = System::Drawing::Point(136, 30);
-			this->textBox10->Name = L"textBox10";
-			this->textBox10->Size = System::Drawing::Size(100, 20);
-			this->textBox10->TabIndex = 19;
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(13, 126);
-			this->label5->Name = L"label5";
-			this->label5->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label5->Size = System::Drawing::Size(59, 18);
-			this->label5->TabIndex = 18;
-			this->label5->Text = L"IGroup";
-			this->label5->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox11
-			// 
-			this->textBox11->Location = System::Drawing::Point(136, 82);
-			this->textBox11->Name = L"textBox11";
-			this->textBox11->Size = System::Drawing::Size(100, 20);
-			this->textBox11->TabIndex = 17;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(8, 206);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(108, 43);
-			this->button1->TabIndex = 16;
-			this->button1->Text = L"إلغاء";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click_1);
-			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(128, 206);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(108, 43);
-			this->button2->TabIndex = 15;
-			this->button2->Text = L"إضافة";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(13, 76);
-			this->label6->Name = L"label6";
-			this->label6->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label6->Size = System::Drawing::Size(86, 18);
-			this->label6->TabIndex = 14;
-			this->label6->Text = L"I_R_Name";
-			this->label6->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox12
-			// 
-			this->textBox12->Location = System::Drawing::Point(136, 127);
-			this->textBox12->Name = L"textBox12";
-			this->textBox12->Size = System::Drawing::Size(100, 20);
-			this->textBox12->TabIndex = 13;
-			// 
-			// textBox13
-			// 
-			this->textBox13->Location = System::Drawing::Point(136, 175);
-			this->textBox13->Name = L"textBox13";
-			this->textBox13->Size = System::Drawing::Size(100, 20);
-			this->textBox13->TabIndex = 11;
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(13, 28);
-			this->label7->Name = L"label7";
-			this->label7->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label7->Size = System::Drawing::Size(44, 18);
-			this->label7->TabIndex = 12;
-			this->label7->Text = L"Inum";
 			// 
 			// dgvAddCombination
 			// 
@@ -757,54 +689,124 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"Fitem";
 			// 
-			// btnOK
+			// groupBox4
 			// 
-			this->btnOK->Location = System::Drawing::Point(5, 110);
-			this->btnOK->Name = L"btnOK";
-			this->btnOK->Size = System::Drawing::Size(108, 43);
-			this->btnOK->TabIndex = 8;
-			this->btnOK->Text = L"موافق";
-			this->btnOK->UseVisualStyleBackColor = true;
-			this->btnOK->Click += gcnew System::EventHandler(this, &MyForm::btnOK_Click);
+			this->groupBox4->Controls->Add(this->label4);
+			this->groupBox4->Controls->Add(this->textBox10);
+			this->groupBox4->Controls->Add(this->label5);
+			this->groupBox4->Controls->Add(this->textBox11);
+			this->groupBox4->Controls->Add(this->button1);
+			this->groupBox4->Controls->Add(this->button2);
+			this->groupBox4->Controls->Add(this->label6);
+			this->groupBox4->Controls->Add(this->textBox12);
+			this->groupBox4->Controls->Add(this->textBox13);
+			this->groupBox4->Controls->Add(this->label7);
+			this->groupBox4->Location = System::Drawing::Point(12, 27);
+			this->groupBox4->Name = L"groupBox4";
+			this->groupBox4->Size = System::Drawing::Size(258, 263);
+			this->groupBox4->TabIndex = 22;
+			this->groupBox4->TabStop = false;
+			this->groupBox4->Text = L"إضافة مادة";
+			this->groupBox4->Visible = false;
 			// 
-			// label2
+			// label4
 			// 
-			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(11, 67);
-			this->label2->Name = L"label2";
-			this->label2->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label2->Size = System::Drawing::Size(69, 24);
-			this->label2->TabIndex = 4;
-			this->label2->Text = L"price :";
-			this->label2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->label4->Location = System::Drawing::Point(13, 174);
+			this->label4->Name = L"label4";
+			this->label4->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label4->Size = System::Drawing::Size(83, 18);
+			this->label4->TabIndex = 20;
+			this->label4->Text = L"Unit_Cost";
+			this->label4->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
-			// textBox4
+			// textBox10
 			// 
-			this->textBox4->Location = System::Drawing::Point(91, 21);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(100, 20);
-			this->textBox4->TabIndex = 3;
+			this->textBox10->Location = System::Drawing::Point(136, 30);
+			this->textBox10->Name = L"textBox10";
+			this->textBox10->Size = System::Drawing::Size(100, 20);
+			this->textBox10->TabIndex = 19;
 			// 
-			// textBox5
+			// label5
 			// 
-			this->textBox5->Location = System::Drawing::Point(91, 72);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(100, 20);
-			this->textBox5->TabIndex = 0;
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(11, 16);
-			this->label3->Name = L"label3";
-			this->label3->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label3->Size = System::Drawing::Size(74, 24);
-			this->label3->TabIndex = 2;
-			this->label3->Text = L"Inum : ";
+			this->label5->Location = System::Drawing::Point(13, 126);
+			this->label5->Name = L"label5";
+			this->label5->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label5->Size = System::Drawing::Size(59, 18);
+			this->label5->TabIndex = 18;
+			this->label5->Text = L"IGroup";
+			this->label5->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox11
+			// 
+			this->textBox11->Location = System::Drawing::Point(136, 82);
+			this->textBox11->Name = L"textBox11";
+			this->textBox11->Size = System::Drawing::Size(100, 20);
+			this->textBox11->TabIndex = 17;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(8, 206);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(108, 43);
+			this->button1->TabIndex = 16;
+			this->button1->Text = L"إلغاء";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click_1);
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(128, 206);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(108, 43);
+			this->button2->TabIndex = 15;
+			this->button2->Text = L"إضافة";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(13, 76);
+			this->label6->Name = L"label6";
+			this->label6->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label6->Size = System::Drawing::Size(86, 18);
+			this->label6->TabIndex = 14;
+			this->label6->Text = L"I_R_Name";
+			this->label6->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox12
+			// 
+			this->textBox12->Location = System::Drawing::Point(136, 127);
+			this->textBox12->Name = L"textBox12";
+			this->textBox12->Size = System::Drawing::Size(100, 20);
+			this->textBox12->TabIndex = 13;
+			// 
+			// textBox13
+			// 
+			this->textBox13->Location = System::Drawing::Point(136, 175);
+			this->textBox13->Name = L"textBox13";
+			this->textBox13->Size = System::Drawing::Size(100, 20);
+			this->textBox13->TabIndex = 11;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(13, 28);
+			this->label7->Name = L"label7";
+			this->label7->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label7->Size = System::Drawing::Size(44, 18);
+			this->label7->TabIndex = 12;
+			this->label7->Text = L"Inum";
 			// 
 			// WasteData
 			// 
@@ -815,11 +817,22 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->WasteData->TabIndex = 11;
 			this->WasteData->Visible = false;
 			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(789, 419);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(108, 43);
+			this->button3->TabIndex = 7;
+			this->button3->Text = L"تصدير إلى ملف اكسل";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 476);
+			this->Controls->Add(this->button3);
 			this->Controls->Add(this->groupBox4);
 			this->Controls->Add(this->gbAddCombination);
 			this->Controls->Add(this->WasteData);
@@ -846,9 +859,9 @@ private: System::Windows::Forms::DataGridView^ WasteData;
 			this->groupBox3->PerformLayout();
 			this->gbAddCombination->ResumeLayout(false);
 			this->gbAddCombination->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->EndInit();
 			this->groupBox4->ResumeLayout(false);
 			this->groupBox4->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -1217,6 +1230,66 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	groupBox4->Hide();
 	gbAddCombination->Hide();
 	activeDataGrid->Show();
+}
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (FinishedCombinations->Rows->Count > 0)
+	{
+		SaveFileDialog ^sfd = gcnew SaveFileDialog();
+		sfd->Filter = "CSV (*.csv)|*.csv";
+		sfd->FileName = "Output.csv";
+		bool fileError = false;
+		if (sfd->ShowDialog() == Windows::Forms::DialogResult::OK)
+		{
+			if (System::IO::File::Exists(sfd->FileName))
+			{
+				try
+				{
+					System::IO::File::Delete(sfd->FileName);
+				}
+				catch (System::IO::IOException ^ex)
+				{
+					fileError = true;
+					MessageBox::Show("It wasn't possible to write the data to the disk." + ex->Message);
+				}
+			}
+			if (!fileError)
+			{
+				try
+				{
+					int columnCount = FinishedCombinations->Columns->Count;
+					String^ columnNames = "";
+					Generic::List<String^> ^outputCsv = gcnew Generic::List<String^>(FinishedCombinations->Rows->Count + 1);
+					for (int i = 0; i < columnCount; i++)
+					{
+						columnNames += FinishedCombinations->Columns[i]->HeaderText->ToString() + ",";
+					}
+					outputCsv->Add(columnNames);
+
+					for (int i = 1; (i - 1) < FinishedCombinations->Rows->Count; i++)
+					{
+						columnNames = "";
+						for (int j = 0; j < columnCount; j++)
+						{
+							i;
+							columnNames += System::Convert::ToString(FinishedCombinations->Rows[i - 1]->Cells[j]->Value) + ",";
+						}
+						outputCsv->Add(columnNames);
+					}
+
+					System::IO::File::WriteAllLines(sfd->FileName, outputCsv,System::Text::Encoding::UTF8);
+					MessageBox::Show("Data Exported Successfully !!!", "Info");
+				}
+				catch (Exception^ ex)
+				{
+					MessageBox::Show("Error :" + ex->Message);
+				}
+			}
+		}
+	}
+	else
+	{
+		MessageBox::Show("No Record To Export !!!", "Info");
+	}
 }
 };
 }

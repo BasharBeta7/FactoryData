@@ -9,7 +9,7 @@ using namespace System::Windows::Forms;
 
 double StringToDouble(String^ s)
 {
-	return (s == "") ? 0 : System::Convert::ToDouble(s);
+	return (s == "") ? 0 :System::Convert::ToDouble(s);
 }
 
 [STAThread]
@@ -69,15 +69,15 @@ void FactoryData::MyForm::UpdateCombinationData()
 	for (int i = 0; i < combintaionData->RowCount - 1; i++)
 	{
 		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
-		combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()];
+		combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()],3);
 	}
 
 	//update dataGrid of Combinations2
 
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{
-		combinationData2->Rows[i]->Cells["Cost"]->Value = mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()];
-		combinationData2->Rows[i]->Cells["Total"]->Value = mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString());
+		combinationData2->Rows[i]->Cells["Cost"]->Value = Math::Round(mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()],3);
+		combinationData2->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()),3);
 		totalCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] += (mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()));
 	}
 
@@ -94,8 +94,9 @@ void FactoryData::MyForm::UpdateRawDataPrices()
 	for (int i = 0; i < ItemsData->Rows->Count - 1; i++)
 	{
 		sVal = ItemsData->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
-		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
+		res = StringToDouble(sVal);
 		mapRaw[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
+		ItemsData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(res,3);
 		
 	}
 }
@@ -117,16 +118,18 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 	for (int i = 0; i < FinishedCombinations->Rows->Count - 1; i++)
 	{
 		dr = FinishedCombinations->Rows[i];
-		dr->Cells["Unit_Cost"]->Value		    = mapCom[dr->Cells["Fitem"]->Value->ToString()];
-		dr->Cells["Total"]->Value				= totalCom[dr->Cells["Fitem"]->Value->ToString()];
+		dr->Cells["Unit_Cost"]->Value		    = Math::Round(mapCom[dr->Cells["Fitem"]->Value->ToString()],3);
+		dr->Cells["Total"]->Value				= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()],3);
 		dr->Cells["General_Waste"]->Value		= Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
 		dr->Cells["Drageh_Waste"]->Value	    = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
 		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
 		dr->Cells["Expences1"]->Value = System::Convert::ToString(expences1);
 		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
 		//for now we will fix expences for expences1 and make them unique for expences2
-		dr->Cells["Final_Price1"]->Value		= totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) +BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString());
-		dr->Cells["Final_Price2"]->Value = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences2[(dr->Cells["Fitem"]->Value->ToString())]*StringToDouble(dr->Cells["Box_Weight"]->Value->ToString());
+		dr->Cells["Cost1"]->Value		= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()),3);
+		dr->Cells["Cost2"]->Value = Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + BoxCosts[(dr->Cells["Fitem"]->Value->ToString())] + Expences2[(dr->Cells["Fitem"]->Value->ToString())]*StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()),3);
+		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
+		dr->Cells["Box_Cost"]->Value = BoxCosts[dr->Cells["Fitem"]->Value->ToString()];
 	}
 }
 
@@ -207,7 +210,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	expences2 = StringToDouble(dr["Expences2"]->ToString());
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2, MIN(General_Waste) AS Final_Price1,  MIN(General_Waste) AS Final_Price2 FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2, MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, MIN(General_Waste) AS Sell_Cost FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);

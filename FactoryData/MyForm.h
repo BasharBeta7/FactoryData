@@ -126,6 +126,8 @@ namespace FactoryData {
 		cliext::map<String^, double>^ Expences1 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
 		double expences1, expences2;
+
+		Windows::Forms::ContextMenu^ cm;
 		System::ComponentModel::Container ^components;
 
 
@@ -213,6 +215,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->btnUpdateDB = (gcnew System::Windows::Forms::Button());
 			this->btnRefreshData = (gcnew System::Windows::Forms::Button());
 			this->btnEditCost = (gcnew System::Windows::Forms::Button());
@@ -256,7 +259,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
-			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -344,6 +346,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->button3);
 			this->groupBox1->Controls->Add(this->btnUpdateDB);
 			this->groupBox1->Controls->Add(this->btnRefreshData);
 			this->groupBox1->Controls->Add(this->btnEditCost);
@@ -353,10 +356,20 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox1->Controls->Add(this->btnEditLine);
 			this->groupBox1->Location = System::Drawing::Point(771, 28);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(129, 385);
+			this->groupBox1->Size = System::Drawing::Size(129, 436);
 			this->groupBox1->TabIndex = 3;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"أوامر";
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(15, 376);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(108, 43);
+			this->button3->TabIndex = 7;
+			this->button3->Text = L"تصدير إلى ملف اكسل";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
 			// btnUpdateDB
 			// 
@@ -436,6 +449,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->combinationData2->Size = System::Drawing::Size(753, 386);
 			this->combinationData2->TabIndex = 4;
 			this->combinationData2->Visible = false;
+			this->combinationData2->CellMouseClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MyForm::combinationData2_CellMouseClick);
 			// 
 			// ItemsData
 			// 
@@ -803,22 +817,11 @@ private: System::Windows::Forms::Button^ button3;
 			this->WasteData->TabIndex = 11;
 			this->WasteData->Visible = false;
 			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(789, 419);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(108, 43);
-			this->button3->TabIndex = 7;
-			this->button3->Text = L"تصدير إلى ملف اكسل";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 476);
-			this->Controls->Add(this->button3);
 			this->Controls->Add(this->groupBox4);
 			this->Controls->Add(this->gbAddCombination);
 			this->Controls->Add(this->WasteData);
@@ -1278,7 +1281,7 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 	}
 	else
 	{
-		MessageBox::Show("No Record To Export !!!", "Info");
+		MessageBox::Show("Could not Save the File !", "Info");
 	}
 }
 private: System::Void خروجToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -1291,5 +1294,19 @@ private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows
 
 	e->Cancel = (result == Windows::Forms::DialogResult::No);
 }
+private: System::Void combinationData2_CellMouseClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^ e) {
+	//if right click
+	
+	if (e->Button == System::Windows::Forms::MouseButtons::Right)
+	{
+		cm = gcnew Windows::Forms::ContextMenu;
+		cm->MenuItems->Add(gcnew MenuItem("Filter"));
+		Point^ p = gcnew System::Drawing::Point(e->X, e->Y);
+		cm->Show(combinationData2, Point(e->X, e->Y));
+	}
+	//open a menu to filter the datagridView
+	
+}
+
 };
 }

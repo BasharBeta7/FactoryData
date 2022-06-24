@@ -39,14 +39,14 @@ public ref struct Connection
 
 
 		//read into combinationData
-		query = "SELECT Combination.FItem, (Avg(Combination.Box_Cost)) AS aBox_Cost, Sum(Combination.BIsubquan*items.Unit_Cost) AS sCost, Sum(Combination.General_Waste) AS sGeneral_Waste, Sum(Combination.Drageh_Waste) AS sDrageh_Waste, Sum(Combination.Expences) AS sExpences, sCost+sGeneral_Waste+sDrageh_Waste+aBox_Cost+sExpences AS Final_Cost FROM Combination LEFT JOIN items ON Combination.RItem=items.Inum GROUP BY Combination.FItem;";
+		query = "SELECT Combination.FItem, (Avg(Combination.Box_Cost)) AS aBox_Cost, Sum(Combination.BIsubquan*items.Unit_Cost) AS sCost, Sum(Combination.General_Waste) AS sGeneral_Waste, Sum(Combination.Drageh_Waste) AS sDrageh_Waste, Sum(Combination.Expences) AS sExpences, sCost+sGeneral_Waste+sDrageh_Waste+aBox_Cost+sExpences AS Cost FROM Combination LEFT JOIN items ON Combination.RItem=items.Inum GROUP BY Combination.FItem;";
 		dbCommand = gcnew OleDbCommand(query, dbConnection);
 		dbReader = dbCommand->ExecuteReader();
 		if (dbReader->HasRows)
 		{
 			while (dbReader->Read())
 			{
-				combintaionData->Rows->Add(dbReader["FItem"]->ToString(), dbReader["aBox_Cost"]->ToString(), dbReader["sCost"]->ToString(), dbReader["sGeneral_Waste"]->ToString(), dbReader["sDrageh_Waste"]->ToString(), dbReader["sExpences"]->ToString(), dbReader["Final_Cost"]->ToString());
+				combintaionData->Rows->Add(dbReader["FItem"]->ToString(), dbReader["aBox_Cost"]->ToString(), dbReader["sCost"]->ToString(), dbReader["sGeneral_Waste"]->ToString(), dbReader["sDrageh_Waste"]->ToString(), dbReader["sExpences"]->ToString(), dbReader["Cost"]->ToString());
 			}
 		}
 		else

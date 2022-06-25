@@ -7,10 +7,6 @@ using namespace System;
 using namespace System::Windows::Forms;
 
 
-double StringToDouble(String^ s)
-{
-	return (s == "") ? 0 :System::Convert::ToDouble(s);
-}
 
 [STAThread]
 void main(array<String^>^ args)
@@ -238,6 +234,11 @@ void FactoryData::MyForm::ResetData()
 	mapCom->clear();
 	totalCom->clear();
 
+}
+
+double FactoryData::MyForm::StringToDouble(String^ s)
+{
+	return (s == "") ? 0 : System::Convert::ToDouble(s);
 }
 
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)

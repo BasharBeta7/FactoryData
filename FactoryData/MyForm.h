@@ -126,9 +126,11 @@ namespace FactoryData {
 		cliext::map<String^, double>^ Expences1 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
 		double expences1, expences2;
+		String^ rowToQuery = "";//saves the name of the fitem to query on 
 
 		Windows::Forms::ContextMenu^ cm;
-		System::ComponentModel::Container ^components;
+private: System::ComponentModel::IContainer^ components;
+
 
 
 
@@ -180,6 +182,20 @@ private: System::Windows::Forms::TextBox^ textBox12;
 private: System::Windows::Forms::TextBox^ textBox13;
 private: System::Windows::Forms::Label^ label7;
 private: System::Windows::Forms::DataGridView^ WasteData;
+private: System::Windows::Forms::Button^ btnQueryCombination;
+private: System::Windows::Forms::GroupBox^ groupBox2;
+private: System::Windows::Forms::DataGridView^ dgvQueryCom;
+
+
+
+
+
+private: System::Windows::Forms::Button^ button4;
+private: System::Windows::Forms::Button^ button5;
+private: System::Windows::Forms::TextBox^ textBox3;
+private: System::Windows::Forms::Label^ label10;
+private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
+private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنالخلطةToolStripMenuItem;
 private: System::Windows::Forms::Button^ button3;
 
 
@@ -196,6 +212,7 @@ private: System::Windows::Forms::Button^ button3;
 		void UpdateFinishedCombinations();
 		void LoadDatabaseTables();
 		void ResetData();
+		double StringToDouble(String^  s);
 
 
 #pragma region Windows Form Designer generated code
@@ -205,6 +222,7 @@ private: System::Windows::Forms::Button^ button3;
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItemCombination2 = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -217,6 +235,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->btnUpdateDB = (gcnew System::Windows::Forms::Button());
+			this->btnQueryCombination = (gcnew System::Windows::Forms::Button());
 			this->btnRefreshData = (gcnew System::Windows::Forms::Button());
 			this->btnEditCost = (gcnew System::Windows::Forms::Button());
 			this->btnAddCombination = (gcnew System::Windows::Forms::Button());
@@ -247,6 +266,12 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
@@ -259,6 +284,8 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
+			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->استعلامعنالخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -268,8 +295,11 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox3->SuspendLayout();
 			this->gbAddCombination->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->BeginInit();
+			this->groupBox2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->BeginInit();
 			this->groupBox4->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->BeginInit();
+			this->contextMenuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -283,6 +313,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->menuStrip1->Size = System::Drawing::Size(909, 24);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
+			this->menuStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::menuStrip1_ItemClicked);
 			// 
 			// ToolStripMenuItem
 			// 
@@ -343,11 +374,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->combintaionData->Name = L"combintaionData";
 			this->combintaionData->Size = System::Drawing::Size(753, 386);
 			this->combintaionData->TabIndex = 2;
+			this->combintaionData->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::combintaionData_MouseClick);
 			// 
 			// groupBox1
 			// 
 			this->groupBox1->Controls->Add(this->button3);
 			this->groupBox1->Controls->Add(this->btnUpdateDB);
+			this->groupBox1->Controls->Add(this->btnQueryCombination);
 			this->groupBox1->Controls->Add(this->btnRefreshData);
 			this->groupBox1->Controls->Add(this->btnEditCost);
 			this->groupBox1->Controls->Add(this->btnAddCombination);
@@ -356,14 +389,14 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox1->Controls->Add(this->btnEditLine);
 			this->groupBox1->Location = System::Drawing::Point(771, 28);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(129, 436);
+			this->groupBox1->Size = System::Drawing::Size(129, 485);
 			this->groupBox1->TabIndex = 3;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"أوامر";
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(15, 376);
+			this->button3->Location = System::Drawing::Point(15, 425);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(108, 43);
 			this->button3->TabIndex = 7;
@@ -380,6 +413,16 @@ private: System::Windows::Forms::Button^ button3;
 			this->btnUpdateDB->Text = L"تحديث اسعار الخلطات الجاهزة";
 			this->btnUpdateDB->UseVisualStyleBackColor = true;
 			this->btnUpdateDB->Click += gcnew System::EventHandler(this, &MyForm::btnUpdateDB_Click);
+			// 
+			// btnQueryCombination
+			// 
+			this->btnQueryCombination->Location = System::Drawing::Point(15, 376);
+			this->btnQueryCombination->Name = L"btnQueryCombination";
+			this->btnQueryCombination->Size = System::Drawing::Size(108, 43);
+			this->btnQueryCombination->TabIndex = 8;
+			this->btnQueryCombination->Text = L"استعلام عن خلطة";
+			this->btnQueryCombination->UseVisualStyleBackColor = true;
+			this->btnQueryCombination->Click += gcnew System::EventHandler(this, &MyForm::btnQueryCombination_Click);
 			// 
 			// btnRefreshData
 			// 
@@ -446,17 +489,17 @@ private: System::Windows::Forms::Button^ button3;
 			this->combinationData2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->combinationData2->Location = System::Drawing::Point(12, 28);
 			this->combinationData2->Name = L"combinationData2";
-			this->combinationData2->Size = System::Drawing::Size(753, 386);
+			this->combinationData2->Size = System::Drawing::Size(753, 485);
 			this->combinationData2->TabIndex = 4;
 			this->combinationData2->Visible = false;
-			this->combinationData2->CellMouseClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MyForm::combinationData2_CellMouseClick);
+			this->combinationData2->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::combinationData2_MouseClick);
 			// 
 			// ItemsData
 			// 
 			this->ItemsData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->ItemsData->Location = System::Drawing::Point(12, 28);
 			this->ItemsData->Name = L"ItemsData";
-			this->ItemsData->Size = System::Drawing::Size(753, 386);
+			this->ItemsData->Size = System::Drawing::Size(753, 485);
 			this->ItemsData->TabIndex = 5;
 			this->ItemsData->Visible = false;
 			// 
@@ -465,9 +508,10 @@ private: System::Windows::Forms::Button^ button3;
 			this->FinishedCombinations->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->FinishedCombinations->Location = System::Drawing::Point(12, 27);
 			this->FinishedCombinations->Name = L"FinishedCombinations";
-			this->FinishedCombinations->Size = System::Drawing::Size(753, 386);
+			this->FinishedCombinations->Size = System::Drawing::Size(753, 486);
 			this->FinishedCombinations->TabIndex = 6;
 			this->FinishedCombinations->Visible = false;
+			this->FinishedCombinations->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::FinishedCombinations_MouseClick);
 			// 
 			// btnCancel
 			// 
@@ -689,6 +733,68 @@ private: System::Windows::Forms::Button^ button3;
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"Fitem";
 			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->dgvQueryCom);
+			this->groupBox2->Controls->Add(this->button4);
+			this->groupBox2->Controls->Add(this->button5);
+			this->groupBox2->Controls->Add(this->textBox3);
+			this->groupBox2->Controls->Add(this->label10);
+			this->groupBox2->Location = System::Drawing::Point(9, 24);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(510, 263);
+			this->groupBox2->TabIndex = 22;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"استعلام عن خلطة";
+			this->groupBox2->Visible = false;
+			// 
+			// dgvQueryCom
+			// 
+			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
+			this->dgvQueryCom->Name = L"dgvQueryCom";
+			this->dgvQueryCom->Size = System::Drawing::Size(479, 142);
+			this->dgvQueryCom->TabIndex = 21;
+			// 
+			// button4
+			// 
+			this->button4->Location = System::Drawing::Point(10, 214);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(108, 43);
+			this->button4->TabIndex = 16;
+			this->button4->Text = L"خروج";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
+			// 
+			// button5
+			// 
+			this->button5->Location = System::Drawing::Point(380, 214);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(108, 43);
+			this->button5->TabIndex = 15;
+			this->button5->Text = L"بحث";
+			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(78, 28);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(100, 20);
+			this->textBox3->TabIndex = 13;
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label10->Location = System::Drawing::Point(13, 28);
+			this->label10->Name = L"label10";
+			this->label10->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label10->Size = System::Drawing::Size(50, 18);
+			this->label10->TabIndex = 12;
+			this->label10->Text = L"Fitem";
+			// 
 			// groupBox4
 			// 
 			this->groupBox4->Controls->Add(this->label4);
@@ -813,15 +919,30 @@ private: System::Windows::Forms::Button^ button3;
 			this->WasteData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->WasteData->Location = System::Drawing::Point(12, 27);
 			this->WasteData->Name = L"WasteData";
-			this->WasteData->Size = System::Drawing::Size(753, 386);
+			this->WasteData->Size = System::Drawing::Size(753, 486);
 			this->WasteData->TabIndex = 11;
 			this->WasteData->Visible = false;
+			// 
+			// contextMenuStrip1
+			// 
+			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->استعلامعنالخلطةToolStripMenuItem });
+			this->contextMenuStrip1->Name = L"contextMenuStrip1";
+			this->contextMenuStrip1->Size = System::Drawing::Size(168, 26);
+			this->contextMenuStrip1->Opening += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::contextMenuStrip1_Opening);
+			// 
+			// استعلامعنالخلطةToolStripMenuItem
+			// 
+			this->استعلامعنالخلطةToolStripMenuItem->Name = L"استعلامعنالخلطةToolStripMenuItem";
+			this->استعلامعنالخلطةToolStripMenuItem->Size = System::Drawing::Size(167, 22);
+			this->استعلامعنالخلطةToolStripMenuItem->Text = L"استعلام عن الخلطة";
+			this->استعلامعنالخلطةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::استعلامعنالخلطةToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(909, 476);
+			this->ClientSize = System::Drawing::Size(909, 561);
+			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);
 			this->Controls->Add(this->gbAddCombination);
 			this->Controls->Add(this->WasteData);
@@ -852,9 +973,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->gbAddCombination->ResumeLayout(false);
 			this->gbAddCombination->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAddCombination))->EndInit();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->EndInit();
 			this->groupBox4->ResumeLayout(false);
 			this->groupBox4->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->EndInit();
+			this->contextMenuStrip1->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -901,9 +1026,7 @@ private: System::Void toolStripMenuItemItems_Click(System::Object^ sender, Syste
 
 
 
-private: System::Void dataItemsPrices_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 
-}
 private: System::Void btnEditLine_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void btnEditCost_Click(System::Object^ sender, System::EventArgs^ e);
 
@@ -1294,19 +1417,125 @@ private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows
 
 	e->Cancel = (result == Windows::Forms::DialogResult::No);
 }
-private: System::Void combinationData2_CellMouseClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^ e) {
+
+
+private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
+	//if textbox include valid item 
+	if (!mapCom->count(textBox3->Text))
+	{
+		MessageBox::Show("No Item with the specific number was found!");
+		return;
+	}
+	//fill data in dataGridView
+	//query from database
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+
+	//Read into itemsData
+	query = "SELECT c.Ritem AS Ritem, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" + textBox3->Text + "'";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	dgvQueryCom->DataSource = dt;
+	for (int i = 0; i < dgvQueryCom->Rows->Count - 1; i++)
+	{
+		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
+		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()]* StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
+	}
+}
+private: System::Void btnQueryCombination_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	menuStrip1->Hide();
+	groupBox1->Hide();
+	groupBox3->Hide();
+	groupBox4->Hide();
+	gbAddCombination->Hide();
+	activeDataGrid->Hide();
+	groupBox2->Show();
+	dgvQueryCom->Show();
+}
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	menuStrip1->Show();
+	groupBox1->Show();
+	groupBox2->Hide();
+	groupBox3->Hide();
+	groupBox4->Hide();
+	gbAddCombination->Hide();
+	activeDataGrid->Show();
+	textBox3->Text = "";
+}
+private: System::Void contextMenuStrip1_Opening(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
+}
+private: System::Void menuStrip1_ItemClicked(System::Object^ sender, System::Windows::Forms::ToolStripItemClickedEventArgs^ e) {
+}
+private: System::Void استعلامعنالخلطةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (rowToQuery != "")
+	{
+		textBox3->Text = rowToQuery;
+		btnQueryCombination->PerformClick();
+		button5->PerformClick();
+		rowToQuery = "";
+	}
+}
+private: System::Void combinationData2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	//if right click
-	
+
 	if (e->Button == System::Windows::Forms::MouseButtons::Right)
 	{
-		cm = gcnew Windows::Forms::ContextMenu;
-		cm->MenuItems->Add(gcnew MenuItem("Filter"));
-		Point^ p = gcnew System::Drawing::Point(e->X, e->Y);
-		cm->Show(combinationData2, Point(e->X, e->Y));
+		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
+		cms = contextMenuStrip1;
+		
+		int pos_xy_row = combinationData2->HitTest(e->X, e->Y)->RowIndex;
+		
+		if (pos_xy_row >= 0)
+		{
+			rowToQuery = combinationData2->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
+			cms->Show(combinationData2, e->Location);
+		}
+
+		
 	}
 	//open a menu to filter the datagridView
-	
 }
+private: System::Void combintaionData_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	if (e->Button == System::Windows::Forms::MouseButtons::Right)
+	{
+		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
+		cms = contextMenuStrip1;
 
+		int pos_xy_row = combintaionData->HitTest(e->X, e->Y)->RowIndex;
+
+		if (pos_xy_row >= 0)
+		{
+			
+			rowToQuery = combintaionData->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
+			cms->Show(combintaionData, e->Location);
+		}
+
+
+	}
+}
+private: System::Void FinishedCombinations_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	if (e->Button == System::Windows::Forms::MouseButtons::Right)
+	{
+		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
+		cms = contextMenuStrip1;
+
+		int pos_xy_row = FinishedCombinations->HitTest(e->X, e->Y)->RowIndex;
+
+		if (pos_xy_row >= 0)
+		{
+
+			rowToQuery = FinishedCombinations->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
+			cms->Show(FinishedCombinations, e->Location);
+		}
+
+
+	}
+}
 };
 }

@@ -1236,6 +1236,9 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
 	dbConnection->Open();
 
+	//flag to check valid selection 
+	bool valid = false;
+
 	//check if all line is selected 
 	if (activeDataGrid->SelectedRows->Count != 1)
 	{
@@ -1251,6 +1254,7 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 	String^ query;
 	if (activeDataGrid == ItemsData)
 	{
+		valid = true;
 		auto res = MessageBox::Show("Are you sure you want to delete the item : " + activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString(), "Message", MessageBoxButtons::YesNo);
 		if (res == Windows::Forms::DialogResult::No)
 		{
@@ -1262,6 +1266,7 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 	}
 	if (activeDataGrid == combintaionData)
 	{
+		valid = true;
 		auto res = MessageBox::Show("Are you sure you want to delete the combination Fitem : " + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString(), "Message", MessageBoxButtons::YesNo);
 		if (res == Windows::Forms::DialogResult::No)
 		{
@@ -1272,6 +1277,7 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 
 	if (activeDataGrid == combinationData2)
 	{
+		valid = true;
 		auto res = MessageBox::Show("Are you sure you want to delete the component Ritem : " + activeDataGrid->Rows[index]->Cells["Ritem"]->Value->ToString()+" from combination Fitem: " + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString(), "Message", MessageBoxButtons::YesNo);
 		if (res == Windows::Forms::DialogResult::No)
 		{
@@ -1287,6 +1293,12 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 	OleDbCommand^ dbCommand = gcnew OleDbCommand();
 	dbCommand->CommandText = query;
 	dbCommand->Connection = dbConnection;
+	if (!valid)
+	{
+		MessageBox::Show("The seleceted is not compatible for deleting!");
+		dbConnection->Close();
+		return;
+	}
 	try
 	{
 		dbCommand->ExecuteNonQuery();
@@ -1374,10 +1386,13 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 				{
 					int columnCount = FinishedCombinations->Columns->Count;
 					String^ columnNames = "";
-					Generic::List<String^> ^outputCsv = gcnew Generic::List<String^>(FinishedCombinations->Rows->Count + 1);
+					Generic::List<String^> ^outputCsv = gcnew Generic::List<String^>(FinishedCombinations->Rows->Count + 2);
+					//specify delimeter 
+					
+					
 					for (int i = 0; i < columnCount; i++)
 					{
-						columnNames += FinishedCombinations->Columns[i]->HeaderText->ToString() + ",";
+						columnNames += FinishedCombinations->Columns[i]->HeaderText->ToString() + ";";
 					}
 					outputCsv->Add(columnNames);
 
@@ -1387,7 +1402,7 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 						for (int j = 0; j < columnCount; j++)
 						{
 							i;
-							columnNames += System::Convert::ToString(FinishedCombinations->Rows[i - 1]->Cells[j]->Value) + ",";
+							columnNames += System::Convert::ToString(FinishedCombinations->Rows[i - 1]->Cells[j]->Value) + ";";
 						}
 						outputCsv->Add(columnNames);
 					}

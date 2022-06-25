@@ -206,7 +206,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	expences2 = StringToDouble(dr["Expences2"]->ToString());
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2, MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, MIN(General_Waste) AS Sell_Cost FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, MIN(General_Waste) AS Sell_Cost , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2 FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);

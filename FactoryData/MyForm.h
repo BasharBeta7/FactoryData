@@ -1276,6 +1276,11 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 	//check for blank fields
 	
 	int index = activeDataGrid->SelectedRows[0]->Index;
+	if (index == activeDataGrid->Rows->Count - 1)
+	{
+		MessageBox::Show("please select a row from the table to delete!");
+		return;
+	}
 	String^ Cellval;//holds the value of the cell
 	String^ ColumnName;//hold the name of the column 
 	int nCells = activeDataGrid->Rows[index]->Cells->Count;
@@ -1534,7 +1539,7 @@ private: System::Void combinationData2_MouseClick(System::Object^ sender, System
 		
 		int pos_xy_row = combinationData2->HitTest(e->X, e->Y)->RowIndex;
 		
-		if (pos_xy_row >= 0)
+		if (pos_xy_row >= 0 && pos_xy_row < combinationData2->Rows->Count-1)
 		{
 			rowToQuery = combinationData2->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
 			cms->Show(combinationData2, e->Location);
@@ -1552,7 +1557,7 @@ private: System::Void combintaionData_MouseClick(System::Object^ sender, System:
 
 		int pos_xy_row = combintaionData->HitTest(e->X, e->Y)->RowIndex;
 
-		if (pos_xy_row >= 0)
+		if (pos_xy_row >= 0 && pos_xy_row < combintaionData->Rows->Count - 1)
 		{
 			
 			rowToQuery = combintaionData->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
@@ -1570,7 +1575,7 @@ private: System::Void FinishedCombinations_MouseClick(System::Object^ sender, Sy
 
 		int pos_xy_row = FinishedCombinations->HitTest(e->X, e->Y)->RowIndex;
 
-		if (pos_xy_row >= 0)
+		if (pos_xy_row >= 0 && pos_xy_row < FinishedCombinations->Rows->Count - 1)
 		{
 
 			rowToQuery = FinishedCombinations->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
@@ -1588,7 +1593,7 @@ private: System::Void dgvQueryCom_MouseClick(System::Object^ sender, System::Win
 
 		int pos_xy_row = dgvQueryCom->HitTest(e->X, e->Y)->RowIndex;
 
-		if (pos_xy_row >= 0)
+		if (pos_xy_row >= 0 && pos_xy_row < dgvQueryCom->Rows->Count - 1)
 		{
 
 			rowToQuery = dgvQueryCom->Rows[pos_xy_row]->Cells["Ritem"]->Value->ToString();
@@ -1643,19 +1648,24 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 
 private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
 	//open connection
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
-	OleDbCommand^ dbCommand;
-	String^ query;
+	OleDbConnection^	dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbCommand^		dbCommand;
+	String^			    query;
 
 	//get index of selected row
-	int index = dgvQueryCom->SelectedRows[0]->Index;
+	
 	//if index is valid
 	if (dgvQueryCom->SelectedRows->Count != 1)
 	{
 		MessageBox::Show("Please selected ONE row to delete!");
 		return;
 	}
-
+	int index = dgvQueryCom->SelectedRows[0]->Index;
+	if (index >= dgvQueryCom->Rows->Count - 1)
+	{
+		MessageBox::Show("Please selected ONE row to delete!");
+		return;
+	}
 	auto res = MessageBox::Show("Are you sure you want to delete seleceted row?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)
 	{

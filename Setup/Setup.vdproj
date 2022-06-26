@@ -15,13 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_30968D85523A411E821FF474F8AB37EB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E3637458384C4A98A10E8471B6DC0A39"
+        "MsmKey" = "8:_B04D2D00A2AB4DD4B5D23FACF8FD896A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -120,26 +114,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E3637458384C4A98A10E8471B6DC0A39"
-            {
-            "SourcePath" = "8:..\\FactoryData\\factoryDB.accdb"
-            "TargetName" = "8:factoryDB.accdb"
-            "Tag" = "8:"
-            "Folder" = "8:_8BE8E5D511684A48871B74454A89CF83"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -317,7 +291,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_64F87E3EE42548DB95B6610D1A603C0F"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A1C0BF9DBEBE498EAA3F16A8A7E1C855"
             {
             "Name" = "8:Factory Data"
             "Arguments" = "8:"
@@ -325,13 +299,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_30968D85523A411E821FF474F8AB37EB"
-            "Folder" = "8:_BD3D5F3CAA2044C48A6B1C33523B50E6"
+            "Target" = "8:_B04D2D00A2AB4DD4B5D23FACF8FD896A"
+            "Folder" = "8:_8BE8E5D511684A48871B74454A89CF83"
             "WorkingFolder" = "8:_334B13B7D7554CDFB568FAAB18493338"
             "Icon" = "8:"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_91B16A8472A640FE8511F677EB3051A2"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E7D3C88EC56342889F943DF52E386B8E"
             {
             "Name" = "8:Factory Data"
             "Arguments" = "8:"
@@ -339,8 +313,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_30968D85523A411E821FF474F8AB37EB"
-            "Folder" = "8:_8BE8E5D511684A48871B74454A89CF83"
+            "Target" = "8:_B04D2D00A2AB4DD4B5D23FACF8FD896A"
+            "Folder" = "8:_BD3D5F3CAA2044C48A6B1C33523B50E6"
             "WorkingFolder" = "8:_334B13B7D7554CDFB568FAAB18493338"
             "Icon" = "8:"
             "Feature" = "8:"
@@ -744,7 +718,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_30968D85523A411E821FF474F8AB37EB"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B04D2D00A2AB4DD4B5D23FACF8FD896A"
             {
             "SourcePath" = "8:..\\x64\\Release\\FactoryData.exe"
             "TargetName" = "8:"

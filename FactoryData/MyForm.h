@@ -755,6 +755,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(479, 142);
 			this->dgvQueryCom->TabIndex = 21;
+			this->dgvQueryCom->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::dgvQueryCom_MouseClick);
 			// 
 			// button4
 			// 
@@ -1547,6 +1548,24 @@ private: System::Void FinishedCombinations_MouseClick(System::Object^ sender, Sy
 
 			rowToQuery = FinishedCombinations->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
 			cms->Show(FinishedCombinations, e->Location);
+		}
+
+
+	}
+}
+private: System::Void dgvQueryCom_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	if (e->Button == System::Windows::Forms::MouseButtons::Right)
+	{
+		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
+		cms = contextMenuStrip1;
+
+		int pos_xy_row = dgvQueryCom->HitTest(e->X, e->Y)->RowIndex;
+
+		if (pos_xy_row >= 0)
+		{
+
+			rowToQuery = dgvQueryCom->Rows[pos_xy_row]->Cells["Ritem"]->Value->ToString();
+			cms->Show(dgvQueryCom, e->Location);
 		}
 
 

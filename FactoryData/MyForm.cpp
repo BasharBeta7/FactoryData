@@ -206,7 +206,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	expences2 = StringToDouble(dr["Expences2"]->ToString());
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, MIN(General_Waste) AS Sell_Cost , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2 FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, AVG(Sell_Cost) AS Sell_Cost , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2 FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -264,9 +264,11 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
 	dbConnection->Open();
 
+	bool isValid = false;
 	//check if all line is selected 
 	if (activeDataGrid->SelectedRows->Count != 1)
 	{
+		
 		MessageBox::Show("please select a row from the table to modify!");
 		return;
 	}
@@ -283,6 +285,7 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 	String^ query;
 	if (activeDataGrid == ItemsData)
 	{
+		isValid = true;
 		query = "UPDATE items SET I_R_name='" + activeDataGrid->Rows[index]->Cells["I_R_name"]->Value->ToString() + "', Unit_Cost='" + activeDataGrid->Rows[index]->Cells["Unit_Cost"]->Value->ToString() + "' WHERE Inum='" + activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString() + "';";
 		//update raw material unit cost
 		double res = 0;
@@ -296,21 +299,34 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 
 	if (activeDataGrid == combinationData2)
 	{
+		isValid = true;
 		query = "UPDATE Combination SET BIsubquan=" + activeDataGrid->Rows[index]->Cells["BIsubquan"]->Value->ToString() + " WHERE Ritem='" + activeDataGrid->Rows[index]->Cells["Ritem"]->Value->ToString() + "' AND Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "';";
 		//update raw material unit cost
 	}
 
 	if (activeDataGrid == WasteData)
 	{
+		isValid = true;
 		query = "UPDATE Wastes SET General_Waste=" + activeDataGrid->Rows[index]->Cells["General_Waste"]->Value->ToString() + ", Drageh_Waste=" + activeDataGrid->Rows[index]->Cells["Drageh_Waste"]->Value->ToString() +" WHERE Machine = '" + activeDataGrid->Rows[index]->Cells["Machine"]->Value->ToString() + "'; ";
 
 	}
 	
 
+	if (activeDataGrid == FinishedCombinations)
+	{
+		isValid = true;
+		query = "UPDATE Combination SET Sell_Cost=" + activeDataGrid->Rows[index]->Cells["Sell_Cost"]->Value->ToString() + ", Box_Weight=" + activeDataGrid->Rows[index]->Cells["Box_Weight"]->Value->ToString() + " WHERE Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "'; ";
+	}
+
 	//edit database 
 	OleDbCommand^ dbCommand = gcnew OleDbCommand();
 	dbCommand->CommandText = query;
 	dbCommand->Connection = dbConnection;
+	if (!isValid)
+	{
+		dbConnection->Close();
+		return;
+	}
 	try
 	{
 		dbCommand->ExecuteNonQuery();

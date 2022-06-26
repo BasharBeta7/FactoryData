@@ -196,7 +196,7 @@ private: System::Windows::Forms::TextBox^ textBox3;
 private: System::Windows::Forms::Label^ label10;
 private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
 private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنالخلطةToolStripMenuItem;
-private: System::Windows::Forms::Button^ button8;
+
 private: System::Windows::Forms::Button^ button7;
 private: System::Windows::Forms::Button^ button6;
 private: System::Windows::Forms::Button^ button3;
@@ -270,7 +270,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
@@ -741,7 +740,6 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// groupBox2
 			// 
-			this->groupBox2->Controls->Add(this->button8);
 			this->groupBox2->Controls->Add(this->button7);
 			this->groupBox2->Controls->Add(this->button6);
 			this->groupBox2->Controls->Add(this->dgvQueryCom);
@@ -757,15 +755,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox2->Text = L"استعلام عن خلطة";
 			this->groupBox2->Visible = false;
 			// 
-			// button8
-			// 
-			this->button8->Location = System::Drawing::Point(503, 173);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(108, 43);
-			this->button8->TabIndex = 9;
-			this->button8->Text = L"إضافة خلطة للمكونات";
-			this->button8->UseVisualStyleBackColor = true;
-			// 
 			// button7
 			// 
 			this->button7->Location = System::Drawing::Point(503, 118);
@@ -774,6 +763,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->button7->TabIndex = 9;
 			this->button7->Text = L"حذف سطر";
 			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
 			// 
 			// button6
 			// 
@@ -790,13 +780,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
-			this->dgvQueryCom->Size = System::Drawing::Size(479, 199);
+			this->dgvQueryCom->Size = System::Drawing::Size(479, 186);
 			this->dgvQueryCom->TabIndex = 21;
 			this->dgvQueryCom->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::dgvQueryCom_MouseClick);
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(503, 222);
+			this->button4->Location = System::Drawing::Point(503, 168);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(108, 43);
 			this->button4->TabIndex = 16;
@@ -1647,6 +1637,92 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 	LoadDatabaseTables();
 	button5->PerformClick();
 	return System::Void();
+}
+
+
+
+private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
+	//open connection
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbCommand^ dbCommand;
+	String^ query;
+
+	//get index of selected row
+	int index = dgvQueryCom->SelectedRows[0]->Index;
+	//if index is valid
+	if (dgvQueryCom->SelectedRows->Count != 1)
+	{
+		MessageBox::Show("Please selected ONE row to delete!");
+		return;
+	}
+
+	auto res = MessageBox::Show("Are you sure you want to delete seleceted row?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+
+
+	dbConnection->Open();
+	//update the row in access
+	query = "DELETE FROM Combination WHERE Fitem='" + textBox3->Text + "' AND Ritem='" + dgvQueryCom->Rows[index]->Cells["Ritem"]->Value->ToString() + "';";
+	dbCommand = gcnew OleDbCommand(query, dbConnection);
+	try
+	{
+		dbCommand->ExecuteNonQuery();
+		MessageBox::Show("Successfully Updated");
+	}
+	catch (FormatException^)
+	{
+		MessageBox::Show("Error Occured, Couldn't update values");
+	}
+	dbConnection->Close();
+	LoadDatabaseTables();
+	button5->PerformClick();
+	return System::Void();
+}
+
+
+
+
+private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
+	/*//get the selected row
+	//check if it is already an Ritem of the combination Fitem
+	//check valid data : Ritem exists and BIsubquan is valid
+	//apply query to update combination in the database
+
+	int index = dgvQueryCom->SelectedRows[0]->Index;
+	String^ ritem = dgvQueryCom->Rows[index]->Cells["Ritem"]->Value->ToString();
+	double quan;
+	for (int i = 0; i < dgvQueryCom->Rows->Count - 1; i++)
+	{
+		if (i != index && dgvQueryCom->Rows[i]->Cells["Ritem"]->Value == dgvQueryCom->Rows[index]->Cells["Ritem"]->Value)
+		{
+			MessageBox::Show("Combination Ritem= " + dgvQueryCom->Rows[index]->Cells["Ritem"]->Value->ToString() + " already exists in the table!");
+			return;
+
+		}
+	}
+	
+	if (!mapCom->count(ritem))
+	{
+		MessageBox::Show("The Ritem = " + ritem + " doesn't exist!");
+		return;
+	}
+
+	try
+	{
+		quan = System::Convert::ToDouble(dgvQueryCom->Rows[index]->Cells["BISubquan"]->Value->ToString());
+	}
+	catch (FormatException^ ex)
+	{
+		MessageBox::Show(ex->Message);
+	}
+
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+	OleDbCommand^ dbCommand;*/
+
 }
 };
 }

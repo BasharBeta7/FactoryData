@@ -196,6 +196,9 @@ private: System::Windows::Forms::TextBox^ textBox3;
 private: System::Windows::Forms::Label^ label10;
 private: System::Windows::Forms::ContextMenuStrip^ contextMenuStrip1;
 private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنالخلطةToolStripMenuItem;
+private: System::Windows::Forms::Button^ button8;
+private: System::Windows::Forms::Button^ button7;
+private: System::Windows::Forms::Button^ button6;
 private: System::Windows::Forms::Button^ button3;
 
 
@@ -267,6 +270,9 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
@@ -735,6 +741,9 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->button8);
+			this->groupBox2->Controls->Add(this->button7);
+			this->groupBox2->Controls->Add(this->button6);
 			this->groupBox2->Controls->Add(this->dgvQueryCom);
 			this->groupBox2->Controls->Add(this->button4);
 			this->groupBox2->Controls->Add(this->button5);
@@ -742,24 +751,52 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox2->Controls->Add(this->label10);
 			this->groupBox2->Location = System::Drawing::Point(9, 24);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(510, 263);
+			this->groupBox2->Size = System::Drawing::Size(623, 266);
 			this->groupBox2->TabIndex = 22;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"استعلام عن خلطة";
 			this->groupBox2->Visible = false;
+			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(503, 173);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(108, 43);
+			this->button8->TabIndex = 9;
+			this->button8->Text = L"إضافة خلطة للمكونات";
+			this->button8->UseVisualStyleBackColor = true;
+			// 
+			// button7
+			// 
+			this->button7->Location = System::Drawing::Point(503, 118);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(108, 43);
+			this->button7->TabIndex = 9;
+			this->button7->Text = L"حذف سطر";
+			this->button7->UseVisualStyleBackColor = true;
+			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(503, 66);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(108, 43);
+			this->button6->TabIndex = 9;
+			this->button6->Text = L"تعديل كمية مادة";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
 			// 
 			// dgvQueryCom
 			// 
 			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
-			this->dgvQueryCom->Size = System::Drawing::Size(479, 142);
+			this->dgvQueryCom->Size = System::Drawing::Size(479, 199);
 			this->dgvQueryCom->TabIndex = 21;
 			this->dgvQueryCom->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::dgvQueryCom_MouseClick);
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(10, 214);
+			this->button4->Location = System::Drawing::Point(503, 222);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(108, 43);
 			this->button4->TabIndex = 16;
@@ -769,7 +806,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// button5
 			// 
-			this->button5->Location = System::Drawing::Point(380, 214);
+			this->button5->Location = System::Drawing::Point(184, 17);
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(108, 43);
 			this->button5->TabIndex = 15;
@@ -1570,6 +1607,46 @@ private: System::Void dgvQueryCom_MouseClick(System::Object^ sender, System::Win
 
 
 	}
+}
+private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
+	//open connection
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbCommand^ dbCommand;
+	String^ query;
+
+	//get index of selected row
+	int index = dgvQueryCom->SelectedRows[0]->Index;
+	//if index is valid
+	if (dgvQueryCom->SelectedRows->Count != 1)
+	{
+		MessageBox::Show("Please selected ONE row to edit!");
+		return;
+	}
+
+	auto res = MessageBox::Show("Are you sure you want to edit database?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+
+
+	dbConnection->Open();
+	//update the row in access
+	query = "UPDATE Combination SET BIsubquan=" + dgvQueryCom->Rows[index]->Cells["BIsubquan"]->Value->ToString() + " WHERE Ritem='" + dgvQueryCom->Rows[index]->Cells["Ritem"]->Value->ToString() + "' AND Fitem='" + textBox3->Text + "';";
+	dbCommand = gcnew OleDbCommand(query, dbConnection);
+	try
+	{
+		dbCommand->ExecuteNonQuery();
+		MessageBox::Show("Successfully Updated");
+	}
+	catch (FormatException^)
+	{
+		MessageBox::Show("Error Occured, Couldn't update values");
+	}
+	dbConnection->Close();
+	LoadDatabaseTables();
+	button5->PerformClick();
+	return System::Void();
 }
 };
 }

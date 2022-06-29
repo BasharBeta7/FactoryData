@@ -199,6 +199,11 @@ private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنالخلط
 
 private: System::Windows::Forms::Button^ button7;
 private: System::Windows::Forms::Button^ button6;
+
+
+
+
+
 private: System::Windows::Forms::Button^ button3;
 
 
@@ -1610,13 +1615,14 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 	String^ query;
 
 	//get index of selected row
-	int index = dgvQueryCom->SelectedRows[0]->Index;
+	
 	//if index is valid
 	if (dgvQueryCom->SelectedRows->Count != 1)
 	{
 		MessageBox::Show("Please selected ONE row to edit!");
 		return;
 	}
+	int index = dgvQueryCom->SelectedRows[0]->Index;
 
 	auto res = MessageBox::Show("Are you sure you want to edit database?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)

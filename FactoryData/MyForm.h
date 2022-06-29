@@ -755,7 +755,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox2->Controls->Add(this->label10);
 			this->groupBox2->Location = System::Drawing::Point(9, 24);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(623, 266);
+			this->groupBox2->Size = System::Drawing::Size(722, 266);
 			this->groupBox2->TabIndex = 22;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"استعلام عن خلطة";
@@ -763,7 +763,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// button7
 			// 
-			this->button7->Location = System::Drawing::Point(503, 118);
+			this->button7->Location = System::Drawing::Point(590, 118);
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(108, 43);
 			this->button7->TabIndex = 9;
@@ -773,7 +773,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// button6
 			// 
-			this->button6->Location = System::Drawing::Point(503, 66);
+			this->button6->Location = System::Drawing::Point(590, 66);
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(108, 43);
 			this->button6->TabIndex = 9;
@@ -786,13 +786,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
-			this->dgvQueryCom->Size = System::Drawing::Size(479, 186);
+			this->dgvQueryCom->Size = System::Drawing::Size(574, 186);
 			this->dgvQueryCom->TabIndex = 21;
 			this->dgvQueryCom->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::dgvQueryCom_MouseClick);
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(503, 168);
+			this->button4->Location = System::Drawing::Point(590, 168);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(108, 43);
 			this->button4->TabIndex = 16;
@@ -1489,7 +1489,7 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	DataTable^ dt;
 
 	//Read into itemsData
-	query = "SELECT c.Ritem AS Ritem, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" + textBox3->Text + "'";
+	query = "SELECT c.Ritem AS Ritem, c.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" + textBox3->Text + "'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);

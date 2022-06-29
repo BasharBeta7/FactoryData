@@ -125,6 +125,7 @@ namespace FactoryData {
 		cliext::map<String^, double>^ BoxCosts = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences1 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ SellCostCom = gcnew cliext::map<String^, double>;
 		double expences1, expences2;
 		String^ rowToQuery = "";//saves the name of the fitem to query on 
 

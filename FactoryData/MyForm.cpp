@@ -126,8 +126,10 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 		dr->Cells["Cost2"]->Value = Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + Expences2[dr->Cells["Fitem"]->Value->ToString()] * StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()), 3);
 		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
 		dr->Cells["Box_Cost"]->Value = Math::Round(BoxCosts[dr->Cells["Fitem"]->Value->ToString()],3);
+		dr->Cells["Sell_Cost"]->Value = Math::Round(SellCostCom[dr->Cells["Fitem"]->Value->ToString()], 3);
 	}
 }
+
 
 void FactoryData::MyForm::LoadDatabaseTables()
 {
@@ -205,6 +207,16 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	expences1 = StringToDouble(dr["Expences1"]->ToString());
 	expences2 = StringToDouble(dr["Expences2"]->ToString());
 
+	//read into SellCostCom
+	query = "SELECT Fitem, Sell_Cost FROM CombinationSellCost;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	for each (DataRow^ row in dt->Rows)
+	{
+		SellCostCom[row["Fitem"]->ToString()] = System::Convert::ToDouble(row["Sell_Cost"]->ToString());
+	}
+
 	//read into FinishedCombinaions --> Contains finished combs from combinations
 	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name, MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, AVG(Sell_Cost) AS Sell_Cost , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2 FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
@@ -233,6 +245,7 @@ void FactoryData::MyForm::ResetData()
 	mapRaw->clear();
 	mapCom->clear();
 	totalCom->clear();
+	SellCostCom->clear();
 
 }
 

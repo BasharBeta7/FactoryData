@@ -331,6 +331,8 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		query = "UPDATE Combination SET Sell_Cost=" + activeDataGrid->Rows[index]->Cells["Sell_Cost"]->Value->ToString() + ", Box_Weight=" + activeDataGrid->Rows[index]->Cells["Box_Weight"]->Value->ToString() + " WHERE Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "'; ";
 	}
 
+
+
 	//edit database 
 	OleDbCommand^ dbCommand = gcnew OleDbCommand();
 	dbCommand->CommandText = query;

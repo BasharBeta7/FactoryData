@@ -1545,7 +1545,7 @@ private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e
 	groupBox4->Hide();
 	gbAddCombination->Hide();
 	activeDataGrid->Show();
-	textBox3->Text = "";
+	
 }
 private: System::Void contextMenuStrip1_Opening(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
 }

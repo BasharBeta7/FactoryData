@@ -126,6 +126,7 @@ namespace FactoryData {
 		cliext::map<String^, double>^ Expences1 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ SellCostCom = gcnew cliext::map<String^, double>;
+		System::Collections::Generic::Stack<String^ >^ queryStack = gcnew Generic::Stack<String^>;
 		double expences1, expences2;
 		String^ rowToQuery = "";//saves the name of the fitem to query on 
 
@@ -200,6 +201,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنالخلط
 
 private: System::Windows::Forms::Button^ button7;
 private: System::Windows::Forms::Button^ button6;
+private: System::Windows::Forms::Button^ button8;
+
+
 
 
 
@@ -297,6 +301,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->استعلامعنالخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -746,6 +751,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->button8);
 			this->groupBox2->Controls->Add(this->button7);
 			this->groupBox2->Controls->Add(this->button6);
 			this->groupBox2->Controls->Add(this->dgvQueryCom);
@@ -970,6 +976,16 @@ private: System::Windows::Forms::Button^ button3;
 			this->استعلامعنالخلطةToolStripMenuItem->Size = System::Drawing::Size(167, 22);
 			this->استعلامعنالخلطةToolStripMenuItem->Text = L"استعلام عن الخلطة";
 			this->استعلامعنالخلطةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::استعلامعنالخلطةToolStripMenuItem_Click);
+			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(310, 16);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(108, 43);
+			this->button8->TabIndex = 22;
+			this->button8->Text = L"رجوع";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click_1);
 			// 
 			// MyForm
 			// 
@@ -1480,8 +1496,14 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 		MessageBox::Show("No Item with the specific number was found!");
 		return;
 	}
+
+	if (!( queryStack->Count == 0)&&textBox3->Text == queryStack->Peek())
+	{
+		return;
+	}
 	//fill data in dataGridView
 	//query from database
+	
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
 	dbConnection->Open();
 	String^ query;
@@ -1494,11 +1516,15 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	dgvQueryCom->DataSource = dt;
-	for (int i = 0; i < dgvQueryCom->Rows->Count - 1; i++)
+	DataGridView^ temp = dgvQueryCom;
+	queryStack->Push(textBox3->Text);
+	for (int i = 0; i < dgvQueryCom->Rows->Count - 1;i++)
 	{
 		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
 		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()]* StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
 	}
+	
+
 }
 private: System::Void btnQueryCombination_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -1529,6 +1555,7 @@ private: System::Void استعلامعنالخلطةToolStripMenuItem_Click(Syst
 
 	if (rowToQuery != "")
 	{
+		
 		textBox3->Text = rowToQuery;
 		btnQueryCombination->PerformClick();
 		button5->PerformClick();
@@ -1537,7 +1564,7 @@ private: System::Void استعلامعنالخلطةToolStripMenuItem_Click(Syst
 }
 private: System::Void combinationData2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 	//if right click
-
+	
 	if (e->Button == System::Windows::Forms::MouseButtons::Right)
 	{
 		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
@@ -1556,6 +1583,7 @@ private: System::Void combinationData2_MouseClick(System::Object^ sender, System
 	//open a menu to filter the datagridView
 }
 private: System::Void combintaionData_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+
 	if (e->Button == System::Windows::Forms::MouseButtons::Right)
 	{
 		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
@@ -1574,6 +1602,7 @@ private: System::Void combintaionData_MouseClick(System::Object^ sender, System:
 	}
 }
 private: System::Void FinishedCombinations_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	
 	if (e->Button == System::Windows::Forms::MouseButtons::Right)
 	{
 		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
@@ -1592,6 +1621,7 @@ private: System::Void FinishedCombinations_MouseClick(System::Object^ sender, Sy
 	}
 }
 private: System::Void dgvQueryCom_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	
 	if (e->Button == System::Windows::Forms::MouseButtons::Right)
 	{
 		Windows::Forms::ContextMenuStrip^ cms = gcnew Windows::Forms::ContextMenuStrip;
@@ -1740,6 +1770,34 @@ private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e
 	dbConnection->Open();
 	OleDbCommand^ dbCommand;*/
 
+}
+private: System::Void button8_Click_1(System::Object^ sender, System::EventArgs^ e) {
+	queryStack->Pop();
+	if (queryStack->Count < 1)
+	{
+		button4->PerformClick();
+		return;
+	}
+	
+	textBox3->Text = queryStack->Peek();
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+
+	//Read into itemsData
+	query = "SELECT c.Ritem AS Ritem, c.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" +  queryStack->Peek() + "'";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	dgvQueryCom->DataSource = dt;
+	for (int i = 0; i < dgvQueryCom->Rows->Count - 1; i++)
+	{
+		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
+		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
+	}
+	
 }
 };
 }

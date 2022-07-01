@@ -127,6 +127,7 @@ namespace FactoryData {
 		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ SellCostCom = gcnew cliext::map<String^, double>;
 		System::Collections::Generic::Stack<String^ >^ queryStack = gcnew Generic::Stack<String^>;
+		cliext::map<String^, String^>^ NameCom = gcnew cliext::map<String^, String^>;
 		double expences1, expences2;
 		String^ rowToQuery = "";//saves the name of the fitem to query on 
 
@@ -280,6 +281,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
@@ -301,7 +303,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->استعلامعنالخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -619,7 +620,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->gbAddCombination->Controls->Add(this->textBox6);
 			this->gbAddCombination->Controls->Add(this->textBox7);
 			this->gbAddCombination->Controls->Add(this->lblFitem);
-			this->gbAddCombination->Location = System::Drawing::Point(270, 27);
+			this->gbAddCombination->Location = System::Drawing::Point(270, 25);
 			this->gbAddCombination->Name = L"gbAddCombination";
 			this->gbAddCombination->Size = System::Drawing::Size(510, 263);
 			this->gbAddCombination->TabIndex = 7;
@@ -759,13 +760,24 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox2->Controls->Add(this->button5);
 			this->groupBox2->Controls->Add(this->textBox3);
 			this->groupBox2->Controls->Add(this->label10);
-			this->groupBox2->Location = System::Drawing::Point(9, 24);
+			this->groupBox2->Location = System::Drawing::Point(42, 25);
 			this->groupBox2->Name = L"groupBox2";
 			this->groupBox2->Size = System::Drawing::Size(722, 266);
 			this->groupBox2->TabIndex = 22;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"استعلام عن خلطة";
 			this->groupBox2->Visible = false;
+			this->groupBox2->Enter += gcnew System::EventHandler(this, &MyForm::groupBox2_Enter_1);
+			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(310, 16);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(108, 43);
+			this->button8->TabIndex = 22;
+			this->button8->Text = L"رجوع";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click_1);
 			// 
 			// button7
 			// 
@@ -976,16 +988,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->استعلامعنالخلطةToolStripMenuItem->Size = System::Drawing::Size(167, 22);
 			this->استعلامعنالخلطةToolStripMenuItem->Text = L"استعلام عن الخلطة";
 			this->استعلامعنالخلطةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::استعلامعنالخلطةToolStripMenuItem_Click);
-			// 
-			// button8
-			// 
-			this->button8->Location = System::Drawing::Point(310, 16);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(108, 43);
-			this->button8->TabIndex = 22;
-			this->button8->Text = L"رجوع";
-			this->button8->UseVisualStyleBackColor = true;
-			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click_1);
 			// 
 			// MyForm
 			// 
@@ -1511,7 +1513,7 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	DataTable^ dt;
 
 	//Read into itemsData
-	query = "SELECT c.Ritem AS Ritem, c.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" + textBox3->Text + "'";
+	query = "SELECT c.Ritem AS Ritem, i1.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" + textBox3->Text + "'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -1520,6 +1522,10 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	queryStack->Push(textBox3->Text);
 	for (int i = 0; i < dgvQueryCom->Rows->Count - 1;i++)
 	{
+		if ( NameCom->count(dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()))
+		{
+			dgvQueryCom->Rows[i]->Cells["Name"]->Value = NameCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()];
+		}
 		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
 		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()]* StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
 	}
@@ -1798,6 +1804,9 @@ private: System::Void button8_Click_1(System::Object^ sender, System::EventArgs^
 		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
 	}
 	
+}
+private: System::Void groupBox2_Enter_1(System::Object^ sender, System::EventArgs^ e) {
+
 }
 };
 }

@@ -162,6 +162,10 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	combintaionData->DataSource = dt;
+	for (int i = 0; i < combintaionData->Rows->Count - 1; i++)
+	{
+		NameCom[combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString()] = combintaionData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
+	}
 
 
 

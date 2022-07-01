@@ -27,6 +27,7 @@ double FactoryData::MyForm::CalcSum(String^ key)
 	}
 	if (mapRaw->count(key))
 	{
+		
 		mapCom[key] = mapRaw[key];
 		res = mapCom[key];
 		return mapCom[key];

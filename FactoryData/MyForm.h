@@ -203,6 +203,9 @@ private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنالخلط
 private: System::Windows::Forms::Button^ button7;
 private: System::Windows::Forms::Button^ button6;
 private: System::Windows::Forms::Button^ button8;
+private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
+
+
 
 
 
@@ -303,6 +306,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->WasteData = (gcnew System::Windows::Forms::DataGridView());
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->استعلامعنالخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -977,9 +981,12 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// contextMenuStrip1
 			// 
-			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->استعلامعنالخلطةToolStripMenuItem });
+			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->استعلامعنالخلطةToolStripMenuItem,
+					this->toolStripSeparator1
+			});
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(168, 26);
+			this->contextMenuStrip1->Size = System::Drawing::Size(168, 32);
 			this->contextMenuStrip1->Opening += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::contextMenuStrip1_Opening);
 			// 
 			// استعلامعنالخلطةToolStripMenuItem
@@ -988,6 +995,11 @@ private: System::Windows::Forms::Button^ button3;
 			this->استعلامعنالخلطةToolStripMenuItem->Size = System::Drawing::Size(167, 22);
 			this->استعلامعنالخلطةToolStripMenuItem->Text = L"استعلام عن الخلطة";
 			this->استعلامعنالخلطةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::استعلامعنالخلطةToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this->toolStripSeparator1->Name = L"toolStripSeparator1";
+			this->toolStripSeparator1->Size = System::Drawing::Size(164, 6);
 			// 
 			// MyForm
 			// 
@@ -1544,6 +1556,7 @@ private: System::Void btnQueryCombination_Click(System::Object^ sender, System::
 	dgvQueryCom->Show();
 }
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	queryStack->Clear();
 	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox2->Hide();
@@ -1808,5 +1821,6 @@ private: System::Void button8_Click_1(System::Object^ sender, System::EventArgs^
 private: System::Void groupBox2_Enter_1(System::Object^ sender, System::EventArgs^ e) {
 
 }
+
 };
 }

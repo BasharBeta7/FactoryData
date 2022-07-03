@@ -333,7 +333,7 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 	if (activeDataGrid == FinishedCombinations)
 	{
 		isValid = true;
-		query = "UPDATE Combination SET Sell_Cost=" + activeDataGrid->Rows[index]->Cells["Sell_Cost"]->Value->ToString() + ", Box_Weight=" + activeDataGrid->Rows[index]->Cells["Box_Weight"]->Value->ToString() + " WHERE Fitem='" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "'; ";
+		query = "UPDATE Combination SET Machine_Line='" + activeDataGrid->Rows[index]->Cells["MachineLine"]->Value->ToString() + "', Sell_Cost = " + activeDataGrid->Rows[index]->Cells["Sell_Cost"]->Value->ToString() + ", Box_Weight = " + activeDataGrid->Rows[index]->Cells["Box_Weight"]->Value->ToString() + " WHERE Fitem = '" + activeDataGrid->Rows[index]->Cells["Fitem"]->Value->ToString() + "'; ";
 	}
 
 

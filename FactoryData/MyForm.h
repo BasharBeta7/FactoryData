@@ -204,6 +204,7 @@ private: System::Windows::Forms::Button^ button7;
 private: System::Windows::Forms::Button^ button6;
 private: System::Windows::Forms::Button^ button8;
 private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
+private: System::Windows::Forms::TextBox^ textBox1;
 
 
 
@@ -274,15 +275,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->RIsubquan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->lblMachineLine = (gcnew System::Windows::Forms::Label());
-			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
-			this->lblIGroup = (gcnew System::Windows::Forms::Label());
-			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
-			this->btnCancelCombinationAdd = (gcnew System::Windows::Forms::Button());
-			this->btnAdd = (gcnew System::Windows::Forms::Button());
-			this->lblI_R_Name = (gcnew System::Windows::Forms::Label());
-			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
-			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
@@ -292,6 +284,15 @@ private: System::Windows::Forms::Button^ button3;
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
+			this->lblIGroup = (gcnew System::Windows::Forms::Label());
+			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
+			this->btnCancelCombinationAdd = (gcnew System::Windows::Forms::Button());
+			this->btnAdd = (gcnew System::Windows::Forms::Button());
+			this->lblI_R_Name = (gcnew System::Windows::Forms::Label());
+			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
@@ -307,6 +308,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
 			this->استعلامعنالخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -624,7 +626,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->gbAddCombination->Controls->Add(this->textBox6);
 			this->gbAddCombination->Controls->Add(this->textBox7);
 			this->gbAddCombination->Controls->Add(this->lblFitem);
-			this->gbAddCombination->Location = System::Drawing::Point(270, 25);
+			this->gbAddCombination->Location = System::Drawing::Point(28, 27);
 			this->gbAddCombination->Name = L"gbAddCombination";
 			this->gbAddCombination->Size = System::Drawing::Size(510, 263);
 			this->gbAddCombination->TabIndex = 7;
@@ -667,6 +669,103 @@ private: System::Windows::Forms::Button^ button3;
 			this->lblMachineLine->TabIndex = 20;
 			this->lblMachineLine->Text = L"Machine_Line";
 			this->lblMachineLine->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->button8);
+			this->groupBox2->Controls->Add(this->button7);
+			this->groupBox2->Controls->Add(this->button6);
+			this->groupBox2->Controls->Add(this->dgvQueryCom);
+			this->groupBox2->Controls->Add(this->button4);
+			this->groupBox2->Controls->Add(this->button5);
+			this->groupBox2->Controls->Add(this->textBox3);
+			this->groupBox2->Controls->Add(this->label10);
+			this->groupBox2->Location = System::Drawing::Point(7, 33);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(711, 266);
+			this->groupBox2->TabIndex = 22;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"استعلام عن خلطة";
+			this->groupBox2->Visible = false;
+			this->groupBox2->Enter += gcnew System::EventHandler(this, &MyForm::groupBox2_Enter_1);
+			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(310, 16);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(108, 43);
+			this->button8->TabIndex = 22;
+			this->button8->Text = L"رجوع";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click_1);
+			// 
+			// button7
+			// 
+			this->button7->Location = System::Drawing::Point(590, 118);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(108, 43);
+			this->button7->TabIndex = 9;
+			this->button7->Text = L"حذف سطر";
+			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
+			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(590, 66);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(108, 43);
+			this->button6->TabIndex = 9;
+			this->button6->Text = L"تعديل كمية مادة";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
+			// 
+			// dgvQueryCom
+			// 
+			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
+			this->dgvQueryCom->Name = L"dgvQueryCom";
+			this->dgvQueryCom->Size = System::Drawing::Size(574, 186);
+			this->dgvQueryCom->TabIndex = 21;
+			this->dgvQueryCom->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::dgvQueryCom_MouseClick);
+			// 
+			// button4
+			// 
+			this->button4->Location = System::Drawing::Point(590, 168);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(108, 43);
+			this->button4->TabIndex = 16;
+			this->button4->Text = L"خروج";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
+			// 
+			// button5
+			// 
+			this->button5->Location = System::Drawing::Point(184, 17);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(108, 43);
+			this->button5->TabIndex = 15;
+			this->button5->Text = L"بحث";
+			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(78, 28);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(100, 20);
+			this->textBox3->TabIndex = 13;
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label10->Location = System::Drawing::Point(13, 28);
+			this->label10->Name = L"label10";
+			this->label10->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label10->Size = System::Drawing::Size(50, 18);
+			this->label10->TabIndex = 12;
+			this->label10->Text = L"Fitem";
 			// 
 			// textBox9
 			// 
@@ -753,103 +852,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->lblFitem->Size = System::Drawing::Size(50, 18);
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"Fitem";
-			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->button8);
-			this->groupBox2->Controls->Add(this->button7);
-			this->groupBox2->Controls->Add(this->button6);
-			this->groupBox2->Controls->Add(this->dgvQueryCom);
-			this->groupBox2->Controls->Add(this->button4);
-			this->groupBox2->Controls->Add(this->button5);
-			this->groupBox2->Controls->Add(this->textBox3);
-			this->groupBox2->Controls->Add(this->label10);
-			this->groupBox2->Location = System::Drawing::Point(42, 25);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(722, 266);
-			this->groupBox2->TabIndex = 22;
-			this->groupBox2->TabStop = false;
-			this->groupBox2->Text = L"استعلام عن خلطة";
-			this->groupBox2->Visible = false;
-			this->groupBox2->Enter += gcnew System::EventHandler(this, &MyForm::groupBox2_Enter_1);
-			// 
-			// button8
-			// 
-			this->button8->Location = System::Drawing::Point(310, 16);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(108, 43);
-			this->button8->TabIndex = 22;
-			this->button8->Text = L"رجوع";
-			this->button8->UseVisualStyleBackColor = true;
-			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click_1);
-			// 
-			// button7
-			// 
-			this->button7->Location = System::Drawing::Point(590, 118);
-			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(108, 43);
-			this->button7->TabIndex = 9;
-			this->button7->Text = L"حذف سطر";
-			this->button7->UseVisualStyleBackColor = true;
-			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
-			// 
-			// button6
-			// 
-			this->button6->Location = System::Drawing::Point(590, 66);
-			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(108, 43);
-			this->button6->TabIndex = 9;
-			this->button6->Text = L"تعديل كمية مادة";
-			this->button6->UseVisualStyleBackColor = true;
-			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
-			// 
-			// dgvQueryCom
-			// 
-			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
-			this->dgvQueryCom->Name = L"dgvQueryCom";
-			this->dgvQueryCom->Size = System::Drawing::Size(574, 186);
-			this->dgvQueryCom->TabIndex = 21;
-			this->dgvQueryCom->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::dgvQueryCom_MouseClick);
-			// 
-			// button4
-			// 
-			this->button4->Location = System::Drawing::Point(590, 168);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(108, 43);
-			this->button4->TabIndex = 16;
-			this->button4->Text = L"خروج";
-			this->button4->UseVisualStyleBackColor = true;
-			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
-			// 
-			// button5
-			// 
-			this->button5->Location = System::Drawing::Point(184, 17);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(108, 43);
-			this->button5->TabIndex = 15;
-			this->button5->Text = L"بحث";
-			this->button5->UseVisualStyleBackColor = true;
-			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
-			// 
-			// textBox3
-			// 
-			this->textBox3->Location = System::Drawing::Point(78, 28);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(100, 20);
-			this->textBox3->TabIndex = 13;
-			// 
-			// label10
-			// 
-			this->label10->AutoSize = true;
-			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label10->Location = System::Drawing::Point(13, 28);
-			this->label10->Name = L"label10";
-			this->label10->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->label10->Size = System::Drawing::Size(50, 18);
-			this->label10->TabIndex = 12;
-			this->label10->Text = L"Fitem";
 			// 
 			// groupBox4
 			// 
@@ -1001,11 +1003,20 @@ private: System::Windows::Forms::Button^ button3;
 			this->toolStripSeparator1->Name = L"toolStripSeparator1";
 			this->toolStripSeparator1->Size = System::Drawing::Size(164, 6);
 			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(164, 4);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(194, 20);
+			this->textBox1->TabIndex = 23;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 561);
+			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);
 			this->Controls->Add(this->gbAddCombination);
@@ -1052,7 +1063,8 @@ private: System::Windows::Forms::Button^ button3;
 
 private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e);
 private: System::Void toolStripMenuItemCombination2_Click(System::Object^ sender, System::EventArgs^ e) {
-	
+
+	textBox1->Hide();
 	activeDataGrid->Hide();
 	activeDataGrid = combinationData2;
 	activeDataGrid->Show();
@@ -1064,7 +1076,7 @@ private: System::Void toolStripMenuItemCombination2_Click(System::Object^ sender
 	Text = toolStripMenuItemCombination2->Text;
 }
 private: System::Void toomStripMenuItemCombination_Click(System::Object^ sender, System::EventArgs^ e) {
-
+	textBox1->Show();
 	activeDataGrid->Hide();
 	activeDataGrid = combintaionData;
 	activeDataGrid->Show();
@@ -1076,7 +1088,7 @@ private: System::Void toomStripMenuItemCombination_Click(System::Object^ sender,
 	Text = toomStripMenuItemCombination->Text;
 }
 private: System::Void toolStripMenuItemItems_Click(System::Object^ sender, System::EventArgs^ e) {
-	
+	textBox1->Show();
 	activeDataGrid->Hide();
 	activeDataGrid = ItemsData;
 	activeDataGrid->Show();
@@ -1102,7 +1114,7 @@ private: System::Void btnUpdateDB_Click(System::Object^ sender, System::EventArg
 	UpdateFinishedCombinations();
 }
 private: System::Void قائمةالخلطاتالجاهزةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-
+	textBox1->Show();
 	activeDataGrid->Hide();
 	activeDataGrid = FinishedCombinations;
 	activeDataGrid->Show();
@@ -1116,6 +1128,7 @@ private: System::Void قائمةالخلطاتالجاهزةToolStripMenuItem_Cl
 private: System::Void groupBox2_Enter(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void نسبالهدرToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Hide();
 	activeDataGrid->Hide();
 	activeDataGrid = WasteData;
 	activeDataGrid->Show();
@@ -1273,6 +1286,7 @@ private: System::Void dgvAddCombination_CellContentClick(System::Object^ sender,
 }
 private: System::Void btnAddCombination_Click(System::Object^ sender, System::EventArgs^ e) {
 
+	textBox1->Hide();
 	menuStrip1->Hide();
 	groupBox1->Hide();
 	groupBox3->Hide();
@@ -1285,6 +1299,7 @@ private: System::Void btnAddCombination_Click(System::Object^ sender, System::Ev
 
 
 private: System::Void btnCancelCombinationAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Show();
 	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox3->Hide();
@@ -1421,6 +1436,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	return;
 }
 private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Show();
 	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox3->Hide();
@@ -1545,7 +1561,7 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 
 }
 private: System::Void btnQueryCombination_Click(System::Object^ sender, System::EventArgs^ e) {
-
+	textBox1->Hide();
 	menuStrip1->Hide();
 	groupBox1->Hide();
 	groupBox3->Hide();
@@ -1556,6 +1572,7 @@ private: System::Void btnQueryCombination_Click(System::Object^ sender, System::
 	dgvQueryCom->Show();
 }
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Show();
 	queryStack->Clear();
 	menuStrip1->Show();
 	groupBox1->Show();
@@ -1827,5 +1844,53 @@ private: System::Void groupBox2_Enter_1(System::Object^ sender, System::EventArg
 
 }
 
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	//get the current datagridview 
+	//each datagrid has a column for searching
+
+	//we will start by implementing for FinishedCombinations
+
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+	if (activeDataGrid == FinishedCombinations)
+	{
+		query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2,MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, AVG(Sell_Cost) AS Sell_Cost FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F' AND (Fitem LIKE '" + textBox1->Text +"%' OR MIN(I_R_Name) LIKE '"+textBox1->Text+"%' ); ";
+		dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+		dt = gcnew DataTable();
+		dbDataAdapter->Fill(dt);
+		FinishedCombinations->DataSource = dt;
+		UpdateFinishedCombinations();
+	}
+
+	if (activeDataGrid == ItemsData)
+	{
+		query = "SELECT Inum, I_R_Name, Igroup, Unit_Cost FROM items WHERE Inum LIKE '"+ textBox1->Text+"%';";
+		dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+		dt = gcnew DataTable();
+		dbDataAdapter->Fill(dt);
+		ItemsData->DataSource = dt;
+		UpdateRawDataPrices();
+	}
+
+	if (activeDataGrid == combintaionData)
+	{
+		query = "SELECT c.Fitem, MIN(c.I_R_Name) AS I_R_Name, MIN(c.IGroup) AS IGroup, MIN(c.Machine_Line) AS Machine_Line, c.Fitem AS Unit_Cost FROM Combination AS c LEFT JOIN items ON c.RItem=items.Inum GROUP BY c.FItem HAVING c.Fitem LIKE '"+textBox1->Text+"%';";
+		dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+		dt = gcnew DataTable();
+		dbDataAdapter->Fill(dt);
+		combintaionData->DataSource = dt;
+	
+
+		//update prices
+		for (int i = 0; i < combintaionData->RowCount - 1; i++)
+		{
+			CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
+			combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()], 3);
+		}
+	}
+
+}
 };
 }

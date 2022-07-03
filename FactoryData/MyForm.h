@@ -1806,15 +1806,20 @@ private: System::Void button8_Click_1(System::Object^ sender, System::EventArgs^
 	DataTable^ dt;
 
 	//Read into itemsData
-	query = "SELECT c.Ritem AS Ritem, c.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" +  queryStack->Peek() + "'";
+	query = "SELECT c.Ritem AS Ritem, i1.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" +  queryStack->Peek() + "'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	dgvQueryCom->DataSource = dt;
 	for (int i = 0; i < dgvQueryCom->Rows->Count - 1; i++)
 	{
+		if (NameCom->count(dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()))
+		{
+			dgvQueryCom->Rows[i]->Cells["Name"]->Value = NameCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()];
+		}
 		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
 		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
+
 	}
 	
 }

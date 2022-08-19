@@ -262,8 +262,25 @@ void FactoryData::MyForm::LoadDatabaseTables()
 		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString()));
 	}
 
+	query = "SELECT Inum AS Inum, I_R_name AS I_R_name, BIquan AS InputQuantity, BIquan AS OutputQuantity, BIquan AS Difference FROM Items;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	inventoryDataGrid->DataSource = dt;
+
+	for(int i = 0; i< ItemsData->Rows->Count - 1 ;i++)
+	{
+		auto dr = ItemsData->Rows[i];
+		diffQuan[dr->Cells["Inum"]->Value->ToString()] = System::Convert::ToDouble(inputQuan[dr->Cells["Inum"]->Value->ToString()]) - System::Convert::ToDouble(outputQuan[dr->Cells["Inum"]->Value->ToString()]);
+	}
 	//calculate the difference for each raw data
-	
+	for (int i = 0; i < inventoryDataGrid->Rows->Count - 1; i++)
+	{
+		auto dr = inventoryDataGrid->Rows[i];
+		dr->Cells["Difference"]->Value = diffQuan[dr->Cells["Inum"]->Value->ToString()];
+		dr->Cells["InputQuantity"]->Value = inputQuan[dr->Cells["Inum"]->Value->ToString()];
+		dr->Cells["OutputQuantity"]->Value = outputQuan[dr->Cells["Inum"]->Value->ToString()];
+	}
 
 	dbConnection->Close();
 }

@@ -220,6 +220,15 @@ private: System::Windows::Forms::DataGridView^ inventoryDataGrid;
 
 
 
+
+
+
+
+
+
+
+
+
 private: System::Windows::Forms::Button^ button3;
 
 
@@ -255,6 +264,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->toolStripMenuItemItems = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->قائمةالخلطاتالجاهزةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->نسبالهدرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->قائمةالجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -317,7 +327,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->inventoryDataGrid = (gcnew System::Windows::Forms::DataGridView());
-			this->قائمةالجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -393,6 +402,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->نسبالهدرToolStripMenuItem->Size = System::Drawing::Size(195, 22);
 			this->نسبالهدرToolStripMenuItem->Text = L"نسب الهدر";
 			this->نسبالهدرToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::نسبالهدرToolStripMenuItem_Click);
+			// 
+			// قائمةالجردToolStripMenuItem
+			// 
+			this->قائمةالجردToolStripMenuItem->Name = L"قائمةالجردToolStripMenuItem";
+			this->قائمةالجردToolStripMenuItem->Size = System::Drawing::Size(195, 22);
+			this->قائمةالجردToolStripMenuItem->Text = L"قائمة الجرد";
+			this->قائمةالجردToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::قائمةالجردToolStripMenuItem_Click);
 			// 
 			// خروجToolStripMenuItem
 			// 
@@ -769,7 +785,6 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// groupBox2
 			// 
-			this->groupBox2->Controls->Add(this->inventoryDataGrid);
 			this->groupBox2->Controls->Add(this->button8);
 			this->groupBox2->Controls->Add(this->button7);
 			this->groupBox2->Controls->Add(this->button6);
@@ -778,7 +793,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox2->Controls->Add(this->button5);
 			this->groupBox2->Controls->Add(this->textBox3);
 			this->groupBox2->Controls->Add(this->label10);
-			this->groupBox2->Location = System::Drawing::Point(7, 33);
+			this->groupBox2->Location = System::Drawing::Point(12, 34);
 			this->groupBox2->Name = L"groupBox2";
 			this->groupBox2->Size = System::Drawing::Size(711, 266);
 			this->groupBox2->TabIndex = 22;
@@ -1026,22 +1041,18 @@ private: System::Windows::Forms::Button^ button3;
 			// inventoryDataGrid
 			// 
 			this->inventoryDataGrid->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->inventoryDataGrid->Location = System::Drawing::Point(6, -6);
+			this->inventoryDataGrid->Location = System::Drawing::Point(11, 26);
 			this->inventoryDataGrid->Name = L"inventoryDataGrid";
-			this->inventoryDataGrid->Size = System::Drawing::Size(752, 486);
+			this->inventoryDataGrid->Size = System::Drawing::Size(753, 486);
 			this->inventoryDataGrid->TabIndex = 24;
-			// 
-			// قائمةالجردToolStripMenuItem
-			// 
-			this->قائمةالجردToolStripMenuItem->Name = L"قائمةالجردToolStripMenuItem";
-			this->قائمةالجردToolStripMenuItem->Size = System::Drawing::Size(195, 22);
-			this->قائمةالجردToolStripMenuItem->Text = L"قائمة الجرد";
+			this->inventoryDataGrid->Visible = false;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 561);
+			this->Controls->Add(this->inventoryDataGrid);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);
@@ -1919,6 +1930,35 @@ private: System::Void textBox1_TextChanged(System::Object^ sender, System::Event
 		}
 	}
 
+	if (activeDataGrid == inventoryDataGrid)
+	{
+		query = "SELECT Inum AS Inum, I_R_name AS I_R_name, BIquan AS InputQuantity, BIquan AS OutputQuantity, BIquan AS Difference FROM Items WHERE Inum LIKE '" + textBox1->Text + "%';";
+		dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+		dt = gcnew DataTable();
+		dbDataAdapter->Fill(dt);
+		inventoryDataGrid->DataSource = dt;
+
+		for (int i = 0; i < inventoryDataGrid->Rows->Count - 1; i++)
+		{
+			auto dr = inventoryDataGrid->Rows[i];
+			dr->Cells["Difference"]->Value = diffQuan[dr->Cells["Inum"]->Value->ToString()];
+			dr->Cells["InputQuantity"]->Value = inputQuan[dr->Cells["Inum"]->Value->ToString()];
+			dr->Cells["OutputQuantity"]->Value = outputQuan[dr->Cells["Inum"]->Value->ToString()];
+		}
+	}
+
+}
+private: System::Void قائمةالجردToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	textBox1->Show();
+	activeDataGrid->Hide();
+	activeDataGrid = inventoryDataGrid;
+	activeDataGrid->Show();
+
+	gbAddCombination->Hide();
+	groupBox3->Hide();
+	groupBox4->Hide();
+	groupBox1->Show();
+	Text = toolStripMenuItemCombination2->Text;
 }
 };
 }

@@ -54,6 +54,7 @@ double FactoryData::MyForm::CalcSum(String^ key)
 		//uncomment this when you add the final pricing lists 
 		//MessageBox::Show("Product " + key + " does not exist in the pricing list!");
 	}
+	quanCom[key] = accum;
 	mapCom[key] = (double)res/accum;
 	return mapCom[key];
 }
@@ -321,7 +322,7 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 			if (temp == "")
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
-			CalcQuan(val, quan*System::Convert::ToDouble(temp));
+			CalcQuan(val, quan*System::Convert::ToDouble(temp)/quanCom[key]);
 			
 		}
 	}

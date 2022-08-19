@@ -170,15 +170,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Factory Data Management"
-        "ProductCode" = "8:{BD5F7247-A92A-416E-AEA1-DC3A9BF555FE}"
-        "PackageCode" = "8:{E454046C-DC25-486C-9A8C-E424B4E963BC}"
+        "ProductCode" = "8:{16BA0131-2A3C-4FC2-B87F-4D01AEB849EF}"
+        "PackageCode" = "8:{0E5B0D1B-CF9A-42DE-84F6-7A0476032558}"
         "UpgradeCode" = "8:{2E125224-198B-419F-A033-8892FCCDE887}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:BasharBetta7"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -720,7 +720,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B04D2D00A2AB4DD4B5D23FACF8FD896A"
             {
-            "SourcePath" = "8:..\\x64\\Release\\FactoryData.exe"
+            "SourcePath" = "8:..\\Release\\FactoryData.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_334B13B7D7554CDFB568FAAB18493338"

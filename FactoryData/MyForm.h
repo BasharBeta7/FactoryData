@@ -117,17 +117,21 @@ namespace FactoryData {
 		DataGridView^ activeDataGrid;
 		GroupBox^ activeGroupBox;
 		String^ connecttionString = Connection::connectionString;
-		cliext::map<String^, double> ^mapRaw = gcnew cliext::map<String^,double>;//Raw Inum -->> Unit_Cost map
-		cliext::map<String^, double> ^mapCom = gcnew cliext::map<String^, double>;//Combination Fitem-->Unit_Cost
+		cliext::map<String^, double> ^mapRaw   = gcnew cliext::map<String^,double>;//Raw Inum -->> Unit_Cost map
+		cliext::map<String^, double> ^mapCom   = gcnew cliext::map<String^, double>;//Combination Fitem-->Unit_Cost
 		cliext::map<String^, double>^ totalCom = gcnew cliext::map<String^, double>;//total Cost for combination
 		cliext::map<String^, double>^ Generalwastes = gcnew cliext::map<String^, double>;//wastes for cost calculating
-		cliext::map<String^, double>^ DragehWastes = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ DragehWastes  = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ BoxCosts = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences1 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ Expences2 = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ SellCostCom = gcnew cliext::map<String^, double>;
 		System::Collections::Generic::Stack<String^ >^ queryStack = gcnew Generic::Stack<String^>;
 		cliext::map<String^, String^>^ NameCom = gcnew cliext::map<String^, String^>;
+
+		cliext::map<String^, double>^ inputQuan  = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ outputQuan = gcnew cliext::map<String^, double>;
+		cliext::map<String^, double>^ diffQuan   = gcnew cliext::map<String^, double>;
 		double expences1, expences2;
 		String^ rowToQuery = "";//saves the name of the fitem to query on 
 
@@ -232,6 +236,7 @@ private: System::Windows::Forms::Button^ button3;
 		void ResetData();
 		double StringToDouble(String^  s);
 
+		void CalcQuan(String^ key,double quan);
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -1445,6 +1450,7 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	activeDataGrid->Show();
 }
 private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 	if (FinishedCombinations->Rows->Count > 0)
 	{
 		SaveFileDialog ^sfd = gcnew SaveFileDialog();

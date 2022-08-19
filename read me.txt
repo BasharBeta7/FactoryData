@@ -1,0 +1,4 @@
+1- Extract BasharBetta7.rar into your PC.
+2- Install AccessDatabaseEngine.exe 
+3- Open Setup\Release and install setup.exe 
+4- Copy FactoryDB file to the same directory of installation.

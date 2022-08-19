@@ -17,6 +17,7 @@ void main(array<String^>^ args)
 	Application::Run(% form);
 }
 
+
 double FactoryData::MyForm::CalcSum(String^ key)
 {
 	double res = 0;
@@ -122,9 +123,10 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
 		dr->Cells["Expences1"]->Value = System::Convert::ToString(expences1);
 		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
+		dr->Cells["Expences2"]->Value = System::Convert::ToString(expences2);
 		//for now we will fix expences for expences1 and make them unique for expences2
 		dr->Cells["Cost1"]->Value		= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()),3);
-		dr->Cells["Cost2"]->Value = Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + Expences2[dr->Cells["Fitem"]->Value->ToString()] * StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()), 3);
+		dr->Cells["Cost2"]->Value = Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences2 * StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()), 3);
 		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
 		dr->Cells["Box_Cost"]->Value = Math::Round(BoxCosts[dr->Cells["Fitem"]->Value->ToString()],3);
 		dr->Cells["Sell_Cost"]->Value = Math::Round(SellCostCom[dr->Cells["Fitem"]->Value->ToString()], 3);
@@ -223,7 +225,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	}
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
-	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, AVG(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2,MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, AVG(Sell_Cost) AS Sell_Cost FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
+	query = "SELECT FItem, MIN(Machine_Line) AS MachineLine, MIN(I_R_Name) AS Name , MIN(General_Waste) AS Unit_Cost,  MIN(General_Waste) AS Total, MIN(General_Waste)  AS General_Waste,  MIN(General_Waste) AS Drageh_Waste, AVG(Box_Cost) AS Box_Cost, MAX(Box_Weight) AS Box_Weight,  MIN(General_Waste) AS Expences1, MIN(General_Waste) AS Expences2,MIN(General_Waste) AS Cost1,  MIN(General_Waste) AS Cost2, AVG(Sell_Cost) AS Sell_Cost FROM Combination GROUP BY Fitem HAVING MIN(IGroup)='F'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -257,6 +259,32 @@ void FactoryData::MyForm::ResetData()
 double FactoryData::MyForm::StringToDouble(String^ s)
 {
 	return (s == "") ? 0 : System::Convert::ToDouble(s);
+}
+
+void FactoryData::MyForm::CalcQuan(String^ key,double quan)
+{
+	if (mapRaw->count(key))
+	{
+		outputQuan[key] += quan;
+		return;
+	}
+	String^ val;
+	String^ temp;
+	for (int i = 0; i < combinationData2->RowCount - 1; i++)
+	{
+		val = combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString();
+		if (val == key)
+		{
+			temp = combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString();
+			if (temp == "")
+				continue;
+			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
+			CalcQuan(val, quan*System::Convert::ToDouble(temp));
+			
+		}
+	}
+	return;
+
 }
 
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)

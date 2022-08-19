@@ -209,6 +209,8 @@ private: System::Windows::Forms::Button^ button6;
 private: System::Windows::Forms::Button^ button8;
 private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 private: System::Windows::Forms::TextBox^ textBox1;
+private: System::Windows::Forms::ToolStripMenuItem^ قائمةالجردToolStripMenuItem;
+private: System::Windows::Forms::DataGridView^ inventoryDataGrid;
 
 
 
@@ -280,15 +282,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->RIsubquan = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->lblMachineLine = (gcnew System::Windows::Forms::Label());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->button8 = (gcnew System::Windows::Forms::Button());
-			this->button7 = (gcnew System::Windows::Forms::Button());
-			this->button6 = (gcnew System::Windows::Forms::Button());
-			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
 			this->lblIGroup = (gcnew System::Windows::Forms::Label());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
@@ -298,6 +291,15 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
@@ -314,6 +316,8 @@ private: System::Windows::Forms::Button^ button3;
 			this->استعلامعنالخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->inventoryDataGrid = (gcnew System::Windows::Forms::DataGridView());
+			this->قائمةالجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -328,6 +332,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox4->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->BeginInit();
 			this->contextMenuStrip1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->inventoryDataGrid))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -345,9 +350,10 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// ToolStripMenuItem
 			// 
-			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
+			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {
 				this->toolStripMenuItemCombination2,
-					this->toomStripMenuItemCombination, this->toolStripMenuItemItems, this->قائمةالخلطاتالجاهزةToolStripMenuItem, this->نسبالهدرToolStripMenuItem
+					this->toomStripMenuItemCombination, this->toolStripMenuItemItems, this->قائمةالخلطاتالجاهزةToolStripMenuItem, this->نسبالهدرToolStripMenuItem,
+					this->قائمةالجردToolStripMenuItem
 			});
 			this->ToolStripMenuItem->Name = L"ToolStripMenuItem";
 			this->ToolStripMenuItem->Size = System::Drawing::Size(46, 20);
@@ -675,8 +681,95 @@ private: System::Windows::Forms::Button^ button3;
 			this->lblMachineLine->Text = L"Machine_Line";
 			this->lblMachineLine->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
+			// textBox9
+			// 
+			this->textBox9->Location = System::Drawing::Point(136, 174);
+			this->textBox9->Name = L"textBox9";
+			this->textBox9->Size = System::Drawing::Size(100, 20);
+			this->textBox9->TabIndex = 19;
+			// 
+			// lblIGroup
+			// 
+			this->lblIGroup->AutoSize = true;
+			this->lblIGroup->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblIGroup->Location = System::Drawing::Point(13, 126);
+			this->lblIGroup->Name = L"lblIGroup";
+			this->lblIGroup->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblIGroup->Size = System::Drawing::Size(59, 18);
+			this->lblIGroup->TabIndex = 18;
+			this->lblIGroup->Text = L"IGroup";
+			this->lblIGroup->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox8
+			// 
+			this->textBox8->Location = System::Drawing::Point(136, 127);
+			this->textBox8->Name = L"textBox8";
+			this->textBox8->Size = System::Drawing::Size(100, 20);
+			this->textBox8->TabIndex = 17;
+			// 
+			// btnCancelCombinationAdd
+			// 
+			this->btnCancelCombinationAdd->Location = System::Drawing::Point(272, 214);
+			this->btnCancelCombinationAdd->Name = L"btnCancelCombinationAdd";
+			this->btnCancelCombinationAdd->Size = System::Drawing::Size(108, 43);
+			this->btnCancelCombinationAdd->TabIndex = 16;
+			this->btnCancelCombinationAdd->Text = L"إلغاء";
+			this->btnCancelCombinationAdd->UseVisualStyleBackColor = true;
+			this->btnCancelCombinationAdd->Click += gcnew System::EventHandler(this, &MyForm::btnCancelCombinationAdd_Click);
+			// 
+			// btnAdd
+			// 
+			this->btnAdd->Location = System::Drawing::Point(386, 214);
+			this->btnAdd->Name = L"btnAdd";
+			this->btnAdd->Size = System::Drawing::Size(108, 43);
+			this->btnAdd->TabIndex = 15;
+			this->btnAdd->Text = L"إضافة";
+			this->btnAdd->UseVisualStyleBackColor = true;
+			this->btnAdd->Click += gcnew System::EventHandler(this, &MyForm::btnAdd_Click);
+			// 
+			// lblI_R_Name
+			// 
+			this->lblI_R_Name->AutoSize = true;
+			this->lblI_R_Name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblI_R_Name->Location = System::Drawing::Point(13, 76);
+			this->lblI_R_Name->Name = L"lblI_R_Name";
+			this->lblI_R_Name->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblI_R_Name->Size = System::Drawing::Size(86, 18);
+			this->lblI_R_Name->TabIndex = 14;
+			this->lblI_R_Name->Text = L"I_R_Name";
+			this->lblI_R_Name->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			// 
+			// textBox6
+			// 
+			this->textBox6->Location = System::Drawing::Point(136, 30);
+			this->textBox6->Name = L"textBox6";
+			this->textBox6->Size = System::Drawing::Size(100, 20);
+			this->textBox6->TabIndex = 13;
+			// 
+			// textBox7
+			// 
+			this->textBox7->Location = System::Drawing::Point(136, 77);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(100, 20);
+			this->textBox7->TabIndex = 11;
+			// 
+			// lblFitem
+			// 
+			this->lblFitem->AutoSize = true;
+			this->lblFitem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblFitem->Location = System::Drawing::Point(13, 28);
+			this->lblFitem->Name = L"lblFitem";
+			this->lblFitem->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->lblFitem->Size = System::Drawing::Size(50, 18);
+			this->lblFitem->TabIndex = 12;
+			this->lblFitem->Text = L"Fitem";
+			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->inventoryDataGrid);
 			this->groupBox2->Controls->Add(this->button8);
 			this->groupBox2->Controls->Add(this->button7);
 			this->groupBox2->Controls->Add(this->button6);
@@ -771,92 +864,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->label10->Size = System::Drawing::Size(50, 18);
 			this->label10->TabIndex = 12;
 			this->label10->Text = L"Fitem";
-			// 
-			// textBox9
-			// 
-			this->textBox9->Location = System::Drawing::Point(136, 174);
-			this->textBox9->Name = L"textBox9";
-			this->textBox9->Size = System::Drawing::Size(100, 20);
-			this->textBox9->TabIndex = 19;
-			// 
-			// lblIGroup
-			// 
-			this->lblIGroup->AutoSize = true;
-			this->lblIGroup->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lblIGroup->Location = System::Drawing::Point(13, 126);
-			this->lblIGroup->Name = L"lblIGroup";
-			this->lblIGroup->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->lblIGroup->Size = System::Drawing::Size(59, 18);
-			this->lblIGroup->TabIndex = 18;
-			this->lblIGroup->Text = L"IGroup";
-			this->lblIGroup->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox8
-			// 
-			this->textBox8->Location = System::Drawing::Point(136, 127);
-			this->textBox8->Name = L"textBox8";
-			this->textBox8->Size = System::Drawing::Size(100, 20);
-			this->textBox8->TabIndex = 17;
-			// 
-			// btnCancelCombinationAdd
-			// 
-			this->btnCancelCombinationAdd->Location = System::Drawing::Point(272, 214);
-			this->btnCancelCombinationAdd->Name = L"btnCancelCombinationAdd";
-			this->btnCancelCombinationAdd->Size = System::Drawing::Size(108, 43);
-			this->btnCancelCombinationAdd->TabIndex = 16;
-			this->btnCancelCombinationAdd->Text = L"إلغاء";
-			this->btnCancelCombinationAdd->UseVisualStyleBackColor = true;
-			this->btnCancelCombinationAdd->Click += gcnew System::EventHandler(this, &MyForm::btnCancelCombinationAdd_Click);
-			// 
-			// btnAdd
-			// 
-			this->btnAdd->Location = System::Drawing::Point(386, 214);
-			this->btnAdd->Name = L"btnAdd";
-			this->btnAdd->Size = System::Drawing::Size(108, 43);
-			this->btnAdd->TabIndex = 15;
-			this->btnAdd->Text = L"إضافة";
-			this->btnAdd->UseVisualStyleBackColor = true;
-			this->btnAdd->Click += gcnew System::EventHandler(this, &MyForm::btnAdd_Click);
-			// 
-			// lblI_R_Name
-			// 
-			this->lblI_R_Name->AutoSize = true;
-			this->lblI_R_Name->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lblI_R_Name->Location = System::Drawing::Point(13, 76);
-			this->lblI_R_Name->Name = L"lblI_R_Name";
-			this->lblI_R_Name->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->lblI_R_Name->Size = System::Drawing::Size(86, 18);
-			this->lblI_R_Name->TabIndex = 14;
-			this->lblI_R_Name->Text = L"I_R_Name";
-			this->lblI_R_Name->TextAlign = System::Drawing::ContentAlignment::TopCenter;
-			// 
-			// textBox6
-			// 
-			this->textBox6->Location = System::Drawing::Point(136, 30);
-			this->textBox6->Name = L"textBox6";
-			this->textBox6->Size = System::Drawing::Size(100, 20);
-			this->textBox6->TabIndex = 13;
-			// 
-			// textBox7
-			// 
-			this->textBox7->Location = System::Drawing::Point(136, 77);
-			this->textBox7->Name = L"textBox7";
-			this->textBox7->Size = System::Drawing::Size(100, 20);
-			this->textBox7->TabIndex = 11;
-			// 
-			// lblFitem
-			// 
-			this->lblFitem->AutoSize = true;
-			this->lblFitem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lblFitem->Location = System::Drawing::Point(13, 28);
-			this->lblFitem->Name = L"lblFitem";
-			this->lblFitem->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->lblFitem->Size = System::Drawing::Size(50, 18);
-			this->lblFitem->TabIndex = 12;
-			this->lblFitem->Text = L"Fitem";
 			// 
 			// groupBox4
 			// 
@@ -1016,6 +1023,20 @@ private: System::Windows::Forms::Button^ button3;
 			this->textBox1->TabIndex = 23;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
+			// inventoryDataGrid
+			// 
+			this->inventoryDataGrid->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->inventoryDataGrid->Location = System::Drawing::Point(6, -6);
+			this->inventoryDataGrid->Name = L"inventoryDataGrid";
+			this->inventoryDataGrid->Size = System::Drawing::Size(752, 486);
+			this->inventoryDataGrid->TabIndex = 24;
+			// 
+			// قائمةالجردToolStripMenuItem
+			// 
+			this->قائمةالجردToolStripMenuItem->Name = L"قائمةالجردToolStripMenuItem";
+			this->قائمةالجردToolStripMenuItem->Size = System::Drawing::Size(195, 22);
+			this->قائمةالجردToolStripMenuItem->Text = L"قائمة الجرد";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1060,6 +1081,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox4->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->WasteData))->EndInit();
 			this->contextMenuStrip1->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->inventoryDataGrid))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

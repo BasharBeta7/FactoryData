@@ -242,6 +242,27 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dbDataAdapter->Fill(dt);
 	WasteData->DataSource = dt;
 	
+
+	//load inputs and outputs into inventoryDataGrid
+	query = "SELECT Inum AS Inum, Quan as Quan FROM Inputs;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	for each (DataRow^ row in dt->Rows)
+	{
+		inputQuan[row["Inum"]->ToString()] += System::Convert::ToDouble(row["Quan"]->ToString());
+	}
+
+	query = "SELECT Fitem AS Fitem, Quan as Quan FROM Outputs;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	for each (DataRow ^ row in dt->Rows)
+	{
+		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString()));
+	}
+
+	//calculate the difference for each raw data
 	
 
 	dbConnection->Close();
@@ -253,6 +274,10 @@ void FactoryData::MyForm::ResetData()
 	mapCom->clear();
 	totalCom->clear();
 	SellCostCom->clear();
+
+	inputQuan->clear();
+	outputQuan->clear();
+	diffQuan->clear();
 
 }
 

@@ -1960,7 +1960,7 @@ private: System::Void قائمةالجردToolStripMenuItem_Click(System::Object
 	groupBox3->Hide();
 	groupBox4->Hide();
 	groupBox1->Show();
-	Text = toolStripMenuItemCombination2->Text;
+	Text = قائمةالجردToolStripMenuItem->Text;
 }
 };
 }

@@ -117,20 +117,24 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 	for (int i = 0; i < FinishedCombinations->Rows->Count - 1; i++)
 	{
 		dr = FinishedCombinations->Rows[i];
+
+
 		dr->Cells["Unit_Cost"]->Value		    = Math::Round(mapCom[dr->Cells["Fitem"]->Value->ToString()],3);
 		dr->Cells["Total"]->Value				= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()],3);
 		dr->Cells["General_Waste"]->Value		= Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
-		dr->Cells["Drageh_Waste"]->Value	    = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
-		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
-		dr->Cells["Expences1"]->Value = System::Convert::ToString(expences1);
-		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
+		dr->Cells["Drageh_Waste"]->Value	    = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];		
+		dr->Cells["Expences1"]->Value = System::Convert::ToString(expences1);	
 		dr->Cells["Expences2"]->Value = System::Convert::ToString(expences2);
-		//for now we will fix expences for expences1 and make them unique for expences2
 		dr->Cells["Cost1"]->Value		= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()),3);
 		dr->Cells["Cost2"]->Value = Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences2 * StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()), 3);
-		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
-		dr->Cells["Box_Cost"]->Value = Math::Round(BoxCosts[dr->Cells["Fitem"]->Value->ToString()],3);
+		dr->Cells["Box_Cost"]->Value = Math::Round(BoxCosts[dr->Cells["Fitem"]->Value->ToString()],3);	
 		dr->Cells["Sell_Cost"]->Value = Math::Round(SellCostCom[dr->Cells["Fitem"]->Value->ToString()], 3);
+		
+
+		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
+		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
+		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
+		comBoxWeight[dr->Cells["Fitem"]->Value->ToString()] = System::Convert::ToDouble(dr->Cells["Box_Weight"]->Value->ToString());
 	}
 }
 
@@ -260,7 +264,8 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dbDataAdapter->Fill(dt);
 	for each (DataRow ^ row in dt->Rows)
 	{
-		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString()));
+		if (comBoxWeight->count(row["Fitem"]->ToString()))		
+		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString())*comBoxWeight[row["Fitem"]->ToString()]);
 	}
 
 	query = "SELECT Inum AS Inum, I_R_name AS I_R_name, BIquan AS InputQuantity, BIquan AS OutputQuantity, BIquan AS Difference FROM Items;";
@@ -313,6 +318,7 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 	}
 	String^ val;
 	String^ temp;
+	
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{
 		val = combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString();

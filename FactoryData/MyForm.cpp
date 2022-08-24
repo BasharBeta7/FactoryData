@@ -46,7 +46,11 @@ double FactoryData::MyForm::CalcSum(String^ key)
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
 			res += System::Convert::ToDouble(temp) * CalcSum(val);
-			accum += System::Convert::ToDouble(temp);
+			if ((mapRaw->count(val) && RawIGroup[val] == "R") || !mapRaw->count(val))
+			{
+				accum += System::Convert::ToDouble(temp);
+			}
+			
 		}
 	}
 	if (res == 0 && accum == 0)
@@ -96,7 +100,7 @@ void FactoryData::MyForm::UpdateRawDataPrices()
 		res = StringToDouble(sVal);
 		mapRaw[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
 		ItemsData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(res,3);
-		
+		RawIGroup[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = ItemsData->Rows[i]->Cells["Igroup"]->Value->ToString();
 	}
 }
 
@@ -268,7 +272,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString())*comBoxWeight[row["Fitem"]->ToString()]);
 	}
 
-	query = "SELECT Inum AS Inum, I_R_name AS I_R_name, BIquan AS InputQuantity, BIquan AS OutputQuantity, BIquan AS Difference FROM Items;";
+	query = "SELECT Inum AS Inum, I_R_name AS I_R_name, BIquan AS InputQuantity, Igroup AS Igroup, BIquan AS OutputQuantity, BIquan AS Difference FROM Items;";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -328,6 +332,11 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 			if (temp == "")
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
+			if (RawIGroup->count(val) && (RawIGroup[val] == "I" || RawIGroup[val] == "i"))
+			{
+				CalcQuan(val, quan * System::Convert::ToDouble(temp) / comBoxWeight[key]);
+				continue;
+			}
 			CalcQuan(val, quan*System::Convert::ToDouble(temp)/quanCom[key]);
 			
 		}

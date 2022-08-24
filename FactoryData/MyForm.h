@@ -134,8 +134,10 @@ namespace FactoryData {
 		cliext::map<String^, double>^ diffQuan   = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ quanCom = gcnew cliext::map<String^, double>;
 		cliext::map<String^, double>^ comBoxWeight = gcnew cliext::map<String^, double>;
+		cliext::map<String^, String^>^ RawIGroup = gcnew cliext::map<String^, String^>;
 		double expences1, expences2;
 		String^ rowToQuery = "";//saves the name of the fitem to query on 
+
 
 		Windows::Forms::ContextMenu^ cm;
 private: System::ComponentModel::IContainer^ components;
@@ -1054,7 +1056,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 561);
-			this->Controls->Add(this->inventoryDataGrid);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);
@@ -1067,6 +1068,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->Controls->Add(this->ItemsData);
 			this->Controls->Add(this->combinationData2);
 			this->Controls->Add(this->combintaionData);
+			this->Controls->Add(this->inventoryDataGrid);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->MainMenuStrip = this->menuStrip1;
 			this->MaximizeBox = false;
@@ -1570,6 +1572,7 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 
 	if (!( queryStack->Count == 0)&&textBox3->Text == queryStack->Peek())
 	{
+		MessageBox::Show("No asdasd asd  with the specific number was found!");
 		return;
 	}
 	//fill data in dataGridView
@@ -1611,9 +1614,11 @@ private: System::Void btnQueryCombination_Click(System::Object^ sender, System::
 	activeDataGrid->Hide();
 	groupBox2->Show();
 	dgvQueryCom->Show();
+
 }
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-	textBox1->Show();
+	textBox1->Show(); 
+
 	queryStack->Clear();
 	menuStrip1->Show();
 	groupBox1->Show();

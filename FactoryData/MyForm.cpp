@@ -35,7 +35,9 @@ double FactoryData::MyForm::CalcSum(String^ key)
 	}
 	String^ val;
 	String^ temp;
+	double accumf = 0;
 	double accum = 0;
+	double tempf;
 	for (int i = 0; i < combinationData2->RowCount -1; i++)
 	{
 		val = combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString();
@@ -50,6 +52,11 @@ double FactoryData::MyForm::CalcSum(String^ key)
 			{
 				accum += System::Convert::ToDouble(temp);
 			}
+			tempf = System::Convert::ToDouble(temp);
+			if (mapRaw->count(val) && (RawIGroup[val] == "i" || RawIGroup[val] == "I") && tempf < 1.0f)
+			{
+				accumf += tempf;
+			}
 			
 		}
 	}
@@ -58,7 +65,7 @@ double FactoryData::MyForm::CalcSum(String^ key)
 		//uncomment this when you add the final pricing lists 
 		//MessageBox::Show("Product " + key + " does not exist in the pricing list!");
 	}
-	quanCom[key] = accum;
+	quanCom[key] = accum + accumf;
 	mapCom[key] = (double)res/accum;
 	return mapCom[key];
 }
@@ -322,6 +329,7 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 	}
 	String^ val;
 	String^ temp;
+	double tempf;
 	
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{
@@ -332,12 +340,16 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 			if (temp == "")
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
-			if (RawIGroup->count(val) && (RawIGroup[val] == "I" || RawIGroup[val] == "i"))
+			
+			if (comBoxWeight->count(key))
 			{
 				CalcQuan(val, quan * System::Convert::ToDouble(temp) / comBoxWeight[key]);
-				continue;
 			}
-			CalcQuan(val, quan*System::Convert::ToDouble(temp)/quanCom[key]);
+			else
+			{
+				CalcQuan(val, quan * System::Convert::ToDouble(temp) / quanCom[key]);
+			}
+			
 			
 		}
 	}

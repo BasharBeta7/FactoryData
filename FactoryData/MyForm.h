@@ -139,6 +139,7 @@ namespace FactoryData {
 		String^ rowToQuery = "";//saves the name of the fitem to query on 
 
 
+
 		Windows::Forms::ContextMenu^ cm;
 private: System::ComponentModel::IContainer^ components;
 

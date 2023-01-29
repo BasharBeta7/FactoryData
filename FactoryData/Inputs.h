@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include "Variables.h"
-
 
 namespace FactoryData {
 
@@ -17,20 +15,13 @@ namespace FactoryData {
 	public ref class Inputs : public System::Windows::Forms::Form
 	{
 	public:
-
-		
-		Form^ instance;
 		Inputs(void)
 		{
 			InitializeComponent();
-			Variables::connecttionString;
+			//
+			//TODO: Add the constructor code here
+			//
 		}
-		Inputs(Form^ frm) :
-			senderForm(frm) {
-			InitializeComponent();
-			Variables::connecttionString;
-		}
-	
 
 	protected:
 		/// <summary>
@@ -43,238 +34,243 @@ namespace FactoryData {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::GroupBox^ gbListItem;
+	protected:
+	private: System::Windows::Forms::Button^ btnDeleteRow;
+	private: System::Windows::Forms::DataGridView^ dgvItemList;
+
+
+
+	private: System::Windows::Forms::Button^ btnCancel;
+	private: System::Windows::Forms::Button^ btnConfirm;
+	private: System::Windows::Forms::GroupBox^ groupBox1;
+	private: System::Windows::Forms::TextBox^ txtboxNoBoxes;
+	private: System::Windows::Forms::Label^ lblNoBoxes;
+	private: System::Windows::Forms::Button^ btnDetails;
+	private: System::Windows::Forms::Button^ btnAdd;
+	private: System::Windows::Forms::TextBox^ txtboxFitem;
+	private: System::Windows::Forms::Label^ lblFitem;
+	private: System::Windows::Forms::Button^ btnExit;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fitem;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
+
+
+
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
-	private: System::Windows::Forms::GroupBox^ groupBox1;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ FItem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::GroupBox^ groupBox2;
-	private: System::Windows::Forms::Button^ btnDisplayDetails;
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::Label^ lblNoBoxes;
-	private: System::Windows::Forms::Button^ btnAddToList;
-	private: System::Windows::Forms::TextBox^ textBox3;
-	private: System::Windows::Forms::Label^ lblFitem;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		   Form^ senderForm;
 
 #pragma region Windows Form Designer generated code
-	private: System::Windows::Forms::Button^ button1;
-		   /// <summary>
+		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->gbListItem = (gcnew System::Windows::Forms::GroupBox());
+			this->btnDeleteRow = (gcnew System::Windows::Forms::Button());
+			this->dgvItemList = (gcnew System::Windows::Forms::DataGridView());
+			this->btnCancel = (gcnew System::Windows::Forms::Button());
+			this->btnConfirm = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->FItem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
+			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
+			this->btnDetails = (gcnew System::Windows::Forms::Button());
+			this->btnAdd = (gcnew System::Windows::Forms::Button());
+			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
+			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->btnExit = (gcnew System::Windows::Forms::Button());
+			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->btnDisplayDetails = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
-			this->btnAddToList = (gcnew System::Windows::Forms::Button());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->gbListItem->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->BeginInit();
 			this->groupBox1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
-			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
+			// 
+			// gbListItem
+			// 
+			this->gbListItem->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->gbListItem->Controls->Add(this->btnDeleteRow);
+			this->gbListItem->Controls->Add(this->dgvItemList);
+			this->gbListItem->Controls->Add(this->btnCancel);
+			this->gbListItem->Location = System::Drawing::Point(12, 177);
+			this->gbListItem->Name = L"gbListItem";
+			this->gbListItem->Size = System::Drawing::Size(711, 226);
+			this->gbListItem->TabIndex = 23;
+			this->gbListItem->TabStop = false;
+			this->gbListItem->Text = L"قائمة المنتجات المدخلة";
+			// 
+			// btnDeleteRow
+			// 
+			this->btnDeleteRow->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnDeleteRow->Location = System::Drawing::Point(590, 25);
+			this->btnDeleteRow->Name = L"btnDeleteRow";
+			this->btnDeleteRow->Size = System::Drawing::Size(108, 43);
+			this->btnDeleteRow->TabIndex = 9;
+			this->btnDeleteRow->Text = L"حذف سطر";
+			this->btnDeleteRow->UseVisualStyleBackColor = true;
+			// 
+			// dgvItemList
+			// 
+			this->dgvItemList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->dgvItemList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgvItemList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->Fitem, this->ItemName,
+					this->NoBoxes
+			});
+			this->dgvItemList->Location = System::Drawing::Point(6, 25);
+			this->dgvItemList->Name = L"dgvItemList";
+			this->dgvItemList->Size = System::Drawing::Size(574, 186);
+			this->dgvItemList->TabIndex = 21;
+			// 
+			// btnCancel
+			// 
+			this->btnCancel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnCancel->Location = System::Drawing::Point(590, 74);
+			this->btnCancel->Name = L"btnCancel";
+			this->btnCancel->Size = System::Drawing::Size(108, 43);
+			this->btnCancel->TabIndex = 16;
+			this->btnCancel->Text = L"إلغاء";
+			this->btnCancel->UseVisualStyleBackColor = true;
+			// 
+			// btnConfirm
+			// 
+			this->btnConfirm->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnConfirm->Location = System::Drawing::Point(615, 128);
+			this->btnConfirm->Name = L"btnConfirm";
+			this->btnConfirm->Size = System::Drawing::Size(108, 43);
+			this->btnConfirm->TabIndex = 9;
+			this->btnConfirm->Text = L"تأكيد";
+			this->btnConfirm->UseVisualStyleBackColor = true;
 			// 
 			// groupBox1
 			// 
-			this->groupBox1->Controls->Add(this->dataGridView1);
-			this->groupBox1->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->groupBox1->Location = System::Drawing::Point(0, 154);
-			this->groupBox1->MaximumSize = System::Drawing::Size(0, 312);
-			this->groupBox1->MinimumSize = System::Drawing::Size(0, 133);
+			this->groupBox1->Controls->Add(this->txtboxNoBoxes);
+			this->groupBox1->Controls->Add(this->lblNoBoxes);
+			this->groupBox1->Controls->Add(this->btnDetails);
+			this->groupBox1->Controls->Add(this->btnAdd);
+			this->groupBox1->Controls->Add(this->txtboxFitem);
+			this->groupBox1->Controls->Add(this->lblFitem);
+			this->groupBox1->Location = System::Drawing::Point(12, 12);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(828, 289);
-			this->groupBox1->TabIndex = 21;
+			this->groupBox1->Size = System::Drawing::Size(449, 159);
+			this->groupBox1->TabIndex = 28;
 			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"قائمة المنتجات المصنعة";
+			this->groupBox1->Text = L"لوحة الإدخال";
 			// 
-			// dataGridView1
+			// txtboxNoBoxes
 			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->FItem,
-					this->ItemName, this->NoBoxes
-			});
-			this->dataGridView1->Dock = System::Windows::Forms::DockStyle::Top;
-			this->dataGridView1->Location = System::Drawing::Point(3, 16);
-			this->dataGridView1->MinimumSize = System::Drawing::Size(300, 0);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(822, 223);
-			this->dataGridView1->TabIndex = 0;
-			// 
-			// FItem
-			// 
-			this->FItem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->FItem->HeaderText = L"Fitem";
-			this->FItem->Name = L"FItem";
-			// 
-			// ItemName
-			// 
-			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->ItemName->HeaderText = L"Item Name";
-			this->ItemName->Name = L"ItemName";
-			// 
-			// NoBoxes
-			// 
-			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->NoBoxes->HeaderText = L"No.Boxes";
-			this->NoBoxes->Name = L"NoBoxes";
-			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(708, 121);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(108, 43);
-			this->button2->TabIndex = 22;
-			this->button2->Text = L"إزالة سطر من القائمة";
-			this->button2->UseVisualStyleBackColor = true;
-			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(594, 121);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(108, 43);
-			this->button3->TabIndex = 24;
-			this->button3->Text = L"تأكيد";
-			this->button3->UseVisualStyleBackColor = true;
-			// 
-			// button4
-			// 
-			this->button4->Location = System::Drawing::Point(480, 121);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(108, 43);
-			this->button4->TabIndex = 25;
-			this->button4->Text = L"إلغاء";
-			this->button4->UseVisualStyleBackColor = true;
-			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->btnDisplayDetails);
-			this->groupBox2->Controls->Add(this->textBox1);
-			this->groupBox2->Controls->Add(this->lblNoBoxes);
-			this->groupBox2->Controls->Add(this->btnAddToList);
-			this->groupBox2->Controls->Add(this->textBox3);
-			this->groupBox2->Controls->Add(this->lblFitem);
-			this->groupBox2->Dock = System::Windows::Forms::DockStyle::Left;
-			this->groupBox2->Location = System::Drawing::Point(0, 0);
-			this->groupBox2->MinimumSize = System::Drawing::Size(450, 0);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(450, 154);
-			this->groupBox2->TabIndex = 26;
-			this->groupBox2->TabStop = false;
-			// 
-			// btnDisplayDetails
-			// 
-			this->btnDisplayDetails->Location = System::Drawing::Point(332, 79);
-			this->btnDisplayDetails->Name = L"btnDisplayDetails";
-			this->btnDisplayDetails->Size = System::Drawing::Size(108, 43);
-			this->btnDisplayDetails->TabIndex = 29;
-			this->btnDisplayDetails->Text = L" عرض تفاصيل المنتج والكميات";
-			this->btnDisplayDetails->UseVisualStyleBackColor = true;
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(172, 90);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(100, 20);
-			this->textBox1->TabIndex = 28;
+			this->txtboxNoBoxes->Location = System::Drawing::Point(166, 85);
+			this->txtboxNoBoxes->Name = L"txtboxNoBoxes";
+			this->txtboxNoBoxes->Size = System::Drawing::Size(100, 20);
+			this->txtboxNoBoxes->TabIndex = 33;
 			// 
 			// lblNoBoxes
 			// 
 			this->lblNoBoxes->AutoSize = true;
 			this->lblNoBoxes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblNoBoxes->Location = System::Drawing::Point(22, 90);
+			this->lblNoBoxes->Location = System::Drawing::Point(23, 85);
 			this->lblNoBoxes->Name = L"lblNoBoxes";
 			this->lblNoBoxes->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->lblNoBoxes->Size = System::Drawing::Size(144, 18);
-			this->lblNoBoxes->TabIndex = 27;
-			this->lblNoBoxes->Text = L"Number of Boxes ";
+			this->lblNoBoxes->Size = System::Drawing::Size(137, 18);
+			this->lblNoBoxes->TabIndex = 32;
+			this->lblNoBoxes->Text = L"Number of boxes";
 			// 
-			// btnAddToList
+			// btnDetails
 			// 
-			this->btnAddToList->Location = System::Drawing::Point(332, 30);
-			this->btnAddToList->Name = L"btnAddToList";
-			this->btnAddToList->Size = System::Drawing::Size(108, 43);
-			this->btnAddToList->TabIndex = 26;
-			this->btnAddToList->Text = L"إضافة إلى القائمة";
-			this->btnAddToList->UseVisualStyleBackColor = true;
+			this->btnDetails->Location = System::Drawing::Point(315, 74);
+			this->btnDetails->Name = L"btnDetails";
+			this->btnDetails->Size = System::Drawing::Size(108, 43);
+			this->btnDetails->TabIndex = 31;
+			this->btnDetails->Text = L"تفاصيل الإدخال";
+			this->btnDetails->UseVisualStyleBackColor = true;
 			// 
-			// textBox3
+			// btnAdd
 			// 
-			this->textBox3->Location = System::Drawing::Point(172, 42);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(100, 20);
-			this->textBox3->TabIndex = 25;
+			this->btnAdd->Location = System::Drawing::Point(315, 24);
+			this->btnAdd->Name = L"btnAdd";
+			this->btnAdd->Size = System::Drawing::Size(108, 43);
+			this->btnAdd->TabIndex = 30;
+			this->btnAdd->Text = L"إضافة";
+			this->btnAdd->UseVisualStyleBackColor = true;
+			// 
+			// txtboxFitem
+			// 
+			this->txtboxFitem->Location = System::Drawing::Point(79, 36);
+			this->txtboxFitem->Name = L"txtboxFitem";
+			this->txtboxFitem->Size = System::Drawing::Size(187, 20);
+			this->txtboxFitem->TabIndex = 29;
 			// 
 			// lblFitem
 			// 
 			this->lblFitem->AutoSize = true;
 			this->lblFitem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblFitem->Location = System::Drawing::Point(22, 42);
+			this->lblFitem->Location = System::Drawing::Point(23, 38);
 			this->lblFitem->Name = L"lblFitem";
 			this->lblFitem->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lblFitem->Size = System::Drawing::Size(50, 18);
-			this->lblFitem->TabIndex = 24;
+			this->lblFitem->TabIndex = 28;
 			this->lblFitem->Text = L"Fitem";
+			// 
+			// btnExit
+			// 
+			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnExit->Location = System::Drawing::Point(501, 128);
+			this->btnExit->Name = L"btnExit";
+			this->btnExit->Size = System::Drawing::Size(108, 43);
+			this->btnExit->TabIndex = 29;
+			this->btnExit->Text = L"خروج";
+			this->btnExit->UseVisualStyleBackColor = true;
+			// 
+			// Fitem
+			// 
+			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Fitem->FillWeight = 90;
+			this->Fitem->HeaderText = L"Fitem";
+			this->Fitem->Name = L"Fitem";
+			// 
+			// ItemName
+			// 
+			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->ItemName->HeaderText = L"Name";
+			this->ItemName->Name = L"ItemName";
+			// 
+			// NoBoxes
+			// 
+			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->NoBoxes->HeaderText = L"Number of boxes";
+			this->NoBoxes->Name = L"NoBoxes";
 			// 
 			// Inputs
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(828, 443);
-			this->Controls->Add(this->groupBox2);
-			this->Controls->Add(this->button4);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
+			this->ClientSize = System::Drawing::Size(748, 411);
+			this->Controls->Add(this->gbListItem);
+			this->Controls->Add(this->btnExit);
 			this->Controls->Add(this->groupBox1);
+			this->Controls->Add(this->btnConfirm);
+			this->MinimumSize = System::Drawing::Size(764, 450);
 			this->Name = L"Inputs";
 			this->Text = L"Inputs";
+			this->gbListItem->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->EndInit();
 			this->groupBox1->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
-			this->groupBox2->ResumeLayout(false);
-			this->groupBox2->PerformLayout();
+			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	
-
 	};
 }

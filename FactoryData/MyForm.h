@@ -6,7 +6,6 @@
 #include "Variables.h"
 #include "Inputs.h"
 
-
 namespace FactoryData {
 
 	using namespace System;
@@ -1984,7 +1983,7 @@ private: System::Void قائمةالجردToolStripMenuItem_Click(System::Object
 	Text = قائمةالجردToolStripMenuItem->Text;
 }
 private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
-	Form^ inputs = gcnew Inputs(this);
+	Form^ inputs = gcnew Inputs();
 	inputs->Show();
 	this->Hide();
 }

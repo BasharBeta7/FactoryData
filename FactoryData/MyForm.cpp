@@ -21,17 +21,17 @@ void main(array<String^>^ args)
 double FactoryData::MyForm::CalcSum(String^ key)
 {
 	double res = 0;
-	if (mapCom->count(key))
+	if (Variables::mapCom->count(key))
 	{
-		res = mapCom[key];
-		return mapCom[key];
+		res = Variables::mapCom[key];
+		return Variables::mapCom[key];
 	}
-	if (mapRaw->count(key))
+	if (Variables::mapRaw->count(key))
 	{
 		
-		mapCom[key] = mapRaw[key];
-		res = mapCom[key];
-		return mapCom[key];
+		Variables::mapCom[key] = Variables::mapRaw[key];
+		res = Variables::mapCom[key];
+		return Variables::mapCom[key];
 	}
 	String^ val;
 	String^ temp;
@@ -48,12 +48,12 @@ double FactoryData::MyForm::CalcSum(String^ key)
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
 			res += System::Convert::ToDouble(temp) * CalcSum(val);
-			if ((mapRaw->count(val) && RawIGroup[val] == "R") || !mapRaw->count(val))
+			if ((Variables::mapRaw->count(val) && Variables::RawIGroup[val] == "R") || !Variables::mapRaw->count(val))
 			{
 				accum += System::Convert::ToDouble(temp);
 			}
 			tempf = System::Convert::ToDouble(temp);
-			if (mapRaw->count(val) && (RawIGroup[val] == "i" || RawIGroup[val] == "I") && tempf < 1.0f)
+			if (Variables::mapRaw->count(val) && (Variables::RawIGroup[val] == "i" || Variables::RawIGroup[val] == "I") && tempf < 1.0f)
 			{
 				accumf += tempf;
 			}
@@ -65,9 +65,9 @@ double FactoryData::MyForm::CalcSum(String^ key)
 		//uncomment this when you add the final pricing lists 
 		//MessageBox::Show("Product " + key + " does not exist in the pricing list!");
 	}
-	quanCom[key] = accum + accumf;
-	mapCom[key] = (double)res/accum;
-	return mapCom[key];
+	Variables::quanCom[key] = accum + accumf;
+	Variables::mapCom[key] = (double)res/accum;
+	return Variables::mapCom[key];
 }
 
 void FactoryData::MyForm::UpdateCombinationData()
@@ -75,24 +75,24 @@ void FactoryData::MyForm::UpdateCombinationData()
 	//whenever you update the prices, you need to eupdate combinations table in the database
 
 	//update prices
-	mapCom->clear();
+	Variables::mapCom->clear();
 	for (int i = 0; i < combintaionData->RowCount - 1; i++)
 	{
 		CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
-		combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()],3);
+		combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(Variables::mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()],3);
 	}
 
 	//update dataGrid of Combinations2
 
 	for (int i = 0; i < combinationData2->RowCount - 1; i++)
 	{
-		combinationData2->Rows[i]->Cells["Cost"]->Value = Math::Round(mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()],3);
-		combinationData2->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()),3);
-		totalCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] += (mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()));
+		combinationData2->Rows[i]->Cells["Cost"]->Value = Math::Round(Variables::mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()],3);
+		combinationData2->Rows[i]->Cells["Total"]->Value = Math::Round(Variables::mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()),3);
+		Variables::totalCom[combinationData2->Rows[i]->Cells["Fitem"]->Value->ToString()] += (Variables::mapCom[combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(combinationData2->Rows[i]->Cells["BIsubquan"]->Value->ToString()));
 	}
 
 	//update database
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query = "UPDATE combinations SET  WHERE";
 }
@@ -105,9 +105,9 @@ void FactoryData::MyForm::UpdateRawDataPrices()
 	{
 		sVal = ItemsData->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
 		res = StringToDouble(sVal);
-		mapRaw[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
+		Variables::mapRaw[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
 		ItemsData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(res,3);
-		RawIGroup[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = ItemsData->Rows[i]->Cells["Igroup"]->Value->ToString();
+		Variables::RawIGroup[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = ItemsData->Rows[i]->Cells["Igroup"]->Value->ToString();
 	}
 }
 
@@ -130,22 +130,22 @@ void FactoryData::MyForm::UpdateFinishedCombinations()
 		dr = FinishedCombinations->Rows[i];
 
 
-		dr->Cells["Unit_Cost"]->Value		    = Math::Round(mapCom[dr->Cells["Fitem"]->Value->ToString()],3);
-		dr->Cells["Total"]->Value				= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()],3);
-		dr->Cells["General_Waste"]->Value		= Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
-		dr->Cells["Drageh_Waste"]->Value	    = DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];		
-		dr->Cells["Expences1"]->Value = System::Convert::ToString(expences1);	
-		dr->Cells["Expences2"]->Value = System::Convert::ToString(expences2);
-		dr->Cells["Cost1"]->Value		= Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()),3);
-		dr->Cells["Cost2"]->Value = Math::Round(totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + expences2 * StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()), 3);
-		dr->Cells["Box_Cost"]->Value = Math::Round(BoxCosts[dr->Cells["Fitem"]->Value->ToString()],3);	
-		dr->Cells["Sell_Cost"]->Value = Math::Round(SellCostCom[dr->Cells["Fitem"]->Value->ToString()], 3);
+		dr->Cells["Unit_Cost"]->Value		    = Math::Round(Variables::mapCom[dr->Cells["Fitem"]->Value->ToString()],3);
+		dr->Cells["Total"]->Value				= Math::Round(Variables::totalCom[dr->Cells["Fitem"]->Value->ToString()],3);
+		dr->Cells["General_Waste"]->Value		= Variables::Generalwastes[dr->Cells["MachineLine"]->Value->ToString()];
+		dr->Cells["Drageh_Waste"]->Value	    = Variables::DragehWastes[dr->Cells["MachineLine"]->Value->ToString()];
+		dr->Cells["Expences1"]->Value = System::Convert::ToString(Variables::expences1);
+		dr->Cells["Expences2"]->Value = System::Convert::ToString(Variables::expences2);
+		dr->Cells["Cost1"]->Value		= Math::Round(Variables::totalCom[dr->Cells["Fitem"]->Value->ToString()] *(1 + Variables::Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + Variables::DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + Variables::expences1* StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()),3);
+		dr->Cells["Cost2"]->Value = Math::Round(Variables::totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Variables::Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + Variables::DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]) + Variables::expences2 * StringToDouble(dr->Cells["Box_Weight"]->Value->ToString()), 3);
+		dr->Cells["Box_Cost"]->Value = Math::Round(Variables::BoxCosts[dr->Cells["Fitem"]->Value->ToString()],3);
+		dr->Cells["Sell_Cost"]->Value = Math::Round(Variables::SellCostCom[dr->Cells["Fitem"]->Value->ToString()], 3);
 		
 
-		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
-		Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
-		BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
-		comBoxWeight[dr->Cells["Fitem"]->Value->ToString()] = System::Convert::ToDouble(dr->Cells["Box_Weight"]->Value->ToString());
+		Variables::BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Box_Cost"]->Value->ToString());
+		Variables::Expences2[dr->Cells["Fitem"]->Value->ToString()] = StringToDouble(dr->Cells["Expences2"]->Value->ToString());
+		Variables::BoxCosts[dr->Cells["Fitem"]->Value->ToString()] = Variables::totalCom[dr->Cells["Fitem"]->Value->ToString()] * (1 + Variables::Generalwastes[dr->Cells["MachineLine"]->Value->ToString()] + Variables::DragehWastes[dr->Cells["MachineLine"]->Value->ToString()]);
+		Variables::comBoxWeight[dr->Cells["Fitem"]->Value->ToString()] = System::Convert::ToDouble(dr->Cells["Box_Weight"]->Value->ToString());
 	}
 }
 
@@ -155,7 +155,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	//clear all stored vaiables
 	ResetData();
 	//set connection to server SQL
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;
 	OleDbDataAdapter^ dbDataAdapter;
@@ -183,7 +183,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	combintaionData->DataSource = dt;
 	for (int i = 0; i < combintaionData->Rows->Count - 1; i++)
 	{
-		NameCom[combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString()] = combintaionData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
+		Variables::NameCom[combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString()] = combintaionData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
 	}
 
 
@@ -216,10 +216,10 @@ void FactoryData::MyForm::LoadDatabaseTables()
 
 		sTemp = dr[1]->ToString();
 		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
-		Generalwastes[dr[0]->ToString()] = res;
+		Variables::Generalwastes[dr[0]->ToString()] = res;
 		sTemp = dr[2]->ToString();
 		res = (sTemp == "") ? 0 : System::Convert::ToDouble(sTemp);
-		DragehWastes[dr[0]->ToString()] = res;
+		Variables::DragehWastes[dr[0]->ToString()] = res;
 	}
 	//read expences from expences table 
 	query = "SELECT Expences1 AS Expences1, Expences2 AS Expences2 FROM Expences;";
@@ -227,8 +227,8 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	dr = dt->Rows[0];
-	expences1 = StringToDouble(dr["Expences1"]->ToString());
-	expences2 = StringToDouble(dr["Expences2"]->ToString());
+	Variables::expences1 = StringToDouble(dr["Expences1"]->ToString());
+	Variables::expences2 = StringToDouble(dr["Expences2"]->ToString());
 
 	//read into SellCostCom
 	query = "SELECT Fitem, Sell_Cost FROM CombinationSellCost;";
@@ -237,7 +237,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dbDataAdapter->Fill(dt);
 	for each (DataRow^ row in dt->Rows)
 	{
-		SellCostCom[row["Fitem"]->ToString()] = System::Convert::ToDouble(row["Sell_Cost"]->ToString());
+		Variables::SellCostCom[row["Fitem"]->ToString()] = System::Convert::ToDouble(row["Sell_Cost"]->ToString());
 	}
 
 	//read into FinishedCombinaions --> Contains finished combs from combinations
@@ -266,7 +266,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dbDataAdapter->Fill(dt);
 	for each (DataRow^ row in dt->Rows)
 	{
-		inputQuan[row["Inum"]->ToString()] += System::Convert::ToDouble(row["Quan"]->ToString());
+		Variables::inputQuan[row["Inum"]->ToString()] += System::Convert::ToDouble(row["Quan"]->ToString());
 	}
 
 	query = "SELECT Fitem AS Fitem, Quan as Quan FROM Outputs;";
@@ -275,8 +275,8 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	dbDataAdapter->Fill(dt);
 	for each (DataRow ^ row in dt->Rows)
 	{
-		if (comBoxWeight->count(row["Fitem"]->ToString()))		
-		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString())*comBoxWeight[row["Fitem"]->ToString()]);
+		if (Variables::comBoxWeight->count(row["Fitem"]->ToString()))
+		CalcQuan(row["Fitem"]->ToString(), System::Convert::ToDouble(row["Quan"]->ToString())* Variables::comBoxWeight[row["Fitem"]->ToString()]);
 	}
 
 	query = "SELECT Inum AS Inum, I_R_name AS I_R_name, BIquan AS InputQuantity, Igroup AS Igroup, BIquan AS OutputQuantity, BIquan AS Difference FROM Items;";
@@ -288,15 +288,15 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	for(int i = 0; i< ItemsData->Rows->Count - 1 ;i++)
 	{
 		auto dr = ItemsData->Rows[i];
-		diffQuan[dr->Cells["Inum"]->Value->ToString()] = System::Convert::ToDouble(inputQuan[dr->Cells["Inum"]->Value->ToString()]) - System::Convert::ToDouble(outputQuan[dr->Cells["Inum"]->Value->ToString()]);
+		Variables::diffQuan[dr->Cells["Inum"]->Value->ToString()] = System::Convert::ToDouble(Variables::inputQuan[dr->Cells["Inum"]->Value->ToString()]) - System::Convert::ToDouble(Variables::outputQuan[dr->Cells["Inum"]->Value->ToString()]);
 	}
 	//calculate the difference for each raw data
 	for (int i = 0; i < inventoryDataGrid->Rows->Count - 1; i++)
 	{
 		auto dr = inventoryDataGrid->Rows[i];
-		dr->Cells["Difference"]->Value = diffQuan[dr->Cells["Inum"]->Value->ToString()];
-		dr->Cells["InputQuantity"]->Value = inputQuan[dr->Cells["Inum"]->Value->ToString()];
-		dr->Cells["OutputQuantity"]->Value = outputQuan[dr->Cells["Inum"]->Value->ToString()];
+		dr->Cells["Difference"]->Value = Variables::diffQuan[dr->Cells["Inum"]->Value->ToString()];
+		dr->Cells["InputQuantity"]->Value = Variables::inputQuan[dr->Cells["Inum"]->Value->ToString()];
+		dr->Cells["OutputQuantity"]->Value = Variables::outputQuan[dr->Cells["Inum"]->Value->ToString()];
 	}
 
 	dbConnection->Close();
@@ -304,14 +304,14 @@ void FactoryData::MyForm::LoadDatabaseTables()
 
 void FactoryData::MyForm::ResetData()
 {
-	mapRaw->clear();
-	mapCom->clear();
-	totalCom->clear();
-	SellCostCom->clear();
+	Variables::mapRaw->clear();
+	Variables::mapCom->clear();
+	Variables::totalCom->clear();
+	Variables::SellCostCom->clear();
 
-	inputQuan->clear();
-	outputQuan->clear();
-	diffQuan->clear();
+	Variables::inputQuan->clear();
+	Variables::outputQuan->clear();
+	Variables::diffQuan->clear();
 
 }
 
@@ -322,9 +322,9 @@ double FactoryData::MyForm::StringToDouble(String^ s)
 
 void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 {
-	if (mapRaw->count(key))
+	if (Variables::mapRaw->count(key))
 	{
-		outputQuan[key] += quan;
+		Variables::outputQuan[key] += quan;
 		return;
 	}
 	String^ val;
@@ -341,13 +341,13 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
 			
-			if (comBoxWeight->count(key))
+			if (Variables::comBoxWeight->count(key))
 			{
-				CalcQuan(val, quan * System::Convert::ToDouble(temp) / comBoxWeight[key]);
+				CalcQuan(val, quan * System::Convert::ToDouble(temp) / Variables::comBoxWeight[key]);
 			}
 			else
 			{
-				CalcQuan(val, quan * System::Convert::ToDouble(temp) / quanCom[key]);
+				CalcQuan(val, quan * System::Convert::ToDouble(temp) / Variables::quanCom[key]);
 			}
 			
 			
@@ -377,7 +377,7 @@ System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::Ev
 System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	//open connection
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 
 	bool isValid = false;
@@ -408,7 +408,7 @@ System::Void FactoryData::MyForm::btnEditLine_Click(System::Object^ sender, Syst
 		String^ sVal;
 		sVal = activeDataGrid->Rows[index]->Cells["Unit_Cost"]->Value->ToString();
 		res = (sVal == "") ? 0 : System::Convert::ToDouble(sVal);
-		mapRaw[activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString()] = res;
+		Variables::mapRaw[activeDataGrid->Rows[index]->Cells["Inum"]->Value->ToString()] = res;
 		UpdateCombinationData();//update all prices
 		UpdateDataGrid();
 	}

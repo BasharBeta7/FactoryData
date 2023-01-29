@@ -3,6 +3,8 @@
 #include "ConnectionData.h"
 #include <cliext/map>
 #include "containers.h"
+#include "Variables.h"
+#include "Inputs.h"
 
 
 namespace FactoryData {
@@ -116,7 +118,7 @@ namespace FactoryData {
 		//user-defined 
 		DataGridView^ activeDataGrid;
 		GroupBox^ activeGroupBox;
-		String^ connecttionString = Connection::connectionString;
+		/*String^ connecttionString = Connection::connectionString;
 		cliext::map<String^, double> ^mapRaw   = gcnew cliext::map<String^,double>;//Raw Inum -->> Unit_Cost map
 		cliext::map<String^, double> ^mapCom   = gcnew cliext::map<String^, double>;//Combination Fitem-->Unit_Cost
 		cliext::map<String^, double>^ totalCom = gcnew cliext::map<String^, double>;//total Cost for combination
@@ -136,7 +138,7 @@ namespace FactoryData {
 		cliext::map<String^, double>^ comBoxWeight = gcnew cliext::map<String^, double>;
 		cliext::map<String^, String^>^ RawIGroup = gcnew cliext::map<String^, String^>;
 		double expences1, expences2;
-		String^ rowToQuery = "";//saves the name of the fitem to query on 
+		String^ rowToQuery = "";//saves the name of the fitem to query on */
 
 
 
@@ -216,6 +218,7 @@ private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 private: System::Windows::Forms::TextBox^ textBox1;
 private: System::Windows::Forms::ToolStripMenuItem^ قائمةالجردToolStripMenuItem;
 private: System::Windows::Forms::DataGridView^ inventoryDataGrid;
+private: System::Windows::Forms::Button^ button9;
 
 
 
@@ -332,6 +335,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->inventoryDataGrid = (gcnew System::Windows::Forms::DataGridView());
+			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -1052,11 +1056,22 @@ private: System::Windows::Forms::Button^ button3;
 			this->inventoryDataGrid->TabIndex = 24;
 			this->inventoryDataGrid->Visible = false;
 			// 
+			// button9
+			// 
+			this->button9->Location = System::Drawing::Point(804, 526);
+			this->button9->Name = L"button9";
+			this->button9->Size = System::Drawing::Size(75, 23);
+			this->button9->TabIndex = 25;
+			this->button9->Text = L"button9";
+			this->button9->UseVisualStyleBackColor = true;
+			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(909, 561);
+			this->Controls->Add(this->button9);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);
@@ -1074,8 +1089,8 @@ private: System::Windows::Forms::Button^ button3;
 			this->MainMenuStrip = this->menuStrip1;
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"قائمة الخلطات";
+			this->TopMost = true;
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->menuStrip1->ResumeLayout(false);
@@ -1192,7 +1207,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	//check validity of Inum and price
 	//Inum must exist in cmapRaw
 
-	if (!mapRaw->count(textBox4->Text))
+	if (!Variables::mapRaw->count(textBox4->Text))
 	{
 		MessageBox::Show("Invalid Inum");
 		return;
@@ -1213,7 +1228,7 @@ private: System::Void btnOK_Click(System::Object^ sender, System::EventArgs^ e) 
 	
 	//send a query to database
 
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 
 	 String^ query = "UPDATE items SET  Unit_Cost=" + price + " WHERE Inum='" + textBox4->Text + "';";
@@ -1250,13 +1265,13 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 
 	//Add a combination 
 	//check valid input 
-	if (mapCom->count(textBox6->Text))
+	if (Variables::mapCom->count(textBox6->Text))
 	{
 		MessageBox::Show("A combination with the same Fitem already exists!");
 		return;
 	}
 
-	if (mapCom->count(textBox7->Text))
+	if (Variables::mapCom->count(textBox7->Text))
 	{
 		MessageBox::Show("A combination with the same I_R_Name already exists!");
 		return;
@@ -1270,7 +1285,7 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 	}
 
 	//open connection
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;
 	OleDbCommand^ dbCommand = gcnew OleDbCommand;
@@ -1279,7 +1294,7 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 	for (int i = 0; i < dgvAddCombination->RowCount - 1; i++)
 	{
 		dr = dgvAddCombination->Rows[i];
-		if (!mapCom->count(dr->Cells["Ritem"]->Value->ToString()))
+		if (!Variables::mapCom->count(dr->Cells["Ritem"]->Value->ToString()))
 		{
 			MessageBox::Show("Some items in Ritem don't exist!");
 			dbConnection->Close();
@@ -1355,7 +1370,7 @@ private: System::Void btnCancelCombinationAdd_Click(System::Object^ sender, Syst
 
 private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	//open connection
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 
 	//flag to check valid selection 
@@ -1442,7 +1457,7 @@ private: System::Void btnDeleteItem_Click(System::Object^ sender, System::EventA
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	//Add a combination 
 	//check valid input 
-	if (mapRaw->count(textBox10->Text))
+	if (Variables::mapRaw->count(textBox10->Text))
 	{
 		MessageBox::Show("An Item with the same Inum already exists!");
 		return;
@@ -1450,7 +1465,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 
 	
 	//open connection
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;
 	OleDbCommand^ dbCommand = gcnew OleDbCommand;
@@ -1565,13 +1580,13 @@ private: System::Void MyForm_FormClosing(System::Object^ sender, System::Windows
 
 private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
 	//if textbox include valid item 
-	if (!mapCom->count(textBox3->Text))
+	if (!Variables::mapCom->count(textBox3->Text))
 	{
 		MessageBox::Show("No Item with the specific number was found!");
 		return;
 	}
 
-	if (!( queryStack->Count == 0)&&textBox3->Text == queryStack->Peek())
+	if (!(Variables::queryStack->Count == 0)&&textBox3->Text == Variables::queryStack->Peek())
 	{
 		MessageBox::Show("No asdasd asd  with the specific number was found!");
 		return;
@@ -1579,7 +1594,7 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	//fill data in dataGridView
 	//query from database
 	
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;
 	OleDbDataAdapter^ dbDataAdapter;
@@ -1592,15 +1607,15 @@ private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e
 	dbDataAdapter->Fill(dt);
 	dgvQueryCom->DataSource = dt;
 	DataGridView^ temp = dgvQueryCom;
-	queryStack->Push(textBox3->Text);
+	Variables::queryStack->Push(textBox3->Text);
 	for (int i = 0; i < dgvQueryCom->Rows->Count - 1;i++)
 	{
-		if ( NameCom->count(dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()))
+		if (Variables::NameCom->count(dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()))
 		{
-			dgvQueryCom->Rows[i]->Cells["Name"]->Value = NameCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()];
+			dgvQueryCom->Rows[i]->Cells["Name"]->Value = Variables::NameCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()];
 		}
-		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
-		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()]* StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
+		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(Variables::mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
+		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(Variables::mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()]* StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
 	}
 	
 
@@ -1620,7 +1635,7 @@ private: System::Void btnQueryCombination_Click(System::Object^ sender, System::
 private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 	textBox1->Show(); 
 
-	queryStack->Clear();
+	Variables::queryStack->Clear();
 	menuStrip1->Show();
 	groupBox1->Show();
 	groupBox2->Hide();
@@ -1636,13 +1651,13 @@ private: System::Void menuStrip1_ItemClicked(System::Object^ sender, System::Win
 }
 private: System::Void استعلامعنالخلطةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	if (rowToQuery != "")
+	if (Variables::rowToQuery != "")
 	{
 		
-		textBox3->Text = rowToQuery;
+		textBox3->Text = Variables::rowToQuery;
 		btnQueryCombination->PerformClick();
 		button5->PerformClick();
-		rowToQuery = "";
+		Variables::rowToQuery = "";
 	}
 }
 private: System::Void combinationData2_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
@@ -1657,7 +1672,7 @@ private: System::Void combinationData2_MouseClick(System::Object^ sender, System
 		
 		if (pos_xy_row >= 0 && pos_xy_row < combinationData2->Rows->Count-1)
 		{
-			rowToQuery = combinationData2->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
+			Variables::rowToQuery = combinationData2->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
 			cms->Show(combinationData2, e->Location);
 		}
 
@@ -1677,7 +1692,7 @@ private: System::Void combintaionData_MouseClick(System::Object^ sender, System:
 		if (pos_xy_row >= 0 && pos_xy_row < combintaionData->Rows->Count - 1)
 		{
 			
-			rowToQuery = combintaionData->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
+			Variables::rowToQuery = combintaionData->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
 			cms->Show(combintaionData, e->Location);
 		}
 
@@ -1696,7 +1711,7 @@ private: System::Void FinishedCombinations_MouseClick(System::Object^ sender, Sy
 		if (pos_xy_row >= 0 && pos_xy_row < FinishedCombinations->Rows->Count - 1)
 		{
 
-			rowToQuery = FinishedCombinations->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
+			Variables::rowToQuery = FinishedCombinations->Rows[pos_xy_row]->Cells["Fitem"]->Value->ToString();
 			cms->Show(FinishedCombinations, e->Location);
 		}
 
@@ -1715,7 +1730,7 @@ private: System::Void dgvQueryCom_MouseClick(System::Object^ sender, System::Win
 		if (pos_xy_row >= 0 && pos_xy_row < dgvQueryCom->Rows->Count - 1)
 		{
 
-			rowToQuery = dgvQueryCom->Rows[pos_xy_row]->Cells["Ritem"]->Value->ToString();
+			Variables::rowToQuery = dgvQueryCom->Rows[pos_xy_row]->Cells["Ritem"]->Value->ToString();
 			cms->Show(dgvQueryCom, e->Location);
 		}
 
@@ -1724,7 +1739,7 @@ private: System::Void dgvQueryCom_MouseClick(System::Object^ sender, System::Win
 }
 private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
 	//open connection
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	OleDbCommand^ dbCommand;
 	String^ query;
 
@@ -1768,7 +1783,7 @@ private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e
 
 private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
 	//open connection
-	OleDbConnection^	dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^	dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	OleDbCommand^		dbCommand;
 	String^			    query;
 
@@ -1855,34 +1870,34 @@ private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e
 
 }
 private: System::Void button8_Click_1(System::Object^ sender, System::EventArgs^ e) {
-	queryStack->Pop();
-	if (queryStack->Count < 1)
+	Variables::queryStack->Pop();
+	if (Variables::queryStack->Count < 1)
 	{
 		button4->PerformClick();
 		return;
 	}
 	
-	textBox3->Text = queryStack->Peek();
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	textBox3->Text = Variables::queryStack->Peek();
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;
 	OleDbDataAdapter^ dbDataAdapter;
 	DataTable^ dt;
 
 	//Read into itemsData
-	query = "SELECT c.Ritem AS Ritem, i1.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" +  queryStack->Peek() + "'";
+	query = "SELECT c.Ritem AS Ritem, i1.I_R_Name AS Name, c.BISubquan AS BISubquan,c.BISubquan AS Unit_Cost, c.BISubquan AS Total FROM Combination AS c LEFT JOIN items  as i1 ON c.Ritem=i1.Inum WHERE c.Fitem='" + Variables::queryStack->Peek() + "'";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	dgvQueryCom->DataSource = dt;
 	for (int i = 0; i < dgvQueryCom->Rows->Count - 1; i++)
 	{
-		if (NameCom->count(dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()))
+		if (Variables::NameCom->count(dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()))
 		{
-			dgvQueryCom->Rows[i]->Cells["Name"]->Value = NameCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()];
+			dgvQueryCom->Rows[i]->Cells["Name"]->Value = Variables::NameCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()];
 		}
-		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
-		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
+		dgvQueryCom->Rows[i]->Cells["Unit_Cost"]->Value = Math::Round(Variables::mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()], 3);
+		dgvQueryCom->Rows[i]->Cells["Total"]->Value = Math::Round(Variables::mapCom[dgvQueryCom->Rows[i]->Cells["Ritem"]->Value->ToString()] * StringToDouble(dgvQueryCom->Rows[i]->Cells["BISubquan"]->Value->ToString()), 3);
 
 	}
 	
@@ -1897,7 +1912,7 @@ private: System::Void textBox1_TextChanged(System::Object^ sender, System::Event
 
 	//we will start by implementing for FinishedCombinations
 
-	OleDbConnection^ dbConnection = gcnew OleDbConnection(connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	String^ query;
 	OleDbDataAdapter^ dbDataAdapter;
 	DataTable^ dt;
@@ -1934,7 +1949,7 @@ private: System::Void textBox1_TextChanged(System::Object^ sender, System::Event
 		for (int i = 0; i < combintaionData->RowCount - 1; i++)
 		{
 			CalcSum(combintaionData->Rows[i]->Cells[0]->Value->ToString());
-			combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()], 3);
+			combintaionData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(Variables::mapCom[combintaionData->Rows[i]->Cells[0]->Value->ToString()], 3);
 		}
 	}
 
@@ -1949,9 +1964,9 @@ private: System::Void textBox1_TextChanged(System::Object^ sender, System::Event
 		for (int i = 0; i < inventoryDataGrid->Rows->Count - 1; i++)
 		{
 			auto dr = inventoryDataGrid->Rows[i];
-			dr->Cells["Difference"]->Value = diffQuan[dr->Cells["Inum"]->Value->ToString()];
-			dr->Cells["InputQuantity"]->Value = inputQuan[dr->Cells["Inum"]->Value->ToString()];
-			dr->Cells["OutputQuantity"]->Value = outputQuan[dr->Cells["Inum"]->Value->ToString()];
+			dr->Cells["Difference"]->Value = Variables::diffQuan[dr->Cells["Inum"]->Value->ToString()];
+			dr->Cells["InputQuantity"]->Value = Variables::inputQuan[dr->Cells["Inum"]->Value->ToString()];
+			dr->Cells["OutputQuantity"]->Value = Variables::outputQuan[dr->Cells["Inum"]->Value->ToString()];
 		}
 	}
 
@@ -1967,6 +1982,11 @@ private: System::Void قائمةالجردToolStripMenuItem_Click(System::Object
 	groupBox4->Hide();
 	groupBox1->Show();
 	Text = قائمةالجردToolStripMenuItem->Text;
+}
+private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
+	Form^ inputs = gcnew Inputs(this);
+	inputs->Show();
+	this->Hide();
 }
 };
 }

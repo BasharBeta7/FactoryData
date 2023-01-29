@@ -37,4 +37,8 @@ public:
 	static cliext::map<String^, String^>^ RawIGroup = gcnew cliext::map<String^, String^>;
 	static double expences1, expences2;
 	static String^ rowToQuery = "";//saves the name of the fitem to query on 
+
+
+	//for inputs form
+	static cliext::map<String^, double>^ mapInputList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes
 };

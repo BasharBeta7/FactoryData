@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Variables.h"
 
 namespace FactoryData {
 
@@ -74,6 +75,9 @@ namespace FactoryData {
 			this->gbListItem = (gcnew System::Windows::Forms::GroupBox());
 			this->btnDeleteRow = (gcnew System::Windows::Forms::Button());
 			this->dgvItemList = (gcnew System::Windows::Forms::DataGridView());
+			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -84,9 +88,6 @@ namespace FactoryData {
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
-			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->gbListItem->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -119,6 +120,7 @@ namespace FactoryData {
 			// 
 			// dgvItemList
 			// 
+			this->dgvItemList->AllowUserToAddRows = false;
 			this->dgvItemList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
@@ -131,6 +133,25 @@ namespace FactoryData {
 			this->dgvItemList->Name = L"dgvItemList";
 			this->dgvItemList->Size = System::Drawing::Size(574, 186);
 			this->dgvItemList->TabIndex = 21;
+			// 
+			// Fitem
+			// 
+			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Fitem->FillWeight = 90;
+			this->Fitem->HeaderText = L"Fitem";
+			this->Fitem->Name = L"Fitem";
+			// 
+			// ItemName
+			// 
+			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->ItemName->HeaderText = L"Name";
+			this->ItemName->Name = L"ItemName";
+			// 
+			// NoBoxes
+			// 
+			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->NoBoxes->HeaderText = L"Number of boxes";
+			this->NoBoxes->Name = L"NoBoxes";
 			// 
 			// btnCancel
 			// 
@@ -203,6 +224,7 @@ namespace FactoryData {
 			this->btnAdd->TabIndex = 30;
 			this->btnAdd->Text = L"إضافة";
 			this->btnAdd->UseVisualStyleBackColor = true;
+			this->btnAdd->Click += gcnew System::EventHandler(this, &Inputs::btnAdd_Click);
 			// 
 			// txtboxFitem
 			// 
@@ -233,25 +255,6 @@ namespace FactoryData {
 			this->btnExit->Text = L"خروج";
 			this->btnExit->UseVisualStyleBackColor = true;
 			// 
-			// Fitem
-			// 
-			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Fitem->FillWeight = 90;
-			this->Fitem->HeaderText = L"Fitem";
-			this->Fitem->Name = L"Fitem";
-			// 
-			// ItemName
-			// 
-			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->ItemName->HeaderText = L"Name";
-			this->ItemName->Name = L"ItemName";
-			// 
-			// NoBoxes
-			// 
-			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->NoBoxes->HeaderText = L"Number of boxes";
-			this->NoBoxes->Name = L"NoBoxes";
-			// 
 			// Inputs
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -272,5 +275,41 @@ namespace FactoryData {
 
 		}
 #pragma endregion
-	};
+	private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+		//check input if valid
+		String^ fitem = txtboxFitem->Text->ToString();
+		if (Variables::mapCom->count(fitem) == 0) {
+			MessageBox::Show("Fitem doesn't exist in the database!");
+			return;
+		}
+
+		double noBoxes = 0;
+		try {
+			noBoxes = System::Convert::ToDouble(txtboxNoBoxes->Text);
+		}
+		catch (FormatException^) {
+			MessageBox::Show("Please enter a valid number of boxes!");
+			return;
+		}
+		
+
+		if (Variables::inputQuan[fitem] < noBoxes) {
+			MessageBox::Show("Number of boxes cannot be this large!");
+			return;
+		}
+
+		if (Variables::mapInputList->count(fitem) > 0) {
+			MessageBox::Show("this item is already in the list below!");
+			return;
+		}
+
+		Variables::mapInputList[fitem] = noBoxes;
+		//add to list 
+		dgvItemList->Rows->Add();
+		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["Fitem"]->Value = fitem;
+		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["ItemName"]->Value = Variables::NameCom[fitem];
+		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["NoBoxes"]->Value = noBoxes;
+
+	}
+};
 }

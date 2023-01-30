@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Variables.h"
+#include "ItemDetails.h"
 
 namespace FactoryData {
 
@@ -215,6 +216,7 @@ namespace FactoryData {
 			this->btnDetails->TabIndex = 31;
 			this->btnDetails->Text = L"تفاصيل الإدخال";
 			this->btnDetails->UseVisualStyleBackColor = true;
+			this->btnDetails->Click += gcnew System::EventHandler(this, &Inputs::btnDetails_Click);
 			// 
 			// btnAdd
 			// 
@@ -311,5 +313,10 @@ namespace FactoryData {
 		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["NoBoxes"]->Value = noBoxes;
 
 	}
+private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs^ e) {
+	ItemDetails^ inputDetails = gcnew ItemDetails();
+	this->Hide();
+	inputDetails->Show();
+}
 };
 }

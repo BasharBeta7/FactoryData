@@ -41,4 +41,6 @@ public:
 
 	//for inputs form
 	static cliext::map<String^, double>^ mapInputList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes
+	static cliext::map<String^, double>^ rawItemsQuan = gcnew cliext::map<String^, double>; // raw --> used quantitiy
+
 };

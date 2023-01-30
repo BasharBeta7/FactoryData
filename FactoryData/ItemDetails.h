@@ -226,14 +226,14 @@ namespace FactoryData {
 		private:
 			//user-defined functions 
 			void ExpandItem(String^ it, double fr);
-
+			double CalcQuan(String^  key);
 
 		private:
 			Form^ sender;
 #pragma endregion
 	private: System::Void btnSearch_Click(System::Object^ sender, System::EventArgs^ e) {
-		//if textbox include valid item 
-		Variables::quanCom;
+		//if textbox include valid item
+		
 		if (!Variables::mapCom->count(txtboxFitem->Text))
 		{
 			MessageBox::Show("No Item with the specified number was found!");
@@ -249,8 +249,10 @@ namespace FactoryData {
 			MessageBox::Show("Please enter a valid number of boxes!");
 			return;
 		}
-
+		CalcQuan((txtboxFitem->Text));
+		Variables::quanCom;
 		ExpandItem(txtboxFitem->Text, noBoxes);
+		Variables::rawItemsQuan;
 	}
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 	

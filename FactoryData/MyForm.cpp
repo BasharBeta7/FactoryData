@@ -65,7 +65,7 @@ double FactoryData::MyForm::CalcSum(String^ key)
 		//uncomment this when you add the final pricing lists 
 		//MessageBox::Show("Product " + key + " does not exist in the pricing list!");
 	}
-	Variables::quanCom[key] = accum + accumf;
+	//Variables::quanCom[key] = accum + accumf;
 	Variables::mapCom[key] = (double)res/accum;
 	return Variables::mapCom[key];
 }
@@ -308,7 +308,7 @@ void FactoryData::MyForm::ResetData()
 	Variables::mapCom->clear();
 	Variables::totalCom->clear();
 	Variables::SellCostCom->clear();
-
+	Variables::quanCom->clear();
 	Variables::inputQuan->clear();
 	Variables::outputQuan->clear();
 	Variables::diffQuan->clear();
@@ -359,18 +359,15 @@ void FactoryData::MyForm::CalcQuan(String^ key,double quan)
 
 System::Void FactoryData::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
-	
 
-	
+	ResetData();
 	//store a pointer to the active dataGrid
 	activeDataGrid = combintaionData;
 	//load database
 	LoadDatabaseTables();
-	
-	
-
 	//Activate combinationDataItem
 	activeDataGrid->Show();
+	Variables::quanCom;
 	return System::Void();
 }
 

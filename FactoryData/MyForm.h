@@ -217,7 +217,9 @@ private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 private: System::Windows::Forms::TextBox^ textBox1;
 private: System::Windows::Forms::ToolStripMenuItem^ قائمةالجردToolStripMenuItem;
 private: System::Windows::Forms::DataGridView^ inventoryDataGrid;
+private: System::Windows::Forms::ToolStripMenuItem^ قائمةالكمياتToolStripMenuItem;
 private: System::Windows::Forms::Button^ button9;
+
 
 
 
@@ -272,6 +274,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->قائمةالخلطاتالجاهزةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->نسبالهدرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->قائمةالجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->قائمةالكمياتToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -367,10 +370,10 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// ToolStripMenuItem
 			// 
-			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {
+			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {
 				this->toolStripMenuItemCombination2,
 					this->toomStripMenuItemCombination, this->toolStripMenuItemItems, this->قائمةالخلطاتالجاهزةToolStripMenuItem, this->نسبالهدرToolStripMenuItem,
-					this->قائمةالجردToolStripMenuItem
+					this->قائمةالجردToolStripMenuItem, this->قائمةالكمياتToolStripMenuItem
 			});
 			this->ToolStripMenuItem->Name = L"ToolStripMenuItem";
 			this->ToolStripMenuItem->Size = System::Drawing::Size(46, 20);
@@ -417,6 +420,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->قائمةالجردToolStripMenuItem->Size = System::Drawing::Size(195, 22);
 			this->قائمةالجردToolStripMenuItem->Text = L"قائمة الجرد";
 			this->قائمةالجردToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::قائمةالجردToolStripMenuItem_Click);
+			// 
+			// قائمةالكمياتToolStripMenuItem
+			// 
+			this->قائمةالكمياتToolStripMenuItem->Name = L"قائمةالكمياتToolStripMenuItem";
+			this->قائمةالكمياتToolStripMenuItem->Size = System::Drawing::Size(195, 22);
+			this->قائمةالكمياتToolStripMenuItem->Text = L"قائمة الكميات ";
+			this->قائمةالكمياتToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::قائمةالكمياتToolStripMenuItem_Click);
 			// 
 			// خروجToolStripMenuItem
 			// 
@@ -1057,9 +1067,9 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// button9
 			// 
-			this->button9->Location = System::Drawing::Point(804, 526);
+			this->button9->Location = System::Drawing::Point(602, 526);
 			this->button9->Name = L"button9";
-			this->button9->Size = System::Drawing::Size(75, 23);
+			this->button9->Size = System::Drawing::Size(108, 43);
 			this->button9->TabIndex = 25;
 			this->button9->Text = L"button9";
 			this->button9->UseVisualStyleBackColor = true;
@@ -1089,7 +1099,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
 			this->Text = L"قائمة الخلطات";
-			this->TopMost = true;
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->menuStrip1->ResumeLayout(false);
@@ -1986,6 +1995,11 @@ private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e
 	Form^ inputs = gcnew Inputs();
 	inputs->Show();
 	this->Hide();
+}
+private: System::Void قائمةالكمياتToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	Inputs^ inputs = gcnew Inputs(this);
+	inputs->ShowDialog();
+
 }
 };
 }

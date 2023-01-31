@@ -17,8 +17,17 @@ namespace FactoryData {
 	public ref class Inputs : public System::Windows::Forms::Form
 	{
 	public:
+		Form^ callerForm;
 		Inputs(void)
 		{
+			InitializeComponent();
+			//
+			//TODO: Add the constructor code here
+			//
+		}
+		Inputs(Form^ frm)
+		{
+			callerForm = frm;
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
@@ -256,6 +265,7 @@ namespace FactoryData {
 			this->btnExit->TabIndex = 29;
 			this->btnExit->Text = L"خروج";
 			this->btnExit->UseVisualStyleBackColor = true;
+			this->btnExit->Click += gcnew System::EventHandler(this, &Inputs::btnExit_Click);
 			// 
 			// Inputs
 			// 
@@ -316,6 +326,10 @@ namespace FactoryData {
 private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs^ e) {
 	ItemDetails^ inputDetails = gcnew ItemDetails(this);
 	inputDetails->ShowDialog();
+}
+private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Hide();
+	callerForm->Show();
 }
 };
 }

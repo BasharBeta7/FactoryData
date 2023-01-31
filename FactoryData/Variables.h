@@ -44,4 +44,8 @@ public:
 	static cliext::map<String^, double>^ mapInputList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes
 	static cliext::map<String^, double>^ rawItemsQuanAll = gcnew cliext::map<String^, double>; // raw --> used quantitiy
 
+
+	//for imports form
+	static cliext::map<String^, double>^ mapImportList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes
+
 };

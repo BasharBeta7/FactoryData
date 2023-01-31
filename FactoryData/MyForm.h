@@ -5,6 +5,7 @@
 #include "containers.h"
 #include "Variables.h"
 #include "Inputs.h"
+#include "imports.h"
 
 namespace FactoryData {
 
@@ -217,8 +218,17 @@ private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 private: System::Windows::Forms::TextBox^ textBox1;
 private: System::Windows::Forms::ToolStripMenuItem^ قائمةالجردToolStripMenuItem;
 private: System::Windows::Forms::DataGridView^ inventoryDataGrid;
-private: System::Windows::Forms::ToolStripMenuItem^ قائمةالكمياتToolStripMenuItem;
+
 private: System::Windows::Forms::Button^ button9;
+private: System::Windows::Forms::ToolStripMenuItem^ أوامرToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ إضافةصادرToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ إضافةواردToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ إضافةمادةToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ تعديلسعرمادةToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ إضافةخلطةToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنخلطةToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ تحديثالجداولToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^ تحديثأسعارالخلطاتالجاهزةToolStripMenuItem;
 
 
 
@@ -274,8 +284,16 @@ private: System::Windows::Forms::Button^ button3;
 			this->قائمةالخلطاتالجاهزةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->نسبالهدرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->قائمةالجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->قائمةالكمياتToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->خروجToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->أوامرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->إضافةصادرToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->إضافةواردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->إضافةمادةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->تعديلسعرمادةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->إضافةخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->استعلامعنخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->تحديثالجداولToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
@@ -357,9 +375,9 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->ToolStripMenuItem,
-					this->خروجToolStripMenuItem
+					this->خروجToolStripMenuItem, this->أوامرToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -370,10 +388,10 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// ToolStripMenuItem
 			// 
-			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {
+			this->ToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {
 				this->toolStripMenuItemCombination2,
 					this->toomStripMenuItemCombination, this->toolStripMenuItemItems, this->قائمةالخلطاتالجاهزةToolStripMenuItem, this->نسبالهدرToolStripMenuItem,
-					this->قائمةالجردToolStripMenuItem, this->قائمةالكمياتToolStripMenuItem
+					this->قائمةالجردToolStripMenuItem
 			});
 			this->ToolStripMenuItem->Name = L"ToolStripMenuItem";
 			this->ToolStripMenuItem->Size = System::Drawing::Size(46, 20);
@@ -421,19 +439,73 @@ private: System::Windows::Forms::Button^ button3;
 			this->قائمةالجردToolStripMenuItem->Text = L"قائمة الجرد";
 			this->قائمةالجردToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::قائمةالجردToolStripMenuItem_Click);
 			// 
-			// قائمةالكمياتToolStripMenuItem
-			// 
-			this->قائمةالكمياتToolStripMenuItem->Name = L"قائمةالكمياتToolStripMenuItem";
-			this->قائمةالكمياتToolStripMenuItem->Size = System::Drawing::Size(195, 22);
-			this->قائمةالكمياتToolStripMenuItem->Text = L"قائمة الكميات ";
-			this->قائمةالكمياتToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::قائمةالكمياتToolStripMenuItem_Click);
-			// 
 			// خروجToolStripMenuItem
 			// 
 			this->خروجToolStripMenuItem->Name = L"خروجToolStripMenuItem";
 			this->خروجToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->خروجToolStripMenuItem->Text = L"خروج";
 			this->خروجToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::خروجToolStripMenuItem_Click);
+			// 
+			// أوامرToolStripMenuItem
+			// 
+			this->أوامرToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(8) {
+				this->إضافةصادرToolStripMenuItem,
+					this->إضافةواردToolStripMenuItem, this->إضافةمادةToolStripMenuItem, this->تعديلسعرمادةToolStripMenuItem, this->إضافةخلطةToolStripMenuItem,
+					this->استعلامعنخلطةToolStripMenuItem, this->تحديثالجداولToolStripMenuItem, this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem
+			});
+			this->أوامرToolStripMenuItem->Name = L"أوامرToolStripMenuItem";
+			this->أوامرToolStripMenuItem->Size = System::Drawing::Size(43, 20);
+			this->أوامرToolStripMenuItem->Text = L"أوامر";
+			// 
+			// إضافةصادرToolStripMenuItem
+			// 
+			this->إضافةصادرToolStripMenuItem->Name = L"إضافةصادرToolStripMenuItem";
+			this->إضافةصادرToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->إضافةصادرToolStripMenuItem->Text = L"إضافة صادر";
+			this->إضافةصادرToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::إضافةصادرToolStripMenuItem_Click);
+			// 
+			// إضافةواردToolStripMenuItem
+			// 
+			this->إضافةواردToolStripMenuItem->Name = L"إضافةواردToolStripMenuItem";
+			this->إضافةواردToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->إضافةواردToolStripMenuItem->Text = L"إضافة وارد";
+			this->إضافةواردToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::إضافةواردToolStripMenuItem_Click);
+			// 
+			// إضافةمادةToolStripMenuItem
+			// 
+			this->إضافةمادةToolStripMenuItem->Name = L"إضافةمادةToolStripMenuItem";
+			this->إضافةمادةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->إضافةمادةToolStripMenuItem->Text = L"إضافة مادة";
+			// 
+			// تعديلسعرمادةToolStripMenuItem
+			// 
+			this->تعديلسعرمادةToolStripMenuItem->Name = L"تعديلسعرمادةToolStripMenuItem";
+			this->تعديلسعرمادةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->تعديلسعرمادةToolStripMenuItem->Text = L"تعديل سعر مادة";
+			// 
+			// إضافةخلطةToolStripMenuItem
+			// 
+			this->إضافةخلطةToolStripMenuItem->Name = L"إضافةخلطةToolStripMenuItem";
+			this->إضافةخلطةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->إضافةخلطةToolStripMenuItem->Text = L"إضافة خلطة";
+			// 
+			// استعلامعنخلطةToolStripMenuItem
+			// 
+			this->استعلامعنخلطةToolStripMenuItem->Name = L"استعلامعنخلطةToolStripMenuItem";
+			this->استعلامعنخلطةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->استعلامعنخلطةToolStripMenuItem->Text = L"استعلام عن خلطة";
+			// 
+			// تحديثالجداولToolStripMenuItem
+			// 
+			this->تحديثالجداولToolStripMenuItem->Name = L"تحديثالجداولToolStripMenuItem";
+			this->تحديثالجداولToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->تحديثالجداولToolStripMenuItem->Text = L"تحديث الجداول";
+			// 
+			// تحديثأسعارالخلطاتالجاهزةToolStripMenuItem
+			// 
+			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem->Name = L"تحديثأسعارالخلطاتالجاهزةToolStripMenuItem";
+			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem->Text = L"تحديث أسعار الخلطات الجاهزة";
 			// 
 			// combintaionData
 			// 
@@ -1996,10 +2068,14 @@ private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e
 	inputs->Show();
 	this->Hide();
 }
-private: System::Void قائمةالكمياتToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+
+private: System::Void إضافةصادرToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	Inputs^ inputs = gcnew Inputs(this);
 	inputs->ShowDialog();
-
+}
+private: System::Void إضافةواردToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	imports^ myImports = gcnew imports(this);
+	myImports->ShowDialog();
 }
 };
 }

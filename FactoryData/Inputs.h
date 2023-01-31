@@ -278,7 +278,7 @@ namespace FactoryData {
 			this->Controls->Add(this->btnConfirm);
 			this->MinimumSize = System::Drawing::Size(764, 450);
 			this->Name = L"Inputs";
-			this->Text = L"Inputs";
+			this->Text = L"إضافة صادر ";
 			this->gbListItem->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->EndInit();
 			this->groupBox1->ResumeLayout(false);

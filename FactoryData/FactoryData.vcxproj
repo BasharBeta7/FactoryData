@@ -124,6 +124,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="imports.cpp" />
     <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="ItemDetails.cpp" />
     <ClCompile Include="MyForm.cpp" />
@@ -131,6 +132,9 @@
   <ItemGroup>
     <ClInclude Include="ConnectionData.h" />
     <ClInclude Include="containers.h" />
+    <ClInclude Include="imports.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Inputs.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -143,6 +147,9 @@
     <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="imports.resx">
+      <DependentUpon>imports.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inputs.resx">
       <DependentUpon>Inputs.h</DependentUpon>
     </EmbeddedResource>

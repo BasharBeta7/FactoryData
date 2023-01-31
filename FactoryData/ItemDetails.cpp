@@ -6,6 +6,17 @@ void FactoryData::ItemDetails::ExpandItem(String^ it, double fr)
 	//fill data in dataGridView
 	//query from database
 
+	if (Variables::RawName->count(it)) {
+		if (rawItemsQuan->count(it)) {
+			rawItemsQuan[it] += fr;
+		}
+		else {
+			rawItemsCode->Add(it);
+			rawItemsQuan[it] = fr;
+		}
+		return;
+	}
+
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;

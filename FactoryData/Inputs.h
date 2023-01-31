@@ -314,9 +314,8 @@ namespace FactoryData {
 
 	}
 private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs^ e) {
-	ItemDetails^ inputDetails = gcnew ItemDetails();
-	this->Hide();
-	inputDetails->Show();
+	ItemDetails^ inputDetails = gcnew ItemDetails(this);
+	inputDetails->ShowDialog();
 }
 };
 }

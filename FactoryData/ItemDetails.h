@@ -16,6 +16,7 @@ namespace FactoryData {
 	public ref class ItemDetails : public System::Windows::Forms::Form
 	{
 	public:
+		Form^ callerForm = gcnew Form;
 		ItemDetails(void)
 		{
 			InitializeComponent();
@@ -24,8 +25,9 @@ namespace FactoryData {
 			//
 		}
 
-		ItemDetails(Form^ frm):
-			sender(frm){
+		ItemDetails(Form^ frm)
+		{
+			callerForm = frm;
 			InitializeComponent();
 		}
 
@@ -44,7 +46,7 @@ namespace FactoryData {
 	protected:
 	private: System::Windows::Forms::TextBox^ txtboxNoBoxes;
 	private: System::Windows::Forms::Label^ lblNoBoxes;
-	private: System::Windows::Forms::Button^ btnBack;
+
 	private: System::Windows::Forms::DataGridView^ dgvQueryCom;
 	private: System::Windows::Forms::Button^ btnExit;
 	private: System::Windows::Forms::Button^ btnSearch;
@@ -67,11 +69,10 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
-			this->btnBack = (gcnew System::Windows::Forms::Button());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
 			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -91,7 +92,6 @@ namespace FactoryData {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->groupBox2->Controls->Add(this->txtboxNoBoxes);
 			this->groupBox2->Controls->Add(this->lblNoBoxes);
-			this->groupBox2->Controls->Add(this->btnBack);
 			this->groupBox2->Controls->Add(this->dgvQueryCom);
 			this->groupBox2->Controls->Add(this->btnExit);
 			this->groupBox2->Controls->Add(this->btnSearch);
@@ -123,16 +123,6 @@ namespace FactoryData {
 			this->lblNoBoxes->TabIndex = 23;
 			this->lblNoBoxes->Text = L"No. Boxes";
 			// 
-			// btnBack
-			// 
-			this->btnBack->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnBack->Location = System::Drawing::Point(590, 66);
-			this->btnBack->Name = L"btnBack";
-			this->btnBack->Size = System::Drawing::Size(108, 43);
-			this->btnBack->TabIndex = 22;
-			this->btnBack->Text = L"رجوع";
-			this->btnBack->UseVisualStyleBackColor = true;
-			// 
 			// dgvQueryCom
 			// 
 			this->dgvQueryCom->AllowUserToAddRows = false;
@@ -144,15 +134,15 @@ namespace FactoryData {
 				this->Ritem, this->itemName,
 					this->Quantity
 			});
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(574, 239);
@@ -179,7 +169,7 @@ namespace FactoryData {
 			// btnExit
 			// 
 			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnExit->Location = System::Drawing::Point(590, 115);
+			this->btnExit->Location = System::Drawing::Point(590, 262);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(108, 43);
 			this->btnExit->TabIndex = 16;
@@ -226,6 +216,7 @@ namespace FactoryData {
 			this->MinimumSize = System::Drawing::Size(750, 375);
 			this->Name = L"ItemDetails";
 			this->Text = L"ItemDetails";
+			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &ItemDetails::ItemDetails_FormClosed);
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->EndInit();
@@ -243,10 +234,6 @@ namespace FactoryData {
 			cliext::map<String^, double>^ rawItemsQuan = gcnew cliext::map<String^, double>; // raw --> used quantitiy
 			System::Collections::Generic::List<String^>^ rawItemsCode = gcnew System::Collections::Generic::List<String^>;
 			
-		
-
-		private:
-			Form^ sender;
 #pragma endregion
 	private: System::Void btnSearch_Click(System::Object^ sender, System::EventArgs^ e) {
 		//if textbox include valid item
@@ -266,6 +253,7 @@ namespace FactoryData {
 			MessageBox::Show("Please enter a valid number of boxes!");
 			return;
 		}
+		
 		CalcQuan((txtboxFitem->Text));
 		Variables::quanCom;
 		rawItemsQuan->clear();
@@ -282,7 +270,12 @@ namespace FactoryData {
 		}
 	}
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	this->Hide();
+	callerForm->Show();
 	
+}
+public: System::Void ItemDetails_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
 }
 };
 }

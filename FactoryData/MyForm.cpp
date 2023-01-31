@@ -105,6 +105,7 @@ void FactoryData::MyForm::UpdateRawDataPrices()
 	{
 		sVal = ItemsData->Rows[i]->Cells["Unit_Cost"]->Value->ToString();
 		res = StringToDouble(sVal);
+		Variables::RawName[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = ItemsData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
 		Variables::mapRaw[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = res;
 		ItemsData->Rows[i]->Cells["Unit_Cost"]->Value = System::Math::Round(res,3);
 		Variables::RawIGroup[ItemsData->Rows[i]->Cells["Inum"]->Value->ToString()] = ItemsData->Rows[i]->Cells["Igroup"]->Value->ToString();
@@ -312,6 +313,7 @@ void FactoryData::MyForm::ResetData()
 	Variables::inputQuan->clear();
 	Variables::outputQuan->clear();
 	Variables::diffQuan->clear();
+	Variables::RawName->clear();
 
 }
 

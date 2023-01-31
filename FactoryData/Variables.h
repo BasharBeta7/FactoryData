@@ -35,12 +35,13 @@ public:
 	static cliext::map<String^, double>^ quanCom = gcnew cliext::map<String^, double>;
 	static cliext::map<String^, double>^ comBoxWeight = gcnew cliext::map<String^, double>;
 	static cliext::map<String^, String^>^ RawIGroup = gcnew cliext::map<String^, String^>;
+	static cliext::map<String^, String^>^ RawName = gcnew cliext::map<String^, String^>;
 	static double expences1, expences2;
 	static String^ rowToQuery = "";//saves the name of the fitem to query on 
 
 
 	//for inputs form
 	static cliext::map<String^, double>^ mapInputList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes
-	static cliext::map<String^, double>^ rawItemsQuan = gcnew cliext::map<String^, double>; // raw --> used quantitiy
+	static cliext::map<String^, double>^ rawItemsQuanAll = gcnew cliext::map<String^, double>; // raw --> used quantitiy
 
 };

@@ -17,6 +17,7 @@ void FactoryData::ItemDetails::ExpandItem(String^ it, double fr)
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
+	dbConnection->Close();
 	static int index = dgvQueryCom->Rows->Count;
 
 
@@ -25,12 +26,13 @@ void FactoryData::ItemDetails::ExpandItem(String^ it, double fr)
 		auto row = dt->Rows[i];
 		String^ line = row["Ritem"]->ToString();	
 		if (Variables::mapRaw->count(line) > 0) {
-			if (Variables::rawItemsQuan->count(line)) {
+			if(rawItemsQuan->count(line)) {
 				double temp = System::Convert::ToDouble(row["BISubquan"]->ToString());
-				Variables::rawItemsQuan[line] += fr * System::Convert::ToDouble(row["BISubquan"]->ToString());
+				rawItemsQuan[line] += fr * System::Convert::ToDouble(row["BISubquan"]->ToString());
 			}
 			else {
-				Variables::rawItemsQuan[line] = fr * System::Convert::ToDouble(row["BISubquan"]->ToString());
+				rawItemsCode->Add(line);
+				rawItemsQuan[line] = fr * System::Convert::ToDouble(row["BISubquan"]->ToString());
 				index++;
 				//continue this part 
 				//update dgv last 

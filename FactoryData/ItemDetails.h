@@ -67,18 +67,19 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
 			this->btnBack = (gcnew System::Windows::Forms::Button());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
+			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnSearch = (gcnew System::Windows::Forms::Button());
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
-			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->BeginInit();
 			this->SuspendLayout();
@@ -143,10 +144,37 @@ namespace FactoryData {
 				this->Ritem, this->itemName,
 					this->Quantity
 			});
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(574, 239);
 			this->dgvQueryCom->TabIndex = 21;
+			// 
+			// Ritem
+			// 
+			this->Ritem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Ritem->HeaderText = L"Ritem";
+			this->Ritem->Name = L"Ritem";
+			// 
+			// itemName
+			// 
+			this->itemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->itemName->HeaderText = L"Name";
+			this->itemName->Name = L"itemName";
+			// 
+			// Quantity
+			// 
+			this->Quantity->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Quantity->HeaderText = L"Quantity";
+			this->Quantity->Name = L"Quantity";
 			// 
 			// btnExit
 			// 
@@ -189,24 +217,6 @@ namespace FactoryData {
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"Fitem";
 			// 
-			// Ritem
-			// 
-			this->Ritem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Ritem->HeaderText = L"Ritem";
-			this->Ritem->Name = L"Ritem";
-			// 
-			// itemName
-			// 
-			this->itemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->itemName->HeaderText = L"Name";
-			this->itemName->Name = L"itemName";
-			// 
-			// Quantity
-			// 
-			this->Quantity->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Quantity->HeaderText = L"Quantity";
-			this->Quantity->Name = L"Quantity";
-			// 
 			// ItemDetails
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -227,6 +237,13 @@ namespace FactoryData {
 			//user-defined functions 
 			void ExpandItem(String^ it, double fr);
 			double CalcQuan(String^  key);
+
+		private:
+			//user-defined attributes
+			cliext::map<String^, double>^ rawItemsQuan = gcnew cliext::map<String^, double>; // raw --> used quantitiy
+			System::Collections::Generic::List<String^>^ rawItemsCode = gcnew System::Collections::Generic::List<String^>;
+			
+		
 
 		private:
 			Form^ sender;
@@ -251,8 +268,18 @@ namespace FactoryData {
 		}
 		CalcQuan((txtboxFitem->Text));
 		Variables::quanCom;
+		rawItemsQuan->clear();
+		rawItemsCode->Clear();
+		dgvQueryCom->Rows->Clear();
 		ExpandItem(txtboxFitem->Text, noBoxes);
-		Variables::rawItemsQuan;
+		int row_index = 0;
+		for (int i = 0; i < rawItemsCode->Count; ++i) {
+			dgvQueryCom->Rows->Add();
+			dgvQueryCom->Rows[row_index]->Cells["Ritem"]->Value = rawItemsCode[i]->ToString();
+			dgvQueryCom->Rows[row_index]->Cells["Quantity"]->Value = rawItemsQuan[rawItemsCode[i]->ToString()];
+			dgvQueryCom->Rows[row_index]->Cells["itemName"]->Value = Variables::RawName[rawItemsCode[i]->ToString()];
+			row_index++;
+		}
 	}
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 	

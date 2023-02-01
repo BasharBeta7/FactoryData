@@ -78,7 +78,7 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
@@ -125,6 +125,7 @@ namespace FactoryData {
 			this->btnConfirm->TabIndex = 25;
 			this->btnConfirm->Text = L"تأكيد";
 			this->btnConfirm->UseVisualStyleBackColor = true;
+			this->btnConfirm->Click += gcnew System::EventHandler(this, &ItemDetails::btnConfirm_Click);
 			// 
 			// txtboxNoBoxes
 			// 
@@ -156,15 +157,15 @@ namespace FactoryData {
 				this->Ritem, this->itemName,
 					this->Quantity
 			});
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(574, 239);
@@ -269,14 +270,14 @@ namespace FactoryData {
 			for each (auto i in Variables::mapImportList) {
 				CalcQuan(i->first);				
 				ExpandItem(i->first, i->second);
-				int row_index = 0;
-				for (int j = 0; j < rawItemsCode->Count; ++j) {
-					dgvQueryCom->Rows->Add();
-					dgvQueryCom->Rows[row_index]->Cells["Ritem"]->Value = rawItemsCode[j]->ToString();
-					dgvQueryCom->Rows[row_index]->Cells["Quantity"]->Value = rawItemsQuan[rawItemsCode[j]->ToString()];
-					dgvQueryCom->Rows[row_index]->Cells["itemName"]->Value = Variables::RawName[rawItemsCode[j]->ToString()];
-					row_index++;
-				}
+			}
+			int row_index = 0;
+			for each (auto j in rawItemsQuan) {
+				dgvQueryCom->Rows->Add();
+				dgvQueryCom->Rows[row_index]->Cells["Ritem"]->Value = j->first;
+				dgvQueryCom->Rows[row_index]->Cells["Quantity"]->Value = j->second;
+				dgvQueryCom->Rows[row_index]->Cells["itemName"]->Value = Variables::RawName[j->first];
+				row_index++;
 			}
 			return;
 		} 
@@ -329,6 +330,8 @@ private: System::Void ItemDetails_Shown(System::Object^ sender, System::EventArg
 	if (flag) {
 		btnSearch->PerformClick();
 	}
+}
+private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

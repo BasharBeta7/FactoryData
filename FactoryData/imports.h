@@ -330,6 +330,8 @@ private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs
 	ItemDetails^ details = gcnew ItemDetails(this, false);
 	details->txtboxFitem->Text = txtboxFitem->Text->ToString();
 	details->txtboxNoBoxes->Text = txtboxNoBoxes->Text->ToString();
+	details->btnConfirmExport->Hide();
+	details->btnConfirmImport->Hide();
 	details->ShowDialog();
 }
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -337,6 +339,10 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 	details->txtboxFitem->Text = "Not Set";
 	details->txtboxNoBoxes->Text = "Not Set";
 	details->btnSearch->PerformClick();
+	details->btnConfirmExport->Hide();
+	details->btnConfirmImport->Show();
+	details->btnSearchExport->Hide();
+	details->btnSearch->Show();
 	details->ShowDialog();
 	
 }

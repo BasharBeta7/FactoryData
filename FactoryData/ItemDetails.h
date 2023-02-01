@@ -17,7 +17,11 @@ namespace FactoryData {
 	{
 	public:
 		Form^ callerForm = gcnew Form;
-	private: System::Windows::Forms::Button^ btnConfirm;
+	public: System::Windows::Forms::Button^ btnConfirmImport;
+	public: System::Windows::Forms::Button^ btnConfirmExport;
+	public: System::Windows::Forms::Button^ btnSearchExport;
+	public:
+
 	public:
 		bool flag = false;
 		ItemDetails(void)
@@ -78,9 +82,11 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->btnConfirm = (gcnew System::Windows::Forms::Button());
+			this->btnSearchExport = (gcnew System::Windows::Forms::Button());
+			this->btnConfirmExport = (gcnew System::Windows::Forms::Button());
+			this->btnConfirmImport = (gcnew System::Windows::Forms::Button());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
@@ -100,7 +106,9 @@ namespace FactoryData {
 			this->groupBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->groupBox2->Controls->Add(this->btnConfirm);
+			this->groupBox2->Controls->Add(this->btnSearchExport);
+			this->groupBox2->Controls->Add(this->btnConfirmExport);
+			this->groupBox2->Controls->Add(this->btnConfirmImport);
 			this->groupBox2->Controls->Add(this->txtboxNoBoxes);
 			this->groupBox2->Controls->Add(this->lblNoBoxes);
 			this->groupBox2->Controls->Add(this->dgvQueryCom);
@@ -110,22 +118,45 @@ namespace FactoryData {
 			this->groupBox2->Controls->Add(this->lblFitem);
 			this->groupBox2->Location = System::Drawing::Point(12, 12);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(711, 311);
+			this->groupBox2->Size = System::Drawing::Size(713, 311);
 			this->groupBox2->TabIndex = 23;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"تفاصيل الخلطة";
 			// 
-			// btnConfirm
+			// btnSearchExport
 			// 
-			this->btnConfirm->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnConfirm->Enabled = false;
-			this->btnConfirm->Location = System::Drawing::Point(590, 213);
-			this->btnConfirm->Name = L"btnConfirm";
-			this->btnConfirm->Size = System::Drawing::Size(108, 43);
-			this->btnConfirm->TabIndex = 25;
-			this->btnConfirm->Text = L"تأكيد";
-			this->btnConfirm->UseVisualStyleBackColor = true;
-			this->btnConfirm->Click += gcnew System::EventHandler(this, &ItemDetails::btnConfirm_Click);
+			this->btnSearchExport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnSearchExport->Location = System::Drawing::Point(592, 16);
+			this->btnSearchExport->Name = L"btnSearchExport";
+			this->btnSearchExport->Size = System::Drawing::Size(108, 43);
+			this->btnSearchExport->TabIndex = 27;
+			this->btnSearchExport->Text = L"بحث";
+			this->btnSearchExport->UseVisualStyleBackColor = true;
+			this->btnSearchExport->Click += gcnew System::EventHandler(this, &ItemDetails::btnSearchExport_Click);
+			// 
+			// btnConfirmExport
+			// 
+			this->btnConfirmExport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnConfirmExport->Enabled = false;
+			this->btnConfirmExport->Location = System::Drawing::Point(592, 164);
+			this->btnConfirmExport->Name = L"btnConfirmExport";
+			this->btnConfirmExport->Size = System::Drawing::Size(108, 43);
+			this->btnConfirmExport->TabIndex = 26;
+			this->btnConfirmExport->Text = L"تأكيد";
+			this->btnConfirmExport->UseVisualStyleBackColor = true;
+			this->btnConfirmExport->Click += gcnew System::EventHandler(this, &ItemDetails::btnConfirmExport_Click);
+			// 
+			// btnConfirmImport
+			// 
+			this->btnConfirmImport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnConfirmImport->Enabled = false;
+			this->btnConfirmImport->Location = System::Drawing::Point(592, 213);
+			this->btnConfirmImport->Name = L"btnConfirmImport";
+			this->btnConfirmImport->Size = System::Drawing::Size(108, 43);
+			this->btnConfirmImport->TabIndex = 25;
+			this->btnConfirmImport->Text = L"تأكيد";
+			this->btnConfirmImport->UseVisualStyleBackColor = true;
+			this->btnConfirmImport->Click += gcnew System::EventHandler(this, &ItemDetails::btnConfirm_Click);
 			// 
 			// txtboxNoBoxes
 			// 
@@ -157,18 +188,18 @@ namespace FactoryData {
 				this->Ritem, this->itemName,
 					this->Quantity
 			});
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
-			this->dgvQueryCom->Size = System::Drawing::Size(574, 239);
+			this->dgvQueryCom->Size = System::Drawing::Size(576, 239);
 			this->dgvQueryCom->TabIndex = 21;
 			// 
 			// Ritem
@@ -192,7 +223,7 @@ namespace FactoryData {
 			// btnExit
 			// 
 			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnExit->Location = System::Drawing::Point(590, 262);
+			this->btnExit->Location = System::Drawing::Point(592, 262);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(108, 43);
 			this->btnExit->TabIndex = 16;
@@ -203,7 +234,7 @@ namespace FactoryData {
 			// btnSearch
 			// 
 			this->btnSearch->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnSearch->Location = System::Drawing::Point(476, 17);
+			this->btnSearch->Location = System::Drawing::Point(478, 17);
 			this->btnSearch->Name = L"btnSearch";
 			this->btnSearch->Size = System::Drawing::Size(108, 43);
 			this->btnSearch->TabIndex = 15;
@@ -234,7 +265,7 @@ namespace FactoryData {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(734, 336);
+			this->ClientSize = System::Drawing::Size(736, 336);
 			this->Controls->Add(this->groupBox2);
 			this->MinimumSize = System::Drawing::Size(750, 375);
 			this->Name = L"ItemDetails";
@@ -263,7 +294,7 @@ namespace FactoryData {
 		if (flag) {
 			txtboxFitem->Enabled = false;
 			txtboxNoBoxes->Enabled = false;
-			btnConfirm->Enabled = true;
+			btnConfirmImport->Enabled = true;
 			rawItemsQuan->clear();
 			rawItemsCode->Clear();
 			dgvQueryCom->Rows->Clear();
@@ -284,7 +315,7 @@ namespace FactoryData {
 		
 		txtboxFitem->Enabled = true;
 		txtboxNoBoxes->Enabled = true;
-		btnConfirm->Enabled = false;
+		btnConfirmImport->Enabled = false;
 		//if textbox include valid item
 		
 		if (!Variables::mapCom->count(txtboxFitem->Text))
@@ -328,10 +359,124 @@ public: System::Void ItemDetails_FormClosed(System::Object^ sender, System::Wind
 }
 private: System::Void ItemDetails_Shown(System::Object^ sender, System::EventArgs^ e) {
 	if (flag) {
-		btnSearch->PerformClick();
+		if (btnSearch->Visible)
+			btnSearch->PerformClick();
+		else
+			btnSearchExport->PerformClick();
 	}
 }
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Inventory) in the database ?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+	//this form is for imports 
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+	OleDbCommand^ dbCommand = gcnew OleDbCommand();
+
+	//Read into itemsData
+	for each (auto item in rawItemsQuan) {
+		query = "UPDATE Inventory SET Quantity = Quantity + " + item->second + " WHERE Ritem='" + item->first->ToString() +"';";	
+		dbCommand->CommandText = query;
+		dbCommand->Connection = dbConnection;
+		dbCommand->ExecuteNonQuery();
+	}
+	dbConnection->Close();
+	MessageBox::Show("Update was successful!");
+	this->Hide();
+	callerForm->Show();
+
+}
+public: System::Void btnSearchExport_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (flag) {
+		txtboxFitem->Enabled = false;
+		txtboxNoBoxes->Enabled = false;
+		btnConfirmExport->Enabled = true;
+		rawItemsQuan->clear();
+		rawItemsCode->Clear();
+		dgvQueryCom->Rows->Clear();
+		for each (auto i in Variables::mapInputList) {
+			CalcQuan(i->first);
+			ExpandItem(i->first, i->second);
+		}
+		int row_index = 0;
+		for each (auto j in rawItemsQuan) {
+			dgvQueryCom->Rows->Add();
+			dgvQueryCom->Rows[row_index]->Cells["Ritem"]->Value = j->first;
+			dgvQueryCom->Rows[row_index]->Cells["Quantity"]->Value = j->second;
+			dgvQueryCom->Rows[row_index]->Cells["itemName"]->Value = Variables::RawName[j->first];
+			row_index++;
+		}
+		return;
+	}
+
+	txtboxFitem->Enabled = true;
+	txtboxNoBoxes->Enabled = true;
+	btnConfirmExport->Enabled = false;
+	//if textbox include valid item
+
+	if (!Variables::mapCom->count(txtboxFitem->Text))
+	{
+		MessageBox::Show("No Item with the specified number was found!");
+		return;
+	}
+
+
+	double noBoxes = 0;
+	try {
+		noBoxes = System::Convert::ToDouble(txtboxNoBoxes->Text);
+	}
+	catch (FormatException^) {
+		MessageBox::Show("Please enter a valid number of boxes!");
+		return;
+	}
+
+	CalcQuan((txtboxFitem->Text));
+	Variables::quanCom;
+	rawItemsQuan->clear();
+	rawItemsCode->Clear();
+	dgvQueryCom->Rows->Clear();
+	ExpandItem(txtboxFitem->Text, noBoxes);
+	int row_index = 0;
+	for (int i = 0; i < rawItemsCode->Count; ++i) {
+		dgvQueryCom->Rows->Add();
+		dgvQueryCom->Rows[row_index]->Cells["Ritem"]->Value = rawItemsCode[i]->ToString();
+		dgvQueryCom->Rows[row_index]->Cells["Quantity"]->Value = rawItemsQuan[rawItemsCode[i]->ToString()];
+		dgvQueryCom->Rows[row_index]->Cells["itemName"]->Value = Variables::RawName[rawItemsCode[i]->ToString()];
+		row_index++;
+	}
+}
+private: System::Void btnConfirmExport_Click(System::Object^ sender, System::EventArgs^ e) {
+	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Inventory) in the database ?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+	//this form is for imports 
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+	OleDbCommand^ dbCommand = gcnew OleDbCommand();
+
+	//Read into itemsData
+	for each (auto item in rawItemsQuan) {
+		query = "UPDATE Inventory SET Quantity = Quantity - " + item->second + " WHERE Ritem='" + item->first->ToString() + "';";
+		dbCommand->CommandText = query;
+		dbCommand->Connection = dbConnection;
+		dbCommand->ExecuteNonQuery();
+	}
+	dbConnection->Close();
+	MessageBox::Show("Update was successful!");
+	this->Hide();
+	callerForm->Show();
 }
 };
 }

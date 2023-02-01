@@ -127,6 +127,7 @@ namespace FactoryData {
 			this->btnDeleteRow->TabIndex = 9;
 			this->btnDeleteRow->Text = L"حذف سطر";
 			this->btnDeleteRow->UseVisualStyleBackColor = true;
+			this->btnDeleteRow->Click += gcnew System::EventHandler(this, &Inputs::btnDeleteRow_Click);
 			// 
 			// dgvItemList
 			// 
@@ -172,6 +173,7 @@ namespace FactoryData {
 			this->btnCancel->TabIndex = 16;
 			this->btnCancel->Text = L"إلغاء";
 			this->btnCancel->UseVisualStyleBackColor = true;
+			this->btnCancel->Click += gcnew System::EventHandler(this, &Inputs::btnCancel_Click);
 			// 
 			// btnConfirm
 			// 
@@ -182,6 +184,7 @@ namespace FactoryData {
 			this->btnConfirm->TabIndex = 9;
 			this->btnConfirm->Text = L"تأكيد";
 			this->btnConfirm->UseVisualStyleBackColor = true;
+			this->btnConfirm->Click += gcnew System::EventHandler(this, &Inputs::btnConfirm_Click);
 			// 
 			// groupBox1
 			// 
@@ -305,11 +308,6 @@ namespace FactoryData {
 		}
 		
 
-		if (Variables::inputQuan[fitem] < noBoxes) {
-			MessageBox::Show("Number of boxes cannot be this large!");
-			return;
-		}
-
 		if (Variables::mapInputList->count(fitem) > 0) {
 			MessageBox::Show("this item is already in the list below!");
 			return;
@@ -324,12 +322,61 @@ namespace FactoryData {
 
 	}
 private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs^ e) {
-	ItemDetails^ inputDetails = gcnew ItemDetails(this);
-	inputDetails->ShowDialog();
+	ItemDetails^ details = gcnew ItemDetails(this, false);
+	details->txtboxFitem->Text = txtboxFitem->Text->ToString();
+	details->txtboxNoBoxes->Text = txtboxNoBoxes->Text->ToString();
+	details->btnConfirmExport->Hide();
+	details->btnConfirmImport->Hide();
+	details->ShowDialog();
 }
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Hide();
 	callerForm->Show();
+}
+private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
+	ItemDetails^ details = gcnew ItemDetails(this, true);
+	details->txtboxFitem->Text = "Not Set";
+	details->txtboxNoBoxes->Text = "Not Set";
+	details->btnSearchExport->PerformClick();
+	details->btnSearchExport->Show();
+	details->btnSearch->Hide();
+	details->btnConfirmExport->Show();
+	details->btnConfirmImport->Hide();
+	
+	details->ShowDialog();
+}
+
+private: System::Void btnDeleteRow_Click(System::Object^ sender, System::EventArgs^ e) {
+	//if index is valid
+	if (dgvItemList->SelectedRows->Count != 1)
+	{
+		MessageBox::Show("Please selected ONE row to delete!");
+		return;
+	}
+	int index = dgvItemList->SelectedRows[0]->Index;
+	if (index >= dgvItemList->Rows->Count)
+	{
+		MessageBox::Show("Please selected ONE row to delete!");
+		return;
+	}
+	auto res = MessageBox::Show("Are you sure you want to delete seleceted row?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+	String^ ritem = dgvItemList->Rows[index]->Cells["Fitem"]->Value->ToString();
+	Variables::mapInputList->erase(ritem);
+	dgvItemList->Rows->RemoveAt(index);
+}
+
+private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
+	auto res = MessageBox::Show("Are you sure you want to remove all rows from list ?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+	dgvItemList->Rows->Clear();
+	Variables::mapInputList->clear();
 }
 };
 }

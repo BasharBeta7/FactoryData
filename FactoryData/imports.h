@@ -173,6 +173,7 @@ namespace FactoryData {
 			this->btnCancel->TabIndex = 16;
 			this->btnCancel->Text = L"إلغاء";
 			this->btnCancel->UseVisualStyleBackColor = true;
+			this->btnCancel->Click += gcnew System::EventHandler(this, &imports::btnCancel_Click);
 			// 
 			// btnExit
 			// 
@@ -364,6 +365,15 @@ private: System::Void btnDeleteRow_Click(System::Object^ sender, System::EventAr
 	String^ ritem = dgvItemList->Rows[index]->Cells["Fitem"]->Value->ToString();
 	Variables::mapImportList->erase(ritem);
 	dgvItemList->Rows->RemoveAt(index);
+}
+private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
+	auto res = MessageBox::Show("Are you sure you want to remove all rows from list ?", "Message", MessageBoxButtons::YesNo);
+	if (res == Windows::Forms::DialogResult::No)
+	{
+		return;
+	}
+	dgvItemList->Rows->Clear();
+	Variables::mapImportList->clear();
 }
 };
 }

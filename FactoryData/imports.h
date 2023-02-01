@@ -361,10 +361,8 @@ private: System::Void btnDeleteRow_Click(System::Object^ sender, System::EventAr
 	{
 		return;
 	}
-	Microsoft::VisualC::StlClr::GenericPair<String^, double>^ p;
-	p->first = dgvItemList->Rows[index]->Cells["Ritem"]->Value->ToString();
-	p->second = System::Convert::ToDouble(dgvItemList->Rows[index]->Cells["Quantity"]->Value->ToString());
-
+	String^ ritem = dgvItemList->Rows[index]->Cells["Fitem"]->Value->ToString();
+	Variables::mapImportList->erase(ritem);
 	dgvItemList->Rows->RemoveAt(index);
 }
 };

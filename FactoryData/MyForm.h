@@ -219,7 +219,7 @@ private: System::Windows::Forms::TextBox^ textBox1;
 private: System::Windows::Forms::ToolStripMenuItem^ قائمةالجردToolStripMenuItem;
 private: System::Windows::Forms::DataGridView^ inventoryDataGrid;
 
-private: System::Windows::Forms::Button^ button9;
+
 private: System::Windows::Forms::ToolStripMenuItem^ أوامرToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^ إضافةصادرToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^ إضافةواردToolStripMenuItem;
@@ -276,6 +276,14 @@ private: System::Windows::Forms::Button^ button3;
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle17 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle18 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle19 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle20 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle21 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle22 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle23 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle24 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItemCombination2 = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -355,7 +363,6 @@ private: System::Windows::Forms::Button^ button3;
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->inventoryDataGrid = (gcnew System::Windows::Forms::DataGridView());
-			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -509,7 +516,17 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// combintaionData
 			// 
-			this->combintaionData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->combintaionData->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			dataGridViewCellStyle17->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle17->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle17->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			dataGridViewCellStyle17->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle17->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle17->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle17->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->combintaionData->DefaultCellStyle = dataGridViewCellStyle17;
 			this->combintaionData->Location = System::Drawing::Point(12, 28);
 			this->combintaionData->Name = L"combintaionData";
 			this->combintaionData->Size = System::Drawing::Size(753, 386);
@@ -518,6 +535,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->groupBox1->Controls->Add(this->button3);
 			this->groupBox1->Controls->Add(this->btnUpdateDB);
 			this->groupBox1->Controls->Add(this->btnQueryCombination);
@@ -626,7 +644,18 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// combinationData2
 			// 
+			this->combinationData2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->combinationData2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle18->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle18->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle18->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			dataGridViewCellStyle18->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle18->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle18->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle18->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->combinationData2->DefaultCellStyle = dataGridViewCellStyle18;
 			this->combinationData2->Location = System::Drawing::Point(12, 28);
 			this->combinationData2->Name = L"combinationData2";
 			this->combinationData2->Size = System::Drawing::Size(753, 485);
@@ -636,7 +665,18 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// ItemsData
 			// 
+			this->ItemsData->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->ItemsData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle19->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle19->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle19->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			dataGridViewCellStyle19->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle19->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle19->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle19->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->ItemsData->DefaultCellStyle = dataGridViewCellStyle19;
 			this->ItemsData->Location = System::Drawing::Point(12, 28);
 			this->ItemsData->Name = L"ItemsData";
 			this->ItemsData->Size = System::Drawing::Size(753, 485);
@@ -645,7 +685,19 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// FinishedCombinations
 			// 
+			this->FinishedCombinations->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->FinishedCombinations->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle20->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle20->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle20->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle20->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle20->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle20->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle20->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->FinishedCombinations->DefaultCellStyle = dataGridViewCellStyle20;
 			this->FinishedCombinations->Location = System::Drawing::Point(12, 27);
 			this->FinishedCombinations->Name = L"FinishedCombinations";
 			this->FinishedCombinations->Size = System::Drawing::Size(753, 486);
@@ -753,11 +805,23 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// dgvAddCombination
 			// 
+			this->dgvAddCombination->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->dgvAddCombination->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dgvAddCombination->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
 				this->Ritem,
 					this->RIsubquan
 			});
+			dataGridViewCellStyle21->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle21->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle21->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle21->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle21->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle21->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle21->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvAddCombination->DefaultCellStyle = dataGridViewCellStyle21;
 			this->dgvAddCombination->Location = System::Drawing::Point(257, 24);
 			this->dgvAddCombination->Name = L"dgvAddCombination";
 			this->dgvAddCombination->Size = System::Drawing::Size(244, 184);
@@ -924,7 +988,19 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// dgvQueryCom
 			// 
+			this->dgvQueryCom->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->dgvQueryCom->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle22->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle22->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle22->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle22->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle22->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle22->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle22->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle22;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(574, 186);
@@ -984,7 +1060,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->groupBox4->Controls->Add(this->label7);
 			this->groupBox4->Location = System::Drawing::Point(12, 27);
 			this->groupBox4->Name = L"groupBox4";
-			this->groupBox4->Size = System::Drawing::Size(258, 263);
+			this->groupBox4->Size = System::Drawing::Size(258, 257);
 			this->groupBox4->TabIndex = 22;
 			this->groupBox4->TabStop = false;
 			this->groupBox4->Text = L"إضافة مادة";
@@ -1091,7 +1167,19 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// WasteData
 			// 
+			this->WasteData->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->WasteData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle23->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle23->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle23->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle23->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle23->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle23->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle23->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->WasteData->DefaultCellStyle = dataGridViewCellStyle23;
 			this->WasteData->Location = System::Drawing::Point(12, 27);
 			this->WasteData->Name = L"WasteData";
 			this->WasteData->Size = System::Drawing::Size(753, 486);
@@ -1130,29 +1218,31 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// inventoryDataGrid
 			// 
+			this->inventoryDataGrid->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->inventoryDataGrid->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle24->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle24->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle24->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle24->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle24->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle24->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle24->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->inventoryDataGrid->DefaultCellStyle = dataGridViewCellStyle24;
 			this->inventoryDataGrid->Location = System::Drawing::Point(11, 26);
 			this->inventoryDataGrid->Name = L"inventoryDataGrid";
 			this->inventoryDataGrid->Size = System::Drawing::Size(753, 486);
 			this->inventoryDataGrid->TabIndex = 24;
 			this->inventoryDataGrid->Visible = false;
 			// 
-			// button9
-			// 
-			this->button9->Location = System::Drawing::Point(602, 526);
-			this->button9->Name = L"button9";
-			this->button9->Size = System::Drawing::Size(108, 43);
-			this->button9->TabIndex = 25;
-			this->button9->Text = L"button9";
-			this->button9->UseVisualStyleBackColor = true;
-			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click);
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSize = true;
 			this->ClientSize = System::Drawing::Size(909, 561);
-			this->Controls->Add(this->button9);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);
@@ -1168,7 +1258,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->Controls->Add(this->inventoryDataGrid);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->MainMenuStrip = this->menuStrip1;
-			this->MaximizeBox = false;
+			this->MinimumSize = System::Drawing::Size(925, 600);
 			this->Name = L"MyForm";
 			this->Text = L"قائمة الخلطات";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MyForm::MyForm_FormClosing);

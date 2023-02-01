@@ -69,6 +69,12 @@ namespace FactoryData {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
 
+
+
+
+
+
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -85,9 +91,6 @@ namespace FactoryData {
 			this->gbListItem = (gcnew System::Windows::Forms::GroupBox());
 			this->btnDeleteRow = (gcnew System::Windows::Forms::Button());
 			this->dgvItemList = (gcnew System::Windows::Forms::DataGridView());
-			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -98,6 +101,9 @@ namespace FactoryData {
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
+			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->gbListItem->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -144,25 +150,6 @@ namespace FactoryData {
 			this->dgvItemList->Name = L"dgvItemList";
 			this->dgvItemList->Size = System::Drawing::Size(574, 186);
 			this->dgvItemList->TabIndex = 21;
-			// 
-			// Fitem
-			// 
-			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Fitem->FillWeight = 90;
-			this->Fitem->HeaderText = L"Ritem";
-			this->Fitem->Name = L"Fitem";
-			// 
-			// ItemName
-			// 
-			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->ItemName->HeaderText = L"Name";
-			this->ItemName->Name = L"ItemName";
-			// 
-			// NoBoxes
-			// 
-			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->NoBoxes->HeaderText = L"Quantity";
-			this->NoBoxes->Name = L"NoBoxes";
 			// 
 			// btnCancel
 			// 
@@ -270,6 +257,28 @@ namespace FactoryData {
 			this->btnConfirm->UseVisualStyleBackColor = true;
 			this->btnConfirm->Click += gcnew System::EventHandler(this, &imports::btnConfirm_Click);
 			// 
+			// Fitem
+			// 
+			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Fitem->FillWeight = 90;
+			this->Fitem->HeaderText = L"Ritem";
+			this->Fitem->Name = L"Fitem";
+			this->Fitem->ReadOnly = true;
+			// 
+			// ItemName
+			// 
+			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->ItemName->HeaderText = L"Name";
+			this->ItemName->Name = L"ItemName";
+			this->ItemName->ReadOnly = true;
+			// 
+			// NoBoxes
+			// 
+			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->NoBoxes->HeaderText = L"Quantity";
+			this->NoBoxes->Name = L"NoBoxes";
+			this->NoBoxes->ReadOnly = true;
+			// 
 			// imports
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -332,6 +341,9 @@ private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs
 	details->txtboxNoBoxes->Text = txtboxNoBoxes->Text->ToString();
 	details->btnConfirmExport->Hide();
 	details->btnConfirmImport->Hide();
+
+	details->btnSearchExport->Hide();
+	details->btnSearch->Show();
 	details->ShowDialog();
 }
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {

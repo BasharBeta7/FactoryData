@@ -20,6 +20,14 @@ namespace FactoryData {
 	public: System::Windows::Forms::Button^ btnConfirmImport;
 	public: System::Windows::Forms::Button^ btnConfirmExport;
 	public: System::Windows::Forms::Button^ btnSearchExport;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Ritem;
+	public:
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ itemName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Quantity;
+
+	public:
+
+
 	public:
 
 	public:
@@ -65,9 +73,9 @@ namespace FactoryData {
 	public: System::Windows::Forms::Button^ btnSearch;
 	public: System::Windows::Forms::TextBox^ txtboxFitem;
 	private: System::Windows::Forms::Label^ lblFitem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Ritem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ itemName;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Quantity;
+
+
+
 
 	private:
 		/// <summary>
@@ -82,7 +90,7 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->btnSearchExport = (gcnew System::Windows::Forms::Button());
 			this->btnConfirmExport = (gcnew System::Windows::Forms::Button());
@@ -90,13 +98,13 @@ namespace FactoryData {
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
-			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnSearch = (gcnew System::Windows::Forms::Button());
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->BeginInit();
 			this->SuspendLayout();
@@ -126,7 +134,7 @@ namespace FactoryData {
 			// btnSearchExport
 			// 
 			this->btnSearchExport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnSearchExport->Location = System::Drawing::Point(592, 16);
+			this->btnSearchExport->Location = System::Drawing::Point(478, 16);
 			this->btnSearchExport->Name = L"btnSearchExport";
 			this->btnSearchExport->Size = System::Drawing::Size(108, 43);
 			this->btnSearchExport->TabIndex = 27;
@@ -138,7 +146,7 @@ namespace FactoryData {
 			// 
 			this->btnConfirmExport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->btnConfirmExport->Enabled = false;
-			this->btnConfirmExport->Location = System::Drawing::Point(592, 164);
+			this->btnConfirmExport->Location = System::Drawing::Point(592, 213);
 			this->btnConfirmExport->Name = L"btnConfirmExport";
 			this->btnConfirmExport->Size = System::Drawing::Size(108, 43);
 			this->btnConfirmExport->TabIndex = 26;
@@ -188,37 +196,19 @@ namespace FactoryData {
 				this->Ritem, this->itemName,
 					this->Quantity
 			});
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(576, 239);
 			this->dgvQueryCom->TabIndex = 21;
-			// 
-			// Ritem
-			// 
-			this->Ritem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Ritem->HeaderText = L"Ritem";
-			this->Ritem->Name = L"Ritem";
-			// 
-			// itemName
-			// 
-			this->itemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->itemName->HeaderText = L"Name";
-			this->itemName->Name = L"itemName";
-			// 
-			// Quantity
-			// 
-			this->Quantity->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Quantity->HeaderText = L"Quantity";
-			this->Quantity->Name = L"Quantity";
 			// 
 			// btnExit
 			// 
@@ -260,6 +250,27 @@ namespace FactoryData {
 			this->lblFitem->Size = System::Drawing::Size(40, 18);
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"item";
+			// 
+			// Ritem
+			// 
+			this->Ritem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Ritem->HeaderText = L"Ritem";
+			this->Ritem->Name = L"Ritem";
+			this->Ritem->ReadOnly = true;
+			// 
+			// itemName
+			// 
+			this->itemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->itemName->HeaderText = L"Name";
+			this->itemName->Name = L"itemName";
+			this->itemName->ReadOnly = true;
+			// 
+			// Quantity
+			// 
+			this->Quantity->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Quantity->HeaderText = L"Quantity";
+			this->Quantity->Name = L"Quantity";
+			this->Quantity->ReadOnly = true;
 			// 
 			// ItemDetails
 			// 

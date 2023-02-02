@@ -90,7 +90,7 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->btnSearchExport = (gcnew System::Windows::Forms::Button());
 			this->btnConfirmExport = (gcnew System::Windows::Forms::Button());
@@ -144,7 +144,7 @@ namespace FactoryData {
 			// 
 			// btnConfirmExport
 			// 
-			this->btnConfirmExport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnConfirmExport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->btnConfirmExport->Enabled = false;
 			this->btnConfirmExport->Location = System::Drawing::Point(592, 213);
 			this->btnConfirmExport->Name = L"btnConfirmExport";
@@ -156,7 +156,7 @@ namespace FactoryData {
 			// 
 			// btnConfirmImport
 			// 
-			this->btnConfirmImport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnConfirmImport->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->btnConfirmImport->Enabled = false;
 			this->btnConfirmImport->Location = System::Drawing::Point(592, 213);
 			this->btnConfirmImport->Name = L"btnConfirmImport";
@@ -196,15 +196,15 @@ namespace FactoryData {
 				this->Ritem, this->itemName,
 					this->Quantity
 			});
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
 			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(576, 239);
@@ -212,7 +212,7 @@ namespace FactoryData {
 			// 
 			// btnExit
 			// 
-			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->btnExit->Location = System::Drawing::Point(592, 262);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(108, 43);

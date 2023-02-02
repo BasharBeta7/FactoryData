@@ -91,6 +91,9 @@ namespace FactoryData {
 			this->gbListItem = (gcnew System::Windows::Forms::GroupBox());
 			this->btnDeleteRow = (gcnew System::Windows::Forms::Button());
 			this->dgvItemList = (gcnew System::Windows::Forms::DataGridView());
+			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -101,9 +104,6 @@ namespace FactoryData {
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
-			this->Fitem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ItemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->gbListItem->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -151,6 +151,28 @@ namespace FactoryData {
 			this->dgvItemList->Size = System::Drawing::Size(574, 186);
 			this->dgvItemList->TabIndex = 21;
 			// 
+			// Fitem
+			// 
+			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Fitem->FillWeight = 90;
+			this->Fitem->HeaderText = L"Fitem";
+			this->Fitem->Name = L"Fitem";
+			this->Fitem->ReadOnly = true;
+			// 
+			// ItemName
+			// 
+			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->ItemName->HeaderText = L"Name";
+			this->ItemName->Name = L"ItemName";
+			this->ItemName->ReadOnly = true;
+			// 
+			// NoBoxes
+			// 
+			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->NoBoxes->HeaderText = L"Number of boxes";
+			this->NoBoxes->Name = L"NoBoxes";
+			this->NoBoxes->ReadOnly = true;
+			// 
 			// btnCancel
 			// 
 			this->btnCancel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
@@ -194,6 +216,7 @@ namespace FactoryData {
 			this->txtboxNoBoxes->Name = L"txtboxNoBoxes";
 			this->txtboxNoBoxes->Size = System::Drawing::Size(100, 20);
 			this->txtboxNoBoxes->TabIndex = 33;
+			this->txtboxNoBoxes->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Inputs::txtboxNoBoxes_KeyPress);
 			// 
 			// lblNoBoxes
 			// 
@@ -233,6 +256,7 @@ namespace FactoryData {
 			this->txtboxFitem->Name = L"txtboxFitem";
 			this->txtboxFitem->Size = System::Drawing::Size(187, 20);
 			this->txtboxFitem->TabIndex = 29;
+			this->txtboxFitem->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Inputs::txtboxFitem_KeyPress);
 			// 
 			// lblFitem
 			// 
@@ -249,6 +273,7 @@ namespace FactoryData {
 			// btnExit
 			// 
 			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnExit->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			this->btnExit->Location = System::Drawing::Point(501, 128);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(108, 43);
@@ -256,28 +281,6 @@ namespace FactoryData {
 			this->btnExit->Text = L"خروج";
 			this->btnExit->UseVisualStyleBackColor = true;
 			this->btnExit->Click += gcnew System::EventHandler(this, &Inputs::btnExit_Click);
-			// 
-			// Fitem
-			// 
-			this->Fitem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Fitem->FillWeight = 90;
-			this->Fitem->HeaderText = L"Fitem";
-			this->Fitem->Name = L"Fitem";
-			this->Fitem->ReadOnly = true;
-			// 
-			// ItemName
-			// 
-			this->ItemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->ItemName->HeaderText = L"Name";
-			this->ItemName->Name = L"ItemName";
-			this->ItemName->ReadOnly = true;
-			// 
-			// NoBoxes
-			// 
-			this->NoBoxes->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->NoBoxes->HeaderText = L"Number of boxes";
-			this->NoBoxes->Name = L"NoBoxes";
-			this->NoBoxes->ReadOnly = true;
 			// 
 			// Inputs
 			// 
@@ -291,17 +294,21 @@ namespace FactoryData {
 			this->MinimumSize = System::Drawing::Size(764, 450);
 			this->Name = L"Inputs";
 			this->Text = L"إضافة صادر ";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Inputs::Inputs_FormClosing);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Inputs::Inputs_KeyPress);
 			this->gbListItem->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
+			this->ActiveControl = txtboxFitem;
 
 		}
 #pragma endregion
 	private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e) {
 		//check input if valid
 		String^ fitem = txtboxFitem->Text->ToString();
+		
 		if (Variables::mapCom->count(fitem) == 0) {
 			MessageBox::Show("Fitem doesn't exist in the database!");
 			return;
@@ -310,6 +317,7 @@ namespace FactoryData {
 		double noBoxes = 0;
 		try {
 			noBoxes = System::Convert::ToDouble(txtboxNoBoxes->Text);
+			
 		}
 		catch (FormatException^) {
 			MessageBox::Show("Please enter a valid number of boxes!");
@@ -328,7 +336,8 @@ namespace FactoryData {
 		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["Fitem"]->Value = fitem;
 		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["ItemName"]->Value = Variables::NameCom[fitem];
 		dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["NoBoxes"]->Value = noBoxes;
-
+		txtboxFitem->Text = "";
+		txtboxNoBoxes->Text = "";
 	}
 private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs^ e) {
 	ItemDetails^ details = gcnew ItemDetails(this, false);
@@ -341,6 +350,8 @@ private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs
 	details->ShowDialog();
 }
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
+	dgvItemList->Rows->Clear();
+	Variables::mapInputList->clear();
 	this->Hide();
 	callerForm->Show();
 }
@@ -388,6 +399,29 @@ private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^
 	}
 	dgvItemList->Rows->Clear();
 	Variables::mapInputList->clear();
+}
+
+private: System::Void Inputs_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	btnExit->PerformClick();
+}
+private: System::Void Inputs_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	
+}
+
+
+private: System::Void txtboxFitem_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (e->KeyChar == (int)Keys::Enter) {
+		txtboxNoBoxes->Focus();
+		e->Handled = true;
+	}
+}
+private: System::Void txtboxNoBoxes_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if (e->KeyChar == (int)Keys::Enter) {
+		btnAdd->PerformClick();
+		txtboxFitem->Focus();
+		e->Handled = true;
+
+	}
 }
 };
 }

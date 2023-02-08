@@ -40,6 +40,8 @@ public:
 	static String^ rowToQuery = "";//saves the name of the fitem to query on 
 	static cliext::map<String^, bool>^ rawItemsUnits = gcnew cliext::map<String^, bool>;
 
+	
+
 
 	//for inputs form
 	static cliext::map<String^, double>^ mapInputList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes

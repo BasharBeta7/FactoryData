@@ -248,6 +248,10 @@ private: System::Windows::Forms::ToolStripMenuItem^ تحديثأسعارالخل
 
 
 
+
+
+
+
 private: System::Windows::Forms::Button^ button3;
 
 

@@ -49,6 +49,19 @@ double FactoryData::MyForm::CalcSum(String^ key)
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
 			res += System::Convert::ToDouble(temp) * CalcSum(val);
 			tempf = System::Convert::ToDouble(temp);
+			if (Variables::rawItemsUnits->count(val) > 0) {
+				if (Variables::rawItemsUnits[val]) {
+					accum += System::Convert::ToDouble(temp);
+				}
+				else {
+					accumf += tempf;
+				}
+			}
+			else {
+				accum += System::Convert::ToDouble(temp);
+			}
+			
+			/*
 			if (tempf < 1.0f) {
 				accum += System::Convert::ToDouble(temp);
 			}
@@ -169,12 +182,25 @@ void FactoryData::MyForm::LoadDatabaseTables()
 {
 	//clear all stored vaiables
 	ResetData();
+
 	//set connection to server SQL
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
 	String^ query;
 	OleDbDataAdapter^ dbDataAdapter;
 	DataTable^ dt;
+
+	//insert data from units to rawItemUnits:
+	query = "SELECT Code as Code, Collective as Unit FROM units;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	for (int i = 0; i < dt->Rows->Count; ++i) {
+		auto row = dt->Rows[i];
+		Variables::rawItemsUnits[row["Code"]->ToString()] = (row["Unit"]->ToString() == "kg") ? true : false;
+	}
+
+
 
 	//Read into itemsData
 	query = "SELECT Inum, I_R_Name, Igroup, Unit_Cost FROM items";
@@ -315,16 +341,8 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	}
 
 
-	//insert data from units to rawItemUnits:
-	query = "SELECT Code as Code, Collective as Unit FROM units;";
-	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
-	dt = gcnew DataTable();
-	dbDataAdapter->Fill(dt);
-	for (int i = 0; i < dt->Rows->Count; ++i) {
-		auto row = dt->Rows[i];
-		Variables::rawItemsUnits[row["Code"]->ToString()] = (row["Unit"]->ToString() == "kg") ? true : false;
-	}
-	Variables::rawItemsUnits;
+	
+	
 	dbConnection->Close();
 }
 

@@ -314,6 +314,17 @@ void FactoryData::MyForm::LoadDatabaseTables()
 		dr->Cells["OutputQuantity"]->Value = Variables::outputQuan[dr->Cells["Inum"]->Value->ToString()];
 	}
 
+
+	//insert data from units to rawItemUnits:
+	query = "SELECT Code as Code, Collective as Unit FROM units;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	for (int i = 0; i < dt->Rows->Count; ++i) {
+		auto row = dt->Rows[i];
+		Variables::rawItemsUnits[row["Code"]->ToString()] = (row["Unit"]->ToString() == "kg") ? true : false;
+	}
+	Variables::rawItemsUnits;
 	dbConnection->Close();
 }
 

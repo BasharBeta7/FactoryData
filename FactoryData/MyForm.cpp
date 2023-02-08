@@ -48,6 +48,20 @@ double FactoryData::MyForm::CalcSum(String^ key)
 				continue;
 			val = combinationData2->Rows[i]->Cells["Ritem"]->Value->ToString();
 			res += System::Convert::ToDouble(temp) * CalcSum(val);
+			tempf = System::Convert::ToDouble(temp);
+			if (tempf < 1.0f) {
+				accum += System::Convert::ToDouble(temp);
+			}
+			else {
+				if ((Variables::mapRaw->count(val) && Variables::RawIGroup[val] == "R") || !Variables::mapRaw->count(val))
+				{
+					accum += System::Convert::ToDouble(temp);
+				}
+				else {
+					accumf += tempf;
+				}
+			}
+			/*
 			if ((Variables::mapRaw->count(val) && Variables::RawIGroup[val] == "R") || !Variables::mapRaw->count(val))
 			{
 				accum += System::Convert::ToDouble(temp);
@@ -57,7 +71,7 @@ double FactoryData::MyForm::CalcSum(String^ key)
 			{
 				accumf += tempf;
 			}
-			
+			*/
 		}
 	}
 	if (res == 0 && accum == 0)

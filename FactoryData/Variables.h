@@ -38,6 +38,7 @@ public:
 	static cliext::map<String^, String^>^ RawName = gcnew cliext::map<String^, String^>;
 	static double expences1, expences2;
 	static String^ rowToQuery = "";//saves the name of the fitem to query on 
+	static cliext::map<String^, bool>^ rawItemsUnits = gcnew cliext::map<String^, bool>;
 
 
 	//for inputs form

@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="imports.cpp" />
     <ClCompile Include="Inputs.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemDetails.cpp" />
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
@@ -136,6 +137,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Inputs.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="ItemDetails.h">
@@ -152,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inputs.resx">
       <DependentUpon>Inputs.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory.resx">
+      <DependentUpon>Inventory.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ItemDetails.resx">
       <DependentUpon>ItemDetails.h</DependentUpon>

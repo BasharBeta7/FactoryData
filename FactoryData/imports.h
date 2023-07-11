@@ -68,6 +68,10 @@ namespace FactoryData {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fitem;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
+	private: System::Windows::Forms::TextBox^ txtboxDate;
+
+
+	private: System::Windows::Forms::Label^ label1;
 
 
 
@@ -97,6 +101,8 @@ namespace FactoryData {
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->txtboxDate = (gcnew System::Windows::Forms::TextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
 			this->btnDetails = (gcnew System::Windows::Forms::Button());
@@ -197,6 +203,8 @@ namespace FactoryData {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->txtboxDate);
+			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->txtboxNoBoxes);
 			this->groupBox1->Controls->Add(this->lblNoBoxes);
 			this->groupBox1->Controls->Add(this->btnDetails);
@@ -209,6 +217,25 @@ namespace FactoryData {
 			this->groupBox1->TabIndex = 32;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"لوحة الإدخال";
+			// 
+			// txtboxDate
+			// 
+			this->txtboxDate->Location = System::Drawing::Point(79, 125);
+			this->txtboxDate->Name = L"txtboxDate";
+			this->txtboxDate->Size = System::Drawing::Size(187, 20);
+			this->txtboxDate->TabIndex = 35;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(23, 127);
+			this->label1->Name = L"label1";
+			this->label1->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label1->Size = System::Drawing::Size(43, 18);
+			this->label1->TabIndex = 34;
+			this->label1->Text = L"Date";
 			// 
 			// txtboxNoBoxes
 			// 
@@ -294,13 +321,13 @@ namespace FactoryData {
 			this->Name = L"imports";
 			this->Text = L"إضافة وارد";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &imports::imports_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &imports::imports_Load);
 			this->Shown += gcnew System::EventHandler(this, &imports::imports_Shown);
 			this->gbListItem->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
-			this->ActiveControl = txtboxFitem;
 
 		}
 #pragma endregion
@@ -416,6 +443,11 @@ private: System::Void txtboxNoBoxes_KeyPress(System::Object^ sender, System::Win
 		e->Handled = true;
 
 	}
+}
+
+private: System::Void imports_Load(System::Object^ sender, System::EventArgs^ e) {
+	Variables::date = DateTime::Now;
+	txtboxDate->Text = Variables::date.ToString("yyyy-MM-dd");
 }
 };
 }

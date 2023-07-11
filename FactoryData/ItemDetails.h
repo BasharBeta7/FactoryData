@@ -98,13 +98,13 @@ namespace FactoryData {
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
 			this->dgvQueryCom = (gcnew System::Windows::Forms::DataGridView());
+			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnSearch = (gcnew System::Windows::Forms::Button());
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
-			this->Ritem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->itemName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->BeginInit();
 			this->SuspendLayout();
@@ -209,6 +209,28 @@ namespace FactoryData {
 			this->dgvQueryCom->Name = L"dgvQueryCom";
 			this->dgvQueryCom->Size = System::Drawing::Size(576, 239);
 			this->dgvQueryCom->TabIndex = 21;
+			this->dgvQueryCom->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &ItemDetails::dgvQueryCom_CellContentClick);
+			// 
+			// Ritem
+			// 
+			this->Ritem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Ritem->HeaderText = L"Ritem";
+			this->Ritem->Name = L"Ritem";
+			this->Ritem->ReadOnly = true;
+			// 
+			// itemName
+			// 
+			this->itemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->itemName->HeaderText = L"Name";
+			this->itemName->Name = L"itemName";
+			this->itemName->ReadOnly = true;
+			// 
+			// Quantity
+			// 
+			this->Quantity->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
+			this->Quantity->HeaderText = L"Quantity";
+			this->Quantity->Name = L"Quantity";
+			this->Quantity->ReadOnly = true;
 			// 
 			// btnExit
 			// 
@@ -250,27 +272,6 @@ namespace FactoryData {
 			this->lblFitem->Size = System::Drawing::Size(40, 18);
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"item";
-			// 
-			// Ritem
-			// 
-			this->Ritem->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Ritem->HeaderText = L"Ritem";
-			this->Ritem->Name = L"Ritem";
-			this->Ritem->ReadOnly = true;
-			// 
-			// itemName
-			// 
-			this->itemName->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->itemName->HeaderText = L"Name";
-			this->itemName->Name = L"itemName";
-			this->itemName->ReadOnly = true;
-			// 
-			// Quantity
-			// 
-			this->Quantity->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::Fill;
-			this->Quantity->HeaderText = L"Quantity";
-			this->Quantity->Name = L"Quantity";
-			this->Quantity->ReadOnly = true;
 			// 
 			// ItemDetails
 			// 
@@ -464,7 +465,7 @@ public: System::Void btnSearchExport_Click(System::Object^ sender, System::Event
 	}
 }
 private: System::Void btnConfirmExport_Click(System::Object^ sender, System::EventArgs^ e) {
-	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Inventory) in the database ?", "Message", MessageBoxButtons::YesNo);
+	auto res = MessageBox::Show("Are you sure you want to update table (Quantities) in the database ?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)
 	{
 		return;
@@ -488,6 +489,8 @@ private: System::Void btnConfirmExport_Click(System::Object^ sender, System::Eve
 	MessageBox::Show("Update was successful!");
 	this->Hide();
 	callerForm->Show();
+}
+private: System::Void dgvQueryCom_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 }
 };
 }

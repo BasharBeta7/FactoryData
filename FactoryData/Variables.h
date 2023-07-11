@@ -51,4 +51,6 @@ public:
 	//for imports form
 	static cliext::map<String^, double>^ mapImportList = gcnew cliext::map<String^, double>; // Fitem --> number of boxes
 
+	//current date to alter quantities
+	static DateTime date = DateTime::Now;
 };

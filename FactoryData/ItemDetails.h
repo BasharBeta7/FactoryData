@@ -283,6 +283,7 @@ namespace FactoryData {
 			this->Name = L"ItemDetails";
 			this->Text = L"ItemDetails";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &ItemDetails::ItemDetails_FormClosed);
+			this->Load += gcnew System::EventHandler(this, &ItemDetails::ItemDetails_Load);
 			this->Shown += gcnew System::EventHandler(this, &ItemDetails::ItemDetails_Shown);
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
@@ -394,7 +395,7 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 
 	//Read into itemsData
 	for each (auto item in rawItemsQuan) {
-		query = "UPDATE Inventory SET Quantity = Quantity + " + item->second + " WHERE Ritem='" + item->first->ToString() +"';";	
+		query = "INSERT INTO Quantities (Inum, Quantity, time_added) VALUES ('" + item->first + "', " + item->second + ", '" + Variables::date.ToString("yyyy-MM-dd") + "');";
 		dbCommand->CommandText = query;
 		dbCommand->Connection = dbConnection;
 		dbCommand->ExecuteNonQuery();
@@ -491,6 +492,8 @@ private: System::Void btnConfirmExport_Click(System::Object^ sender, System::Eve
 	callerForm->Show();
 }
 private: System::Void dgvQueryCom_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
+private: System::Void ItemDetails_Load(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

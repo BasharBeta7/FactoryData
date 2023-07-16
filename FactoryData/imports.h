@@ -68,10 +68,13 @@ namespace FactoryData {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fitem;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
-	private: System::Windows::Forms::TextBox^ txtboxDate;
+
 
 
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::DateTimePicker^ dateTimePicker1;
+	private: System::Windows::Forms::Button^ button1;
+
 
 
 
@@ -101,7 +104,7 @@ namespace FactoryData {
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->txtboxDate = (gcnew System::Windows::Forms::TextBox());
+			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
@@ -110,6 +113,7 @@ namespace FactoryData {
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->gbListItem->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -123,9 +127,9 @@ namespace FactoryData {
 			this->gbListItem->Controls->Add(this->btnDeleteRow);
 			this->gbListItem->Controls->Add(this->dgvItemList);
 			this->gbListItem->Controls->Add(this->btnCancel);
-			this->gbListItem->Location = System::Drawing::Point(19, 175);
+			this->gbListItem->Location = System::Drawing::Point(19, 205);
 			this->gbListItem->Name = L"gbListItem";
-			this->gbListItem->Size = System::Drawing::Size(711, 226);
+			this->gbListItem->Size = System::Drawing::Size(711, 196);
 			this->gbListItem->TabIndex = 31;
 			this->gbListItem->TabStop = false;
 			this->gbListItem->Text = L"قائمة المنتجات المدخلة";
@@ -154,7 +158,7 @@ namespace FactoryData {
 			});
 			this->dgvItemList->Location = System::Drawing::Point(6, 25);
 			this->dgvItemList->Name = L"dgvItemList";
-			this->dgvItemList->Size = System::Drawing::Size(574, 186);
+			this->dgvItemList->Size = System::Drawing::Size(574, 156);
 			this->dgvItemList->TabIndex = 21;
 			// 
 			// Fitem
@@ -193,7 +197,7 @@ namespace FactoryData {
 			// btnExit
 			// 
 			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnExit->Location = System::Drawing::Point(508, 126);
+			this->btnExit->Location = System::Drawing::Point(472, 156);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(108, 43);
 			this->btnExit->TabIndex = 33;
@@ -203,7 +207,8 @@ namespace FactoryData {
 			// 
 			// groupBox1
 			// 
-			this->groupBox1->Controls->Add(this->txtboxDate);
+			this->groupBox1->Controls->Add(this->button1);
+			this->groupBox1->Controls->Add(this->dateTimePicker1);
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->txtboxNoBoxes);
 			this->groupBox1->Controls->Add(this->lblNoBoxes);
@@ -213,17 +218,18 @@ namespace FactoryData {
 			this->groupBox1->Controls->Add(this->lblFitem);
 			this->groupBox1->Location = System::Drawing::Point(19, 10);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(449, 159);
+			this->groupBox1->Size = System::Drawing::Size(437, 189);
 			this->groupBox1->TabIndex = 32;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"لوحة الإدخال";
 			// 
-			// txtboxDate
+			// dateTimePicker1
 			// 
-			this->txtboxDate->Location = System::Drawing::Point(79, 125);
-			this->txtboxDate->Name = L"txtboxDate";
-			this->txtboxDate->Size = System::Drawing::Size(187, 20);
-			this->txtboxDate->TabIndex = 35;
+			this->dateTimePicker1->Location = System::Drawing::Point(79, 127);
+			this->dateTimePicker1->Name = L"dateTimePicker1";
+			this->dateTimePicker1->Size = System::Drawing::Size(200, 20);
+			this->dateTimePicker1->TabIndex = 37;
+			this->dateTimePicker1->ValueChanged += gcnew System::EventHandler(this, &imports::dateTimePicker1_ValueChanged);
 			// 
 			// label1
 			// 
@@ -300,13 +306,23 @@ namespace FactoryData {
 			// btnConfirm
 			// 
 			this->btnConfirm->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnConfirm->Location = System::Drawing::Point(622, 126);
+			this->btnConfirm->Location = System::Drawing::Point(609, 156);
 			this->btnConfirm->Name = L"btnConfirm";
 			this->btnConfirm->Size = System::Drawing::Size(108, 43);
 			this->btnConfirm->TabIndex = 30;
 			this->btnConfirm->Text = L"تأكيد";
 			this->btnConfirm->UseVisualStyleBackColor = true;
 			this->btnConfirm->Click += gcnew System::EventHandler(this, &imports::btnConfirm_Click);
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(315, 127);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(108, 43);
+			this->button1->TabIndex = 38;
+			this->button1->Text = L"استيراد من جدول خارجي";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &imports::button1_Click);
 			// 
 			// imports
 			// 
@@ -374,13 +390,14 @@ private: System::Void btnDetails_Click(System::Object^ sender, System::EventArgs
 	details->txtboxNoBoxes->Text = txtboxNoBoxes->Text->ToString();
 	details->btnConfirmExport->Hide();
 	details->btnConfirmImport->Hide();
-
 	details->btnSearchExport->Hide();
 	details->btnSearch->Show();
 	details->ShowDialog();
 }
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
 	ItemDetails^ details = gcnew ItemDetails(this, true);
+	details->dateTimePicker1->Value = dateTimePicker1->Value;
+	Variables::date = dateTimePicker1->Value;
 	details->txtboxFitem->Text = "Not Set";
 	details->txtboxNoBoxes->Text = "Not Set";
 	details->btnSearch->PerformClick();
@@ -447,7 +464,15 @@ private: System::Void txtboxNoBoxes_KeyPress(System::Object^ sender, System::Win
 
 private: System::Void imports_Load(System::Object^ sender, System::EventArgs^ e) {
 	Variables::date = DateTime::Now;
-	txtboxDate->Text = Variables::date.ToString("yyyy-MM-dd");
+	dateTimePicker1->Value = Variables::date;
+}
+private: System::Void dateTimePicker1_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Get data from Imports table
+	//update text boxes 
+	//perform click on add
+
 }
 };
 }

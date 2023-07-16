@@ -50,10 +50,10 @@ namespace FactoryData {
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ lblFitem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Inum;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Item_name;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Quantity;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Price;
+
+
+
+
 
 
 
@@ -73,10 +73,6 @@ namespace FactoryData {
 		void InitializeComponent(void)
 		{
 			this->dgvInventory = (gcnew System::Windows::Forms::DataGridView());
-			this->Inum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Item_name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnQuery = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -88,40 +84,15 @@ namespace FactoryData {
 			// dgvInventory
 			// 
 			this->dgvInventory->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dgvInventory->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->Inum, this->Item_name,
-					this->Quantity, this->Price
-			});
 			this->dgvInventory->Location = System::Drawing::Point(13, 90);
 			this->dgvInventory->Name = L"dgvInventory";
 			this->dgvInventory->Size = System::Drawing::Size(575, 150);
 			this->dgvInventory->TabIndex = 0;
 			this->dgvInventory->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Inventory::dataGridView1_CellContentClick);
 			// 
-			// Inum
-			// 
-			this->Inum->HeaderText = L"Inum";
-			this->Inum->Name = L"Inum";
-			// 
-			// Item_name
-			// 
-			this->Item_name->HeaderText = L"Item_name";
-			this->Item_name->Name = L"Item_name";
-			// 
-			// Quantity
-			// 
-			this->Quantity->HeaderText = L"Quantity";
-			this->Quantity->Name = L"Quantity";
-			// 
-			// Price
-			// 
-			this->Price->HeaderText = L"Price";
-			this->Price->Name = L"Price";
-			// 
 			// btnQuery
 			// 
 			this->btnQuery->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnQuery->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			this->btnQuery->Location = System::Drawing::Point(480, 28);
 			this->btnQuery->Name = L"btnQuery";
 			this->btnQuery->Size = System::Drawing::Size(108, 43);
@@ -133,7 +104,6 @@ namespace FactoryData {
 			// button1
 			// 
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button1->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			this->button1->Location = System::Drawing::Point(217, 25);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(24, 20);
@@ -210,7 +180,7 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 	DataTable^ dt;
 
 	//Read into itemsData
-	query = "SELECT MIN(Inum), SUM(Quantity) FROM Quantities WHERE time_added <= #07 - 14 - 2023# GROUP BY Inum;";
+	query = "SELECT MIN(Inum) AS Inum, MIN(item_name) AS item_name, SUM(Quantity) AS Quantity FROM Quantities WHERE time_added <= #" + textBox1->Text + "# GROUP BY Inum; ";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);

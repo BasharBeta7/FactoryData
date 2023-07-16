@@ -24,6 +24,8 @@ namespace FactoryData {
 	public:
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ itemName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Quantity;
+	public: System::Windows::Forms::DateTimePicker^ dateTimePicker1;
+	private: System::Windows::Forms::Label^ label1;
 
 	public:
 
@@ -105,6 +107,8 @@ namespace FactoryData {
 			this->btnSearch = (gcnew System::Windows::Forms::Button());
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvQueryCom))->BeginInit();
 			this->SuspendLayout();
@@ -114,6 +118,8 @@ namespace FactoryData {
 			this->groupBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->groupBox2->Controls->Add(this->dateTimePicker1);
+			this->groupBox2->Controls->Add(this->label1);
 			this->groupBox2->Controls->Add(this->btnSearchExport);
 			this->groupBox2->Controls->Add(this->btnConfirmExport);
 			this->groupBox2->Controls->Add(this->btnConfirmImport);
@@ -205,9 +211,9 @@ namespace FactoryData {
 			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dgvQueryCom->DefaultCellStyle = dataGridViewCellStyle1;
-			this->dgvQueryCom->Location = System::Drawing::Point(10, 66);
+			this->dgvQueryCom->Location = System::Drawing::Point(10, 100);
 			this->dgvQueryCom->Name = L"dgvQueryCom";
-			this->dgvQueryCom->Size = System::Drawing::Size(576, 239);
+			this->dgvQueryCom->Size = System::Drawing::Size(576, 205);
 			this->dgvQueryCom->TabIndex = 21;
 			this->dgvQueryCom->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &ItemDetails::dgvQueryCom_CellContentClick);
 			// 
@@ -272,6 +278,26 @@ namespace FactoryData {
 			this->lblFitem->Size = System::Drawing::Size(40, 18);
 			this->lblFitem->TabIndex = 12;
 			this->lblFitem->Text = L"item";
+			// 
+			// dateTimePicker1
+			// 
+			this->dateTimePicker1->Enabled = false;
+			this->dateTimePicker1->Location = System::Drawing::Point(70, 63);
+			this->dateTimePicker1->Name = L"dateTimePicker1";
+			this->dateTimePicker1->Size = System::Drawing::Size(200, 20);
+			this->dateTimePicker1->TabIndex = 39;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(14, 63);
+			this->label1->Name = L"label1";
+			this->label1->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label1->Size = System::Drawing::Size(43, 18);
+			this->label1->TabIndex = 38;
+			this->label1->Text = L"Date";
 			// 
 			// ItemDetails
 			// 
@@ -395,7 +421,7 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 
 	//Read into itemsData
 	for each (auto item in rawItemsQuan) {
-		query = "INSERT INTO Quantities (Inum, Quantity, time_added) VALUES ('" + item->first + "', " + item->second + ", '" + Variables::date.ToString("yyyy-MM-dd") + "');";
+		query = "INSERT INTO Quantities (Inum, item_name, Quantity, time_added) VALUES ('" + item->first + "', '" + Variables::RawName[item->first] + "', " + item->second + ", '" + Variables::date.ToString("yyyy-MM-dd") + "');";
 		dbCommand->CommandText = query;
 		dbCommand->Connection = dbConnection;
 		dbCommand->ExecuteNonQuery();

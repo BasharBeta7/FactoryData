@@ -470,7 +470,28 @@ private: System::Void dateTimePicker1_ValueChanged(System::Object^ sender, Syste
 }
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	// Get data from Imports table
+	// OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+
+	//Read into itemsData
+	dgvItemList->Rows->Clear();
+	Variables::mapImportList->clear();
+	query = "SELECT * FROM Imports;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	dbConnection->Close();
 	//update text boxes 
+	for each (DataRow^ row in dt->Rows)
+	{
+		txtboxFitem->Text = row["Ritem"]->ToString();
+		txtboxNoBoxes->Text = row["Quantity"]->ToString();
+		btnAdd->PerformClick();
+	}
 	//perform click on add
 
 }

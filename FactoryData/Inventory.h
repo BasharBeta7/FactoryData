@@ -216,6 +216,7 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 	dgvInventory->DataSource = dt;
 	DataGridView^ temp = dgvInventory;
 	dbConnection->Close();
+
 	//accumulate quantities in a map data structure
 	//copy values to datagrid
 		/*SELECT MIN(Inum), SUM(Quantity)

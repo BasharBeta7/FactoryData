@@ -53,4 +53,6 @@ public:
 
 	//current date to alter quantities
 	static DateTime date = DateTime::Now;
+
+	static bool fromInputs = false;
 };

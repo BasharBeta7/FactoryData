@@ -492,7 +492,7 @@ public: System::Void btnSearchExport_Click(System::Object^ sender, System::Event
 	}
 }
 private: System::Void btnConfirmExport_Click(System::Object^ sender, System::EventArgs^ e) {
-	auto res = MessageBox::Show("Are you sure you want to update table (Quantities) in the database ?", "Message", MessageBoxButtons::YesNo);
+	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Inventory) in the database ?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)
 	{
 		return;
@@ -507,7 +507,7 @@ private: System::Void btnConfirmExport_Click(System::Object^ sender, System::Eve
 
 	//Read into itemsData
 	for each (auto item in rawItemsQuan) {
-		query = "UPDATE Inventory SET Quantity = Quantity - " + item->second + " WHERE Ritem='" + item->first->ToString() + "';";
+		query = "INSERT INTO Quantities (Inum, item_name, Quantity, time_added) VALUES ('" + item->first + "', '" + Variables::RawName[item->first] + "', " + (-1 * item->second) + ", '" + Variables::date.ToString("yyyy-MM-dd") + "');";
 		dbCommand->CommandText = query;
 		dbCommand->Connection = dbConnection;
 		dbCommand->ExecuteNonQuery();

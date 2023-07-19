@@ -54,17 +54,27 @@ namespace FactoryData {
 
 	private: System::Windows::Forms::Button^ btnCancel;
 	private: System::Windows::Forms::Button^ btnConfirm;
+
+
+
+
+
+
+
+	private: System::Windows::Forms::Button^ btnExit;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fitem;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
 	private: System::Windows::Forms::GroupBox^ groupBox1;
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::DateTimePicker^ dateTimePicker1;
+	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::TextBox^ txtboxNoBoxes;
 	private: System::Windows::Forms::Label^ lblNoBoxes;
 	private: System::Windows::Forms::Button^ btnDetails;
 	private: System::Windows::Forms::Button^ btnAdd;
 	private: System::Windows::Forms::TextBox^ txtboxFitem;
 	private: System::Windows::Forms::Label^ lblFitem;
-	private: System::Windows::Forms::Button^ btnExit;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Fitem;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ItemName;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NoBoxes;
 
 
 
@@ -96,14 +106,17 @@ namespace FactoryData {
 			this->NoBoxes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
+			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->txtboxNoBoxes = (gcnew System::Windows::Forms::TextBox());
 			this->lblNoBoxes = (gcnew System::Windows::Forms::Label());
 			this->btnDetails = (gcnew System::Windows::Forms::Button());
 			this->btnAdd = (gcnew System::Windows::Forms::Button());
 			this->txtboxFitem = (gcnew System::Windows::Forms::TextBox());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
-			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->gbListItem->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvItemList))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -117,9 +130,9 @@ namespace FactoryData {
 			this->gbListItem->Controls->Add(this->btnDeleteRow);
 			this->gbListItem->Controls->Add(this->dgvItemList);
 			this->gbListItem->Controls->Add(this->btnCancel);
-			this->gbListItem->Location = System::Drawing::Point(12, 177);
+			this->gbListItem->Location = System::Drawing::Point(12, 207);
 			this->gbListItem->Name = L"gbListItem";
-			this->gbListItem->Size = System::Drawing::Size(711, 226);
+			this->gbListItem->Size = System::Drawing::Size(711, 196);
 			this->gbListItem->TabIndex = 23;
 			this->gbListItem->TabStop = false;
 			this->gbListItem->Text = L"قائمة المنتجات المدخلة";
@@ -148,7 +161,7 @@ namespace FactoryData {
 			});
 			this->dgvItemList->Location = System::Drawing::Point(6, 25);
 			this->dgvItemList->Name = L"dgvItemList";
-			this->dgvItemList->Size = System::Drawing::Size(574, 186);
+			this->dgvItemList->Size = System::Drawing::Size(574, 156);
 			this->dgvItemList->TabIndex = 21;
 			// 
 			// Fitem
@@ -187,7 +200,7 @@ namespace FactoryData {
 			// btnConfirm
 			// 
 			this->btnConfirm->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnConfirm->Location = System::Drawing::Point(615, 128);
+			this->btnConfirm->Location = System::Drawing::Point(602, 158);
 			this->btnConfirm->Name = L"btnConfirm";
 			this->btnConfirm->Size = System::Drawing::Size(108, 43);
 			this->btnConfirm->TabIndex = 9;
@@ -195,28 +208,71 @@ namespace FactoryData {
 			this->btnConfirm->UseVisualStyleBackColor = true;
 			this->btnConfirm->Click += gcnew System::EventHandler(this, &Inputs::btnConfirm_Click);
 			// 
+			// btnExit
+			// 
+			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnExit->DialogResult = System::Windows::Forms::DialogResult::Cancel;
+			this->btnExit->Location = System::Drawing::Point(461, 158);
+			this->btnExit->Name = L"btnExit";
+			this->btnExit->Size = System::Drawing::Size(108, 43);
+			this->btnExit->TabIndex = 29;
+			this->btnExit->Text = L"خروج";
+			this->btnExit->UseVisualStyleBackColor = true;
+			this->btnExit->Click += gcnew System::EventHandler(this, &Inputs::btnExit_Click);
+			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->button1);
+			this->groupBox1->Controls->Add(this->dateTimePicker1);
+			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->txtboxNoBoxes);
 			this->groupBox1->Controls->Add(this->lblNoBoxes);
 			this->groupBox1->Controls->Add(this->btnDetails);
 			this->groupBox1->Controls->Add(this->btnAdd);
 			this->groupBox1->Controls->Add(this->txtboxFitem);
 			this->groupBox1->Controls->Add(this->lblFitem);
-			this->groupBox1->Location = System::Drawing::Point(12, 12);
+			this->groupBox1->Location = System::Drawing::Point(18, 12);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(449, 159);
-			this->groupBox1->TabIndex = 28;
+			this->groupBox1->Size = System::Drawing::Size(437, 189);
+			this->groupBox1->TabIndex = 33;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"لوحة الإدخال";
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(315, 127);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(108, 43);
+			this->button1->TabIndex = 38;
+			this->button1->Text = L"استيراد من جدول خارجي";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Inputs::button1_Click);
+			// 
+			// dateTimePicker1
+			// 
+			this->dateTimePicker1->Location = System::Drawing::Point(79, 127);
+			this->dateTimePicker1->Name = L"dateTimePicker1";
+			this->dateTimePicker1->Size = System::Drawing::Size(200, 20);
+			this->dateTimePicker1->TabIndex = 37;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(23, 127);
+			this->label1->Name = L"label1";
+			this->label1->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label1->Size = System::Drawing::Size(43, 18);
+			this->label1->TabIndex = 34;
+			this->label1->Text = L"Date";
+			// 
 			// txtboxNoBoxes
 			// 
-			this->txtboxNoBoxes->Location = System::Drawing::Point(166, 85);
+			this->txtboxNoBoxes->Location = System::Drawing::Point(116, 85);
 			this->txtboxNoBoxes->Name = L"txtboxNoBoxes";
-			this->txtboxNoBoxes->Size = System::Drawing::Size(100, 20);
+			this->txtboxNoBoxes->Size = System::Drawing::Size(150, 20);
 			this->txtboxNoBoxes->TabIndex = 33;
-			this->txtboxNoBoxes->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Inputs::txtboxNoBoxes_KeyPress);
 			// 
 			// lblNoBoxes
 			// 
@@ -226,9 +282,9 @@ namespace FactoryData {
 			this->lblNoBoxes->Location = System::Drawing::Point(23, 85);
 			this->lblNoBoxes->Name = L"lblNoBoxes";
 			this->lblNoBoxes->RightToLeft = System::Windows::Forms::RightToLeft::No;
-			this->lblNoBoxes->Size = System::Drawing::Size(137, 18);
+			this->lblNoBoxes->Size = System::Drawing::Size(69, 18);
 			this->lblNoBoxes->TabIndex = 32;
-			this->lblNoBoxes->Text = L"Number of boxes";
+			this->lblNoBoxes->Text = L"# Boxes";
 			// 
 			// btnDetails
 			// 
@@ -238,7 +294,7 @@ namespace FactoryData {
 			this->btnDetails->TabIndex = 31;
 			this->btnDetails->Text = L"تفاصيل الإدخال";
 			this->btnDetails->UseVisualStyleBackColor = true;
-			this->btnDetails->Click += gcnew System::EventHandler(this, &Inputs::btnDetails_Click);
+			this->btnDetails->Click += gcnew System::EventHandler(this, &Inputs::btnDetails_Click_1);
 			// 
 			// btnAdd
 			// 
@@ -248,7 +304,7 @@ namespace FactoryData {
 			this->btnAdd->TabIndex = 30;
 			this->btnAdd->Text = L"إضافة";
 			this->btnAdd->UseVisualStyleBackColor = true;
-			this->btnAdd->Click += gcnew System::EventHandler(this, &Inputs::btnAdd_Click);
+			this->btnAdd->Click += gcnew System::EventHandler(this, &Inputs::btnAdd_Click_1);
 			// 
 			// txtboxFitem
 			// 
@@ -256,7 +312,6 @@ namespace FactoryData {
 			this->txtboxFitem->Name = L"txtboxFitem";
 			this->txtboxFitem->Size = System::Drawing::Size(187, 20);
 			this->txtboxFitem->TabIndex = 29;
-			this->txtboxFitem->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Inputs::txtboxFitem_KeyPress);
 			// 
 			// lblFitem
 			// 
@@ -270,26 +325,14 @@ namespace FactoryData {
 			this->lblFitem->TabIndex = 28;
 			this->lblFitem->Text = L"Fitem";
 			// 
-			// btnExit
-			// 
-			this->btnExit->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnExit->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->btnExit->Location = System::Drawing::Point(501, 128);
-			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(108, 43);
-			this->btnExit->TabIndex = 29;
-			this->btnExit->Text = L"خروج";
-			this->btnExit->UseVisualStyleBackColor = true;
-			this->btnExit->Click += gcnew System::EventHandler(this, &Inputs::btnExit_Click);
-			// 
 			// Inputs
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(748, 411);
+			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->gbListItem);
 			this->Controls->Add(this->btnExit);
-			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->btnConfirm);
 			this->MinimumSize = System::Drawing::Size(764, 450);
 			this->Name = L"Inputs";
@@ -301,7 +344,6 @@ namespace FactoryData {
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
-			this->ActiveControl = txtboxFitem;
 
 		}
 #pragma endregion
@@ -357,14 +399,16 @@ private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e
 }
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
 	ItemDetails^ details = gcnew ItemDetails(this, true);
+	details->dateTimePicker1->Value = dateTimePicker1->Value;
+	Variables::date = dateTimePicker1->Value;
+	Variables::fromInputs = true;
 	details->txtboxFitem->Text = "Not Set";
 	details->txtboxNoBoxes->Text = "Not Set";
 	details->btnSearchExport->PerformClick();
-	details->btnSearchExport->Show();
-	details->btnSearch->Hide();
 	details->btnConfirmExport->Show();
 	details->btnConfirmImport->Hide();
-	
+	details->btnSearchExport->Show();
+	details->btnSearch->Hide();
 	details->ShowDialog();
 }
 
@@ -422,6 +466,73 @@ private: System::Void txtboxNoBoxes_KeyPress(System::Object^ sender, System::Win
 		e->Handled = true;
 
 	}
+}
+private: System::Void btnAdd_Click_1(System::Object^ sender, System::EventArgs^ e) {
+	//check input if valid
+	String^ fitem = txtboxFitem->Text;
+	if (Variables::NameCom->count(fitem) == 0 && Variables::RawName->count(fitem) == 0) {
+		MessageBox::Show("Fitem doesn't exist in the database!");
+		return;
+	}
+
+	double noBoxes = 0;
+	try {
+		noBoxes = System::Convert::ToDouble(txtboxNoBoxes->Text);
+	}
+	catch (FormatException^) {
+		MessageBox::Show("Please enter a valid number of boxes!");
+		return;
+	}
+
+
+	if (Variables::mapInputList->count(fitem) > 0) {
+		MessageBox::Show("this item is already in the list below!");
+		return;
+	}
+
+	Variables::mapInputList[fitem] = noBoxes;
+	//add to list 
+	dgvItemList->Rows->Add();
+	dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["Fitem"]->Value = fitem;
+	dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["ItemName"]->Value = (Variables::RawName->count(fitem)) ? Variables::RawName[fitem] : Variables::NameCom[fitem];
+	dgvItemList->Rows[dgvItemList->Rows->Count - 1]->Cells["NoBoxes"]->Value = noBoxes;
+
+}
+private: System::Void btnDetails_Click_1(System::Object^ sender, System::EventArgs^ e) {
+	ItemDetails^ details = gcnew ItemDetails(this, false);
+	details->txtboxFitem->Text = txtboxFitem->Text->ToString();
+	details->txtboxNoBoxes->Text = txtboxNoBoxes->Text->ToString();
+	details->btnConfirmExport->Hide();
+	details->btnConfirmImport->Hide();
+	details->btnSearchExport->Hide();
+	details->btnSearch->Show();
+	details->ShowDialog();
+}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Get data from Imports table
+	// OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
+	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
+	dbConnection->Open();
+	String^ query;
+	OleDbDataAdapter^ dbDataAdapter;
+	DataTable^ dt;
+
+	//Read into itemsData
+	dgvItemList->Rows->Clear();
+	Variables::mapImportList->clear();
+	query = "SELECT * FROM Exports;";
+	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
+	dt = gcnew DataTable();
+	dbDataAdapter->Fill(dt);
+	dbConnection->Close();
+	//update text boxes 
+	for each (DataRow ^ row in dt->Rows)
+	{
+		txtboxFitem->Text = row["Inum"]->ToString();
+		txtboxNoBoxes->Text = row["Quantity"]->ToString();
+		btnAdd->PerformClick();
+	}
+	//perform click on add
 }
 };
 }

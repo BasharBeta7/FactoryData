@@ -231,6 +231,7 @@ private: System::Windows::Forms::ToolStripMenuItem^ استعلامعنخلطةTo
 private: System::Windows::Forms::ToolStripMenuItem^ تحديثالجداولToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^ تحديثأسعارالخلطاتالجاهزةToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^ الجردToolStripMenuItem;
+private: System::Windows::Forms::Label^ label1;
 
 
 
@@ -307,6 +308,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->استعلامعنخلطةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->تحديثالجداولToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->الجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->combintaionData = (gcnew System::Windows::Forms::DataGridView());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
@@ -368,7 +370,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->inventoryDataGrid = (gcnew System::Windows::Forms::DataGridView());
-			this->الجردToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->combintaionData))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -512,6 +514,13 @@ private: System::Windows::Forms::Button^ button3;
 			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem->Name = L"تحديثأسعارالخلطاتالجاهزةToolStripMenuItem";
 			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
 			this->تحديثأسعارالخلطاتالجاهزةToolStripMenuItem->Text = L"تحديث أسعار الخلطات الجاهزة";
+			// 
+			// الجردToolStripMenuItem
+			// 
+			this->الجردToolStripMenuItem->Name = L"الجردToolStripMenuItem";
+			this->الجردToolStripMenuItem->Size = System::Drawing::Size(220, 22);
+			this->الجردToolStripMenuItem->Text = L"الجرد";
+			this->الجردToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::الجردToolStripMenuItem_Click);
 			// 
 			// combintaionData
 			// 
@@ -1209,7 +1218,7 @@ private: System::Windows::Forms::Button^ button3;
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(164, 4);
+			this->textBox1->Location = System::Drawing::Point(402, 2);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(194, 20);
 			this->textBox1->TabIndex = 23;
@@ -1236,12 +1245,17 @@ private: System::Windows::Forms::Button^ button3;
 			this->inventoryDataGrid->TabIndex = 24;
 			this->inventoryDataGrid->Visible = false;
 			// 
-			// الجردToolStripMenuItem
+			// label1
 			// 
-			this->الجردToolStripMenuItem->Name = L"الجردToolStripMenuItem";
-			this->الجردToolStripMenuItem->Size = System::Drawing::Size(220, 22);
-			this->الجردToolStripMenuItem->Text = L"الجرد";
-			this->الجردToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::الجردToolStripMenuItem_Click);
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(335, 2);
+			this->label1->Name = L"label1";
+			this->label1->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label1->Size = System::Drawing::Size(61, 18);
+			this->label1->TabIndex = 39;
+			this->label1->Text = L"Search";
 			// 
 			// MyForm
 			// 
@@ -1249,6 +1263,7 @@ private: System::Windows::Forms::Button^ button3;
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSize = true;
 			this->ClientSize = System::Drawing::Size(909, 561);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox4);

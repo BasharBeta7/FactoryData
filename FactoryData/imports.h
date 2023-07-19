@@ -398,6 +398,7 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 	ItemDetails^ details = gcnew ItemDetails(this, true);
 	details->dateTimePicker1->Value = dateTimePicker1->Value;
 	Variables::date = dateTimePicker1->Value;
+	Variables::fromInputs = false;
 	details->txtboxFitem->Text = "Not Set";
 	details->txtboxNoBoxes->Text = "Not Set";
 	details->btnSearch->PerformClick();

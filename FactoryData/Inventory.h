@@ -35,7 +35,7 @@ namespace FactoryData {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::DataGridView^ dgvInventory;
+
 	private: System::Windows::Forms::Button^ btnQuery;
 
 	protected:
@@ -46,10 +46,14 @@ namespace FactoryData {
 
 
 
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::TextBox^ textBox1;
+
+
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ lblFitem;
+	private: System::Windows::Forms::DateTimePicker^ dateTimePicker1;
+	private: System::Windows::Forms::DataGridView^ dgvInventory;
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::Label^ label2;
 
 
 
@@ -72,51 +76,27 @@ namespace FactoryData {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->dgvInventory = (gcnew System::Windows::Forms::DataGridView());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->btnQuery = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->lblFitem = (gcnew System::Windows::Forms::Label());
+			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
+			this->dgvInventory = (gcnew System::Windows::Forms::DataGridView());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvInventory))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// dgvInventory
-			// 
-			this->dgvInventory->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dgvInventory->Location = System::Drawing::Point(13, 90);
-			this->dgvInventory->Name = L"dgvInventory";
-			this->dgvInventory->Size = System::Drawing::Size(575, 150);
-			this->dgvInventory->TabIndex = 0;
-			this->dgvInventory->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Inventory::dataGridView1_CellContentClick);
 			// 
 			// btnQuery
 			// 
 			this->btnQuery->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnQuery->Location = System::Drawing::Point(480, 28);
+			this->btnQuery->Location = System::Drawing::Point(500, 28);
 			this->btnQuery->Name = L"btnQuery";
 			this->btnQuery->Size = System::Drawing::Size(108, 43);
 			this->btnQuery->TabIndex = 30;
 			this->btnQuery->Text = L"استعلام";
 			this->btnQuery->UseVisualStyleBackColor = true;
 			this->btnQuery->Click += gcnew System::EventHandler(this, &Inventory::btnQuery_Click);
-			// 
-			// button1
-			// 
-			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button1->Location = System::Drawing::Point(217, 25);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(24, 20);
-			this->button1->TabIndex = 31;
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Inventory::button1_Click_1);
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(81, 26);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(130, 20);
-			this->textBox1->TabIndex = 32;
 			// 
 			// label1
 			// 
@@ -131,24 +111,73 @@ namespace FactoryData {
 			this->lblFitem->AutoSize = true;
 			this->lblFitem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblFitem->Location = System::Drawing::Point(27, 26);
+			this->lblFitem->Location = System::Drawing::Point(27, 14);
 			this->lblFitem->Name = L"lblFitem";
 			this->lblFitem->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lblFitem->Size = System::Drawing::Size(48, 18);
 			this->lblFitem->TabIndex = 34;
 			this->lblFitem->Text = L"Date ";
 			// 
+			// dateTimePicker1
+			// 
+			this->dateTimePicker1->Location = System::Drawing::Point(81, 12);
+			this->dateTimePicker1->Name = L"dateTimePicker1";
+			this->dateTimePicker1->Size = System::Drawing::Size(200, 20);
+			this->dateTimePicker1->TabIndex = 35;
+			// 
+			// dgvInventory
+			// 
+			this->dgvInventory->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->dgvInventory->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvInventory->DefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvInventory->Location = System::Drawing::Point(14, 77);
+			this->dgvInventory->Name = L"dgvInventory";
+			this->dgvInventory->Size = System::Drawing::Size(594, 284);
+			this->dgvInventory->TabIndex = 36;
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(96, 40);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(157, 20);
+			this->textBox1->TabIndex = 37;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Inventory::textBox1_TextChanged);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->Location = System::Drawing::Point(27, 39);
+			this->label2->Name = L"label2";
+			this->label2->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->label2->Size = System::Drawing::Size(61, 18);
+			this->label2->TabIndex = 38;
+			this->label2->Text = L"Search";
+			// 
 			// Inventory
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(714, 261);
+			this->ClientSize = System::Drawing::Size(734, 359);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->dgvInventory);
+			this->Controls->Add(this->dateTimePicker1);
 			this->Controls->Add(this->lblFitem);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btnQuery);
-			this->Controls->Add(this->dgvInventory);
+			this->MinimumSize = System::Drawing::Size(750, 375);
 			this->Name = L"Inventory";
 			this->Text = L"Inventory";
 			this->Load += gcnew System::EventHandler(this, &Inventory::Inventory_Load);
@@ -165,8 +194,7 @@ namespace FactoryData {
 	}
 
 private: System::Void Inventory_Load(System::Object^ sender, System::EventArgs^ e) {
-	DateTime today = DateTime::Now;
-	textBox1->Text = today.ToString("yyyy-MM-dd");
+	DateTime today = dateTimePicker1->Value;
 }
 private: System::Void monthCalendar1_DateChanged(System::Object^ sender, System::Windows::Forms::DateRangeEventArgs^ e) {
 }
@@ -180,7 +208,8 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 	DataTable^ dt;
 
 	//Read into itemsData
-	query = "SELECT MIN(Inum) AS Inum, MIN(item_name) AS item_name, SUM(Quantity) AS Quantity FROM Quantities WHERE time_added <= #" + textBox1->Text + "# GROUP BY Inum; ";
+	auto today = dateTimePicker1->Value;
+	query = "SELECT MIN(Inum) AS Inum, MIN(item_name) AS item_name, SUM(Quantity) AS Quantity FROM Quantities WHERE time_added <= #" + today.ToString("yyyy-MM-dd") + "# GROUP BY Inum HAVING MIN(Inum) LIKE '" + textBox1->Text + "%'; ";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
@@ -195,6 +224,9 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 		ORDER BY MAX(time_added);*/
 }
 private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	btnQuery->PerformClick();
 }
 };
 }

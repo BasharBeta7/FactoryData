@@ -199,6 +199,7 @@ private: System::Void Inventory_Load(System::Object^ sender, System::EventArgs^ 
 private: System::Void monthCalendar1_DateChanged(System::Object^ sender, System::Windows::Forms::DateRangeEventArgs^ e) {
 }
 private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ e) {
+	dgvInventory->Columns->Clear();
 	//check date field 
 	//get all records prior to the specified date
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
@@ -239,7 +240,9 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	dgvInventory->Columns->Clear();
 	btnQuery->PerformClick();
+	
 }
 };
 }

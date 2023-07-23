@@ -484,24 +484,28 @@ private: System::Windows::Forms::Button^ button3;
 			this->إضافةمادةToolStripMenuItem->Name = L"إضافةمادةToolStripMenuItem";
 			this->إضافةمادةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
 			this->إضافةمادةToolStripMenuItem->Text = L"إضافة مادة";
+			this->إضافةمادةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::إضافةمادةToolStripMenuItem_Click);
 			// 
 			// تعديلسعرمادةToolStripMenuItem
 			// 
 			this->تعديلسعرمادةToolStripMenuItem->Name = L"تعديلسعرمادةToolStripMenuItem";
 			this->تعديلسعرمادةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
 			this->تعديلسعرمادةToolStripMenuItem->Text = L"تعديل سعر مادة";
+			this->تعديلسعرمادةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::تعديلسعرمادةToolStripMenuItem_Click);
 			// 
 			// إضافةخلطةToolStripMenuItem
 			// 
 			this->إضافةخلطةToolStripMenuItem->Name = L"إضافةخلطةToolStripMenuItem";
 			this->إضافةخلطةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
 			this->إضافةخلطةToolStripMenuItem->Text = L"إضافة خلطة";
+			this->إضافةخلطةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::إضافةخلطةToolStripMenuItem_Click);
 			// 
 			// استعلامعنخلطةToolStripMenuItem
 			// 
 			this->استعلامعنخلطةToolStripMenuItem->Name = L"استعلامعنخلطةToolStripMenuItem";
 			this->استعلامعنخلطةToolStripMenuItem->Size = System::Drawing::Size(220, 22);
 			this->استعلامعنخلطةToolStripMenuItem->Text = L"استعلام عن خلطة";
+			this->استعلامعنخلطةToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::استعلامعنخلطةToolStripMenuItem_Click);
 			// 
 			// تحديثالجداولToolStripMenuItem
 			// 
@@ -2163,16 +2167,8 @@ private: System::Void textBox1_TextChanged(System::Object^ sender, System::Event
 
 }
 private: System::Void قائمةالجردToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	textBox1->Show();
-	activeDataGrid->Hide();
-	activeDataGrid = inventoryDataGrid;
-	activeDataGrid->Show();
-
-	gbAddCombination->Hide();
-	groupBox3->Hide();
-	groupBox4->Hide();
-	groupBox1->Show();
-	Text = قائمةالجردToolStripMenuItem->Text;
+	Inventory^ myInventory = gcnew Inventory();
+	myInventory->ShowDialog();
 }
 private: System::Void button9_Click(System::Object^ sender, System::EventArgs^ e) {
 	Form^ inputs = gcnew Inputs();
@@ -2191,6 +2187,18 @@ private: System::Void إضافةواردToolStripMenuItem_Click(System::Object^ 
 private: System::Void الجردToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	Inventory^ myInventory = gcnew Inventory();
 	myInventory->ShowDialog();
+}
+private: System::Void إضافةمادةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	btnAddItem->PerformClick();
+}
+private: System::Void تعديلسعرمادةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	btnEditCost->PerformClick();
+}
+private: System::Void إضافةخلطةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	btnAddCombination->PerformClick();
+}
+private: System::Void استعلامعنخلطةToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	btnQueryCombination->PerformClick();
 }
 };
 }

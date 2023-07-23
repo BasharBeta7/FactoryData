@@ -406,7 +406,7 @@ private: System::Void ItemDetails_Shown(System::Object^ sender, System::EventArg
 }
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Inventory) in the database ?", "Message", MessageBoxButtons::YesNo);
+	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Quantities) in the database ?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)
 	{
 		return;
@@ -492,7 +492,7 @@ public: System::Void btnSearchExport_Click(System::Object^ sender, System::Event
 	}
 }
 private: System::Void btnConfirmExport_Click(System::Object^ sender, System::EventArgs^ e) {
-	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Inventory) in the database ?", "Message", MessageBoxButtons::YesNo);
+	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Quantities) in the database ?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)
 	{
 		return;

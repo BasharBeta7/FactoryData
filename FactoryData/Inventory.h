@@ -216,6 +216,18 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 	dgvInventory->DataSource = dt;
 	DataGridView^ temp = dgvInventory;
 	dbConnection->Close();
+	temp->Columns->Add("Price","Price");
+	for each (DataGridViewRow^ row in temp->Rows) 
+	{
+		if (row->Cells["Inum"]->Value == nullptr) {
+			continue;
+		}
+		if (Variables::mapRaw->count(row->Cells["Inum"]->Value->ToString()) == 0) {
+			continue;
+		}
+		row->Cells["Quantity"]->Value = Math::Round((double)row->Cells["Quantity"]->Value, 2);
+		row->Cells["Price"]->Value = Math::Round((double)row->Cells["Quantity"]->Value * Variables::mapRaw[row->Cells["Inum"]->Value->ToString()], 2);
+	}
 
 	//accumulate quantities in a map data structure
 	//copy values to datagrid

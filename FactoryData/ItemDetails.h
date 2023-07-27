@@ -378,7 +378,7 @@ namespace FactoryData {
 		rawItemsQuan->clear();
 		rawItemsCode->Clear();
 		dgvQueryCom->Rows->Clear();
-		ExpandItem(txtboxFitem->Text, noBoxes);
+		ExpandItem(txtboxFitem->Text, noBoxes / CalcQuan(txtboxFitem->Text));
 		int row_index = 0;
 		for (int i = 0; i < rawItemsCode->Count; ++i) {
 			dgvQueryCom->Rows->Add();

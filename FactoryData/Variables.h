@@ -40,6 +40,8 @@ public:
 	static String^ rowToQuery = "";//saves the name of the fitem to query on 
 	static cliext::map<String^, bool>^ rawItemsUnits = gcnew cliext::map<String^, bool>;
 
+
+	static cliext::map<String^, String^>^ IGroup = gcnew cliext::map<String^, String^>;  //item --> IGroup
 	
 
 

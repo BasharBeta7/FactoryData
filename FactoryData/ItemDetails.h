@@ -339,7 +339,7 @@ namespace FactoryData {
 			dgvQueryCom->Rows->Clear();
 			for each (auto i in Variables::mapImportList) {
 				CalcQuan(i->first);				
-				ExpandItem(i->first, i->second);
+				ExpandItem(i->first, i->second );
 			}
 			int row_index = 0;
 			for each (auto j in rawItemsQuan) {
@@ -378,7 +378,7 @@ namespace FactoryData {
 		rawItemsQuan->clear();
 		rawItemsCode->Clear();
 		dgvQueryCom->Rows->Clear();
-		ExpandItem(txtboxFitem->Text, noBoxes / CalcQuan(txtboxFitem->Text));
+		ExpandItem(txtboxFitem->Text, noBoxes );
 		int row_index = 0;
 		for (int i = 0; i < rawItemsCode->Count; ++i) {
 			dgvQueryCom->Rows->Add();

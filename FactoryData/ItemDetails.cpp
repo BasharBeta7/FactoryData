@@ -30,29 +30,20 @@ void FactoryData::ItemDetails::ExpandItem(String^ it, double fr)
 	dbDataAdapter->Fill(dt);
 	dbConnection->Close();
 	static int index = dgvQueryCom->Rows->Count;
+	double fraq = 1;
 
-
+	//if it is a finished item, then the quan is in no.boxes
+	if (Variables::IGroup[it] == "F" || Variables::IGroup[it] == "f") {
+		fraq = fr;
+	}
+	else {
+		fraq = fr / CalcQuan(it);
+	}
 	for (int i = 0; i < dt->Rows->Count; i++)
 	{
 		auto row = dt->Rows[i];
 		String^ line = row["Ritem"]->ToString();	
-		if (Variables::mapRaw->count(line) > 0) {
-			if(rawItemsQuan->count(line)) {
-				double temp = System::Convert::ToDouble(row["BISubquan"]->ToString());
-				rawItemsQuan[line] += fr * System::Convert::ToDouble(row["BISubquan"]->ToString());
-			}
-			else {
-				rawItemsCode->Add(line);
-				rawItemsQuan[line] = fr * System::Convert::ToDouble(row["BISubquan"]->ToString());
-				index++;
-				//continue this part 
-				//update dgv last 
-			}
-		}
-		else {
-			ExpandItem(line, (fr/CalcQuan(line)) * System::Convert::ToDouble(row["BISubquan"]->ToString()));
-		}
-		
+		ExpandItem(line, (fraq) * System::Convert::ToDouble(row["BISubquan"]->ToString()));
 	}
 
 }

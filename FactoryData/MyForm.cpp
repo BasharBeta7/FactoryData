@@ -225,6 +225,7 @@ void FactoryData::MyForm::LoadDatabaseTables()
 	for (int i = 0; i < combintaionData->Rows->Count - 1; i++)
 	{
 		Variables::NameCom[combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString()] = combintaionData->Rows[i]->Cells["I_R_Name"]->Value->ToString();
+		Variables::IGroup[combintaionData->Rows[i]->Cells["Fitem"]->Value->ToString()] = combintaionData->Rows[i]->Cells["IGroup"]->Value->ToString();
 	}
 
 

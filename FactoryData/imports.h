@@ -351,7 +351,7 @@ namespace FactoryData {
 		//check input if valid
 		String^ fitem = txtboxFitem->Text;
 		if (Variables::NameCom->count(fitem) == 0 && Variables::RawName->count(fitem) == 0) {
-			MessageBox::Show("Ritem doesn't exist in the database!");
+			MessageBox::Show(fitem + " doesn't exist in the database!");
 			return;
 		}
 

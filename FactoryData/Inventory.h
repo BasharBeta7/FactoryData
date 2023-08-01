@@ -210,14 +210,13 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 
 	//Read into itemsData
 	auto today = dateTimePicker1->Value;
-	query = "SELECT MIN(Inum) AS Inum, MIN(item_name) AS item_name, SUM(Quantity) AS Quantity FROM Quantities WHERE time_added <= #" + today.ToString("yyyy-MM-dd") + "# GROUP BY Inum HAVING MIN(Inum) LIKE '" + textBox1->Text + "%'; ";
+	query = "SELECT MIN(Inum) AS Inum, MIN(item_name) AS item_name, SUM(Quantity) AS Quantity, SUM(Quantity) AS unit_price, SUM(Quantity) AS Price FROM Quantities WHERE time_added <= #" + today.ToString("yyyy-MM-dd") + "# GROUP BY Inum HAVING MIN(Inum) LIKE '" + textBox1->Text + "%'; ";
 	dbDataAdapter = gcnew OleDbDataAdapter(query, dbConnection);
 	dt = gcnew DataTable();
 	dbDataAdapter->Fill(dt);
 	dgvInventory->DataSource = dt;
 	DataGridView^ temp = dgvInventory;
 	dbConnection->Close();
-	temp->Columns->Add("Price","Price");
 	for each (DataGridViewRow^ row in temp->Rows) 
 	{
 		if (row->Cells["Inum"]->Value == nullptr) {
@@ -227,6 +226,8 @@ private: System::Void btnQuery_Click(System::Object^ sender, System::EventArgs^ 
 			continue;
 		}
 		row->Cells["Quantity"]->Value = Math::Round((double)row->Cells["Quantity"]->Value, 2);
+		row->Cells["unit_price"]->Value = Variables::mapRaw[row->Cells["Inum"]->Value->ToString()];
+
 		row->Cells["Price"]->Value = Math::Round((double)row->Cells["Quantity"]->Value * Variables::mapRaw[row->Cells["Inum"]->Value->ToString()], 2);
 	}
 

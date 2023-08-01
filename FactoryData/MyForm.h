@@ -2065,7 +2065,15 @@ private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e
 
 }
 private: System::Void button8_Click_1(System::Object^ sender, System::EventArgs^ e) {
-	Variables::queryStack->Pop();
+	
+	
+	try
+	{
+		Variables::queryStack->Pop();
+	}
+	catch (const Exception^ e)
+	{
+	}
 	if (Variables::queryStack->Count < 1)
 	{
 		button4->PerformClick();

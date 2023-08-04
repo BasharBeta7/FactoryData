@@ -49,6 +49,7 @@ void FactoryData::ItemDetails::ExpandItem(String^ it, double fr)
 }
 
 double FactoryData::ItemDetails::CalcQuan(String^ key) {
+	
 	if (Variables::quanCom->count(key) > 0 && Variables::quanCom[key] > 0) {
 		return Variables::quanCom[key];
 	}
@@ -75,11 +76,9 @@ double FactoryData::ItemDetails::CalcQuan(String^ key) {
 		auto row = dt->Rows[i];
 		String^ line = row["Ritem"]->ToString();
 		double temp = System::Convert::ToDouble(row["BISubquan"]->ToString());		
-		if ((temp != int(temp)) || (Variables::mapRaw->count(line) && Variables::RawIGroup[line] == "R") || !Variables::mapRaw->count(line))
-		{
-			quan += System::Convert::ToDouble(row["BISubquan"]->ToString());
-		}
+		quan += temp;
 	}
+	
 
 	Variables::quanCom[key] = quan;
 	return quan;

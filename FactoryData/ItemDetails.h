@@ -491,12 +491,14 @@ public: System::Void btnSearchExport_Click(System::Object^ sender, System::Event
 		row_index++;
 	}
 }
+
 private: System::Void btnConfirmExport_Click(System::Object^ sender, System::EventArgs^ e) {
 	auto res = MessageBox::Show("Are you sure you want to update Quantities in table (Quantities) in the database ?", "Message", MessageBoxButtons::YesNo);
 	if (res == Windows::Forms::DialogResult::No)
 	{
 		return;
 	}
+
 	//this form is for imports 
 	OleDbConnection^ dbConnection = gcnew OleDbConnection(Variables::connecttionString);
 	dbConnection->Open();
